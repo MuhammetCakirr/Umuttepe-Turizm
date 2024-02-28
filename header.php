@@ -14,7 +14,7 @@
 					<div class="main-menu-wrap">
 						<!-- logo -->
 						<div class="site-logo">
-							<a href="index.html">
+							<a href="index.php">
 								<img src="assets/img/logo.png" alt="">
 							</a>
 						</div>
@@ -23,19 +23,19 @@
 						<!-- menu start -->
 						<nav class="main-menu">
 							<ul>
-								<li class="current-list-item"><a href="#">Home</a>
+								<li class="current-list-item"><a href="index.php">Home</a>
 									<ul class="sub-menu">
-										<li><a href="index.html">Static Home</a></li>
+										<li><a href="index.php">Static Home</a></li>
 									</ul>
 								</li>
-								<li><a href="about.html">About</a></li>
+								<li><a href="about.php">About</a></li>
 								<li><a href="#">Pages</a>
 									<ul class="sub-menu">
 										<li><a href="404.html">404 page</a></li>
-										<li><a href="about.html">About</a></li>
+										<li><a href="about.php">About</a></li>
 										<li><a href="cart.html">Cart</a></li>
 										<li><a href="checkout.html">Check Out</a></li>
-										<li><a href="contact.html">Contact</a></li>
+										<li><a href="contact.php">Contact</a></li>
 										<li><a href="news.html">News</a></li>
 										<li><a href="shop.html">Shop</a></li>
 									</ul>
@@ -46,7 +46,7 @@
 										<li><a href="single-news.html">Single News</a></li>
 									</ul>
 								</li>
-								<li><a href="contact.html">Contact</a></li>
+								<li><a href="contact.php">Contact</a></li>
 								<li><a href="shop.html">Shop</a>
 									<ul class="sub-menu">
 										<li><a href="shop.html">Shop</a></li>
