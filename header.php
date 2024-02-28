@@ -23,13 +23,10 @@
 						<!-- menu start -->
 						<nav class="main-menu">
 							<ul>
-								<li class="current-list-item"><a href="index.php">Home</a>
-									<ul class="sub-menu">
-										<li><a href="index.php">Static Home</a></li>
-									</ul>
+								<li class="current-list-item"><a href="index.php">Anasayfa</a>
 								</li>
-								<li><a href="about.php">About</a></li>
-								<li><a href="#">Pages</a>
+								<li><a href="about.php">Hakkımızda</a></li>
+								<li><a href="#">Sayfalar</a>
 									<ul class="sub-menu">
 										<li><a href="404.html">404 page</a></li>
 										<li><a href="about.php">About</a></li>
@@ -46,7 +43,7 @@
 										<li><a href="single-news.html">Single News</a></li>
 									</ul>
 								</li>
-								<li><a href="contact.php">Contact</a></li>
+								<li><a href="contact.php">İletişim</a></li>
 								<li><a href="shop.html">Shop</a>
 									<ul class="sub-menu">
 										<li><a href="shop.html">Shop</a></li>
