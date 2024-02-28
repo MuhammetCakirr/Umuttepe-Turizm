@@ -157,7 +157,7 @@
 				</div>
 			</div>
 
-		</div>
+		</div> 
 	</div>
 	<!-- end features list section -->
 
