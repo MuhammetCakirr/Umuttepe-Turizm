@@ -15,6 +15,7 @@
 	<body>
 		<section class="img js-fullheight ftco-section" style="background-image: url(images/bg.jpg);">
 			<div class="container">
+            <form action="" class="signin-form" method="POST">
 				<div class="row justify-content-center">
 					<div class="col-md-6 text-center mb-5">
 						<h2 class="heading-section">Üye Ol</h2>
@@ -23,7 +24,6 @@
 				<div class="row justify-content-center">
 					<div class="col-md-6 col-lg-4">
 						<div class="login-wrap p-0">
-                            <form action="#" class="signin-form">
                                 <div class="form-group">
                                     <input type="text" class="form-control" placeholder="Ad ve Soyad" required>
                                 </div>
@@ -47,12 +47,10 @@
                                         </div>
                                     </div>
                                 </div>
-                            </form>
                         </div>
 					</div>
                     <div class="col-md-6 col-lg-4">
-						<div class="login-wrap p-0">
-                            <form action="#" class="signin-form">
+						<div class="login-wrap p-0">                  
                                 <div class="form-group">
                                     <input type="text" class="form-control" placeholder="TC Kimlik No" required>
                                 </div>
@@ -67,7 +65,6 @@
                                     <input id="password-field" type="password" class="form-control" placeholder="Şifre Tekrar" required>
                                     <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                                 </div>
-                            </form>
                         </div>
 					</div>
 				</div>
@@ -75,9 +72,10 @@
                     <div class="form-group">
                         <button type="submit" class="form-control btn btn-primary submit px-3">Üye Ol</button>
                         <p style="color: #fff;">Bir Hesabın Var Mı?</p>
-                        <button onclick="location.href='login.html'" type="submit" class="form-control btn btn-primary submit px-3">Giriş Yap</button>
+                        <a href='login' class="form-control btn btn-primary submit px-3">Giriş Yap</a>
                     </div>
                 </div>
+            </form>
 			</div>
 		</section>
 

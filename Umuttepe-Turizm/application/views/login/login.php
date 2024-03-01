@@ -9,34 +9,14 @@
 
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 		
-		<link rel="stylesheet" href="css/style.css">
-		<!-- favicon -->
-		<link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
-		<!-- google font -->
-		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
-		<!-- fontawesome -->
-		<link rel="stylesheet" href="assets/css/all.min.css">
-		<!-- bootstrap -->
-		<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-		<!-- owl carousel -->
-		<link rel="stylesheet" href="assets/css/owl.carousel.css">
-		<!-- magnific popup -->
-		<link rel="stylesheet" href="assets/css/magnific-popup.css">
-		<!-- animate css -->
-		<link rel="stylesheet" href="assets/css/animate.css">
-		<!-- mean menu css -->
-		<link rel="stylesheet" href="assets/css/meanmenu.min.css">
-		<!-- main style -->
-		<link rel="stylesheet" href="assets/css/main.css">
-		<!-- responsive -->
-		<link rel="stylesheet" href="assets/css/responsive.css">
+		<link rel="stylesheet" href="application/views/login/css/style.css">
+
+	
 
 	</head>
 	<body >
 		
-		<div style="margin-top:200px">
-			<section class="ftco-section img js-fullheight" style="background-image: url(images/bg.jpg);">
+	<section class="ftco-section img js-fullheight" style="background-image: url(images/bg.jpg);">
 				<div class="container">
 					<div class="row justify-content-center">
 						<div class="col-md-6 text-center mb-5">
@@ -77,14 +57,13 @@
 					</div>
 				</div>
 			</section>
-		</div>
 		
 		
 		
-		<script src="js/jquery.min.js"></script>
-		<script src="js/popper.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/main.js"></script>
+		<script src="application/views/login/js/jquery.min.js"></script>
+		<script src="application/views/login/js/popper.js"></script>
+		<script src="application/views/login/js/bootstrap.min.js"></script>
+		<script src="application/views/login/js/main.js"></script>
 
 	</body>
 </html>

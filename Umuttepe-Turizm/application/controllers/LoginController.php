@@ -5,7 +5,7 @@ class LoginController extends CI_Controller {
 
 	public function index($page)
 	{
-        if($_POST){
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $this->load->view('template', array('content' => 'home/index'));
         }
 		$this->load->view('template', array('content' => "login/$page"));
