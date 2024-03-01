@@ -237,7 +237,6 @@
 </head>
 
 <body>
-    <?php include 'header.php'; ?>
 
     <div class="container" style="margin-top: 130px;">
         <div class="row">
@@ -263,7 +262,7 @@
                 </div>
                 <div class="wizard">
                     <nav class="list-group list-group-flush" id="wizardNav">
-                        <a class="list-group-item" data-content="hesap_bilgilerim.php" href="#">
+                        <a class="list-group-item" data-content="application/views/settings/hesap_bilgilerim.php" href="#">
                             Hesap Bilgileri
                             <!-- <div class="d-flex justify-content-between align-items-center">
                                 <div><i class="fe-icon-shopping-bag mr-1 text-muted"></i>
@@ -271,24 +270,24 @@
                                 </div><span class="badge badge-secondary">6</span>
                             </div> -->
                         </a>
-                        <a class="list-group-item " data-content="biletlerim.php">
+                        <a class="list-group-item " data-content="application/views/settings/biletlerim.php">
                             Biletlerim
                         </a>
 
 
-                        <a class="list-group-item" data-content="hesap_bilgilerim.php">
+                        <a class="list-group-item" data-content="application/views/settings/hesap_bilgilerim.php">
                             Rezervasyonlarım
                         </a>
-                        <a class="list-group-item"  data-content="kayitli_kartlarim.php">
+                        <a class="list-group-item"  data-content="application/views/settings/kayitli_kartlarim.php">
 
 
                             Kayıtlı Kartlarım
                         </a>
-                        <a class="list-group-item" href="" data-content="sifre_degistir.php">
+                        <a class="list-group-item" href="" data-content="application/views/settings/sifre_degistir.php">
                             Şifremi Değiştir
 
                         </a>
-                        <a class="list-group-item" href="" data-content="hesap_bilgilerim.php">
+                        <a class="list-group-item" href="" data-content="application/views/settings/hesap_bilgilerim.php">
                             Çıkış Yap
 
                         </a>
@@ -305,7 +304,6 @@
         </div>
     </div>
 
-    <?php include 'footer.php'; ?>
 
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/js/bootstrap.bundle.min.js"></script>

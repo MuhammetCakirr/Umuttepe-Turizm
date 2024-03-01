@@ -15,5 +15,7 @@ $route['shop'] = 'HomeController/changePage/shop';
 
 $route['login'] = 'LoginController/index/login';
 $route['register'] = 'LoginController/index/register';
+$route['settings'] = 'SettingsController/index/settings';
+
 
 
