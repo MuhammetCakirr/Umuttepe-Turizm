@@ -14,7 +14,7 @@
 					<div class="main-menu-wrap">
 						<!-- logo -->
 						<div class="site-logo">
-							<a href="index.php">
+							<a href="index">
 								<img src="assets/img/logo.png" alt="">
 							</a>
 						</div>
@@ -23,44 +23,44 @@
 						<!-- menu start -->
 						<nav class="main-menu" >
 							<ul>
-								<li class="current-list-item"><a href="index.php">Anasayfa</a>
+								<li class="current-list-item"><a href="index">Anasayfa</a>
 								</li>
-								<li><a href="about.php">Hakkımızda</a></li>
+								<li><a href="about">Hakkımızda</a></li>
 								<li><a href="#">Sayfalar</a>
 									<ul class="sub-menu">
-										<li><a href="404.html">404 page</a></li>
-										<li><a href="about.php">About</a></li>
-										<li><a href="cart.html">Cart</a></li>
-										<li><a href="checkout.html">Check Out</a></li>
-										<li><a href="contact.php">Contact</a></li>
-										<li><a href="news.html">News</a></li>
-										<li><a href="shop.html">Shop</a></li>
+										<li><a href="404">404 page</a></li>
+										<li><a href="about">About</a></li>
+										<li><a href="cart">Cart</a></li>
+										<li><a href="checkout">Check Out</a></li>
+										<li><a href="contact">Contact</a></li>
+										<li><a href="news">News</a></li>
+										<li><a href="shop">Shop</a></li>
 									</ul>
 								</li>
-								<li><a href="news.html">News</a>
+								<li><a href="news">News</a>
 									<ul class="sub-menu">
-										<li><a href="news.html">News</a></li>
-										<li><a href="single-news.html">Single News</a></li>
+										<li><a href="news">News</a></li>
+										<li><a href="single-news">Single News</a></li>
 									</ul>
 								</li>
-								<li><a href="contact.php">İletişim</a></li>
-								<li><a href="shop.html">Shop</a>
+								<li><a href="contact">İletişim</a></li>
+								<li><a href="shop">Shop</a>
 									<ul class="sub-menu">
-										<li><a href="shop.html">Shop</a></li>
-										<li><a href="checkout.html">Check Out</a></li>
-										<li><a href="single-product.html">Single Product</a></li>
-										<li><a href="cart.html">Cart</a></li>
+										<li><a href="shop">Shop</a></li>
+										<li><a href="checkout">Check Out</a></li>
+										<li><a href="single-product">Single Product</a></li>
+										<li><a href="cart">Cart</a></li>
 									</ul>
 								</li>
 								<li>
 									<div class="header-icons">
-                                        <a href="settings.php">Ayarlar</a>
+                                        <a href="settings">Ayarlar</a>
 									</div>
 								</li>
 								<li>
 									<div class="header-icons">
-										<a class="shopping-cart" href="cart.html"><i class="fas fa-shopping-cart"></i></a>
-                                        <a href="login/login.html">Giriş Yap</a>
+										<a class="shopping-cart" href="cart"><i class="fas fa-shopping-cart"></i></a>
+                                        <a href="login/login">Giriş Yap</a>
 									</div>
 								</li>
 							</ul>
