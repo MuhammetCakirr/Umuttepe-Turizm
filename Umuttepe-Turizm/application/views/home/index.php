@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
-	
 	<!-- search area -->
 	<div class="search-area">
 		<div class="container">
