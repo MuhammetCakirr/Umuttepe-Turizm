@@ -7,7 +7,7 @@
     <!--PreLoader Ends-->
 	
 	<!-- header -->
-	<div class="top-header-area" id="sticker">
+	<div class="top-header-area" id="sticker" style="background-color: darkslategrey;">
 		<div class="container">    
 			<div class="row">
 				<div class="col-lg-12 col-sm-12 text-center">
@@ -21,7 +21,7 @@
 						<!-- logo -->
 
 						<!-- menu start -->
-						<nav class="main-menu">
+						<nav class="main-menu" >
 							<ul>
 								<li class="current-list-item"><a href="index.php">Anasayfa</a>
 								</li>
@@ -51,6 +51,11 @@
 										<li><a href="single-product.html">Single Product</a></li>
 										<li><a href="cart.html">Cart</a></li>
 									</ul>
+								</li>
+								<li>
+									<div class="header-icons">
+                                        <a href="settings.php">Ayarlar</a>
+									</div>
 								</li>
 								<li>
 									<div class="header-icons">
