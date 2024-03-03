@@ -22,12 +22,23 @@ class SettingsController extends CI_Controller {
 						case 'sifreDegistir':
 							$data['result'] = $this->sifreDegistir();
 							break;
+						case 'hesapBilgilerim':
+							$result = $this->hesapBilgilerimiGuncelle();
+							if ($result['result']){
+								$data['hesapBilgilerim'] = $result['hesapBilgilerim'];
+							}else{
+								$data['error'] = $result['error'];
+							}
+							break;
 						default:
 							break;
 					}
 				}else{
 					$this->load->helper('url');
 					switch ($page){
+						case 'hesap_bilgilerim':
+							$data['hesapBilgilerim'] = $this->hesapBilgilerim();
+							break;
 						case 'cikis':
 							$this->cikis();
 							redirect('');
@@ -49,6 +60,46 @@ class SettingsController extends CI_Controller {
 		}
 	}
 
+	public function hesapBilgilerimiGuncelle() {
+		$data = array();
+
+		$fullName = $_POST['fullName'];
+		$tcKimlikNo = $_POST['tcKimlikNo'];
+		$email = $_POST['email'];
+		$tel = $_POST['tel'];
+		$gender = $_POST['gender'];
+		$birthDate = $_POST['birthDate'];
+
+		$id = $this->session->userdata('id');
+
+		$isUpdated = $this->DBConnectionModel->updateUserInfo($id, $fullName, $tcKimlikNo, $email, $tel, $gender, $birthDate);
+
+		if ($isUpdated) {
+			$data['result'] = true;
+			$data['hesapBilgilerim'] =  $this->hesapBilgilerim();
+		} else {
+			$data['result'] = false;
+			$data['error'] = "<div class='alert alert-danger' role='alert'>Hesap bilgileri güncellenirken bir hata oluştu. Lütfen tekrar deneyin.</div>";
+		}
+
+		return $data;
+	}
+
+	public function hesapBilgilerim()
+	{
+		$id = $this->session->userdata('id');
+
+		$user_info = $this->DBConnectionModel->getUserInfo($id);
+
+		$data['fullName'] = $user_info['fullName'];
+		$data['tcKimlikNo'] = $user_info['tcKimlikNo'];
+		$data['email'] = $user_info['email'];
+		$data['tel'] = $user_info['tel'];
+		$data['gender'] = $user_info['gender'];
+		$data['birthDate'] = $user_info['birthDate'];
+
+		return $data;
+	}
 	public function sifreDegistir(){
 		$mevcutSifre = $_POST['mevcut'];
 		$yeniSifre = $_POST['newPass'];

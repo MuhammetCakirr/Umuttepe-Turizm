@@ -49,6 +49,28 @@ class DBConnectionModel {
 		mysqli_close($link_mysql);
 	}
 
+	public function updateUserInfo($id, $fullName, $tcKimlikNo, $email, $tel, $gender, $birthDate) {
+		$link_mysql = $this->mysqlConn();
+
+		$id = mysqli_real_escape_string($link_mysql, $id);
+		$fullName = mysqli_real_escape_string($link_mysql, $fullName);
+		$tcKimlikNo = mysqli_real_escape_string($link_mysql, $tcKimlikNo);
+		$email = mysqli_real_escape_string($link_mysql, $email);
+		$tel = mysqli_real_escape_string($link_mysql, $tel);
+		$gender = mysqli_real_escape_string($link_mysql, $gender);
+		$birthDate = mysqli_real_escape_string($link_mysql, $birthDate);
+
+		$query = "UPDATE account SET fullName = '$fullName', tcKimlikNo = '$tcKimlikNo', email = '$email', tel = '$tel', gender = '$gender', birthDate = '$birthDate' WHERE id = $id";
+		$result = mysqli_query($link_mysql, $query);
+
+		if ($result) {
+			return true;
+		} else {
+			return false;
+		}
+
+		mysqli_close($link_mysql);
+	}
 
 	public function updateUserPassword($id, $newPassword) {
 		$link_mysql = $this->mysqlConn();
