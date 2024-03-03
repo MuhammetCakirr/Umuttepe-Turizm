@@ -7,7 +7,7 @@
 	<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
 
 	<!-- title -->
-	<title>Fruitkha - Slider Version</title>
+	<title>Umuttepe Turizm</title>
 
 	<!-- favicon -->
 	<link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
@@ -156,7 +156,6 @@
 						<ul>
 							<li><a href="index">Anasayfa</a></li>
 							<li><a href="about">Hakkımızda</a></li>
-							<li><a href="services">Shop</a></li>
 							<li><a href="news">News</a></li>
 							<li><a href="contact">İletişim</a></li>
 						</ul>
@@ -185,7 +184,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6 col-md-12">
-					<p>Copyrights &copy; 2019 - <a href="https://imransdesign.com/">Imran Hossain</a>,  All Rights Reserved.</p>
+					<p>Telif Hakları &copy; 2024 - <a href="https://www.kocaeli.edu.tr/" target="_blank">Umuttepe Turizm</a>, Tarafından Tüm hakları saklıdır.</p>
 				</div>
 				<div class="col-lg-6 text-right col-md-12">
 					<div class="social-icons">
