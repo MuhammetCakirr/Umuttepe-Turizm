@@ -82,14 +82,16 @@
 									</ul>
 								</li>
 								<li><a href="contact">İletişim</a></li>
-								<li><a href="shop">Shop</a>
+								<li><a href="tickets">Biletler</a></li>
+								<li><a href="buying">Satın Alma</a></li>
+								<!-- <li><a href="shop">Shop</a>
 									<ul class="sub-menu">
 										<li><a href="shop">Shop</a></li>
 										<li><a href="checkout">Check Out</a></li>
 										<li><a href="single-product">Single Product</a></li>
 										<li><a href="cart">Cart</a></li>
 									</ul>
-								</li>
+								</li> -->
 								<?php if ($this->session->userdata('user_id')): ?>
 									<li>
 										<div class="header-icons">
