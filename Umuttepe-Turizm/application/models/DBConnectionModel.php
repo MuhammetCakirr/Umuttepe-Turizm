@@ -78,4 +78,45 @@ class DBConnectionModel {
 		}
 		mysqli_close($link_mysql);
 	}
+
+
+	public function getUserByEmail($email) {
+		$link_mysql = $this->mysqlConn();
+
+		$email = mysqli_real_escape_string($link_mysql, $email);
+
+		$query = "SELECT * FROM account WHERE email = '$email'";
+		$result = mysqli_query($link_mysql, $query);
+
+		if ($result && mysqli_num_rows($result) >= 1) {
+			return true;
+		} else {
+			return false;
+		}
+
+		mysqli_close($link_mysql);
+	}
+
+	public function registerUser($fullName, $email, $birthDate, $gender, $tcKimlikNo, $tel, $password) {
+		$link_mysql = $this->mysqlConn();
+
+		$fullName = mysqli_real_escape_string($link_mysql, $fullName);
+		$email = mysqli_real_escape_string($link_mysql, $email);
+		$birthDate = mysqli_real_escape_string($link_mysql, $birthDate);
+		$gender = mysqli_real_escape_string($link_mysql, $gender);
+		$tcKimlikNo = mysqli_real_escape_string($link_mysql, $tcKimlikNo);
+		$tel = mysqli_real_escape_string($link_mysql, $tel);
+		$password = mysqli_real_escape_string($link_mysql, $password);
+
+		$query = "INSERT INTO account (fullName, email, birthDate, gender, tcKimlikNo, tel, password, isActive) VALUES ('$fullName', '$email', '$birthDate', '$gender', '$tcKimlikNo', '$tel', '$password', 1)";
+		$result = mysqli_query($link_mysql, $query);
+
+		if ($result) {
+			return true;
+		} else {
+			return false;
+		}
+
+		mysqli_close($link_mysql);
+	}
 }

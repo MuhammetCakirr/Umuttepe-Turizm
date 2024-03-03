@@ -21,6 +21,9 @@
 			if (isset($data['error'])) {
 				echo $data['error'];
 			}
+			if (isset($data['succes'])) {
+				echo $data['succes'];
+			}
 			?>
 		</div>
 		<div class="row justify-content-center">
@@ -43,6 +46,7 @@
 							<span toggle="password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 						</div>
 						<div class="form-group">
+							<input type="hidden" name="page" value="login" >
 							<button type="submit" class="form-control btn btn-primary submit px-3">Giriş Yap</button>
 						</div>
 						<div class="form-group d-md-flex">
