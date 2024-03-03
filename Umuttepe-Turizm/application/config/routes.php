@@ -25,7 +25,6 @@ $route['cikis'] = 'SettingsController/index/cikis';
 $route['hesabimi_sil'] = 'SettingsController/index/hesabimi_sil';
 
 $route['tickets'] = 'TicketController/index';
-
 $route['buying'] = 'BuyingController/index';
 
 
