@@ -19,6 +19,45 @@ class DBConnectionModel {
 		return $link_mysql;
 	}
 
+	public function getBusRoutes($fromCityId, $toCityId, $departureDate) {
+		$link_mysql = $this->mysqlConn();
+
+		$query = "SELECT br.*, from_city.name AS from_city_name, to_city.name AS to_city_name 
+              FROM bus_routes AS br
+              INNER JOIN cities AS from_city ON br.from_city_id = from_city.id
+              INNER JOIN cities AS to_city ON br.to_city_id = to_city.id 
+              WHERE br.from_city_id = $fromCityId AND br.to_city_id = $toCityId
+              AND DATE(br.departure_time) = '$departureDate'
+              ORDER BY br.departure_time ASC";
+
+		$result = mysqli_query($link_mysql, $query);
+
+		$busRoutes = array();
+		while ($row = mysqli_fetch_assoc($result)) {
+			$busRoutes[] = $row;
+		}
+
+		mysqli_close($link_mysql);
+
+		return $busRoutes;
+	}
+
+	public function getCities() {
+		$link_mysql = $this->mysqlConn();
+
+		$query = "SELECT id, name FROM cities";
+		$result = mysqli_query($link_mysql, $query);
+
+		$cities = array();
+		while ($row = mysqli_fetch_assoc($result)) {
+			$cities[] = $row;
+		}
+
+		mysqli_close($link_mysql);
+
+		return $cities;
+	}
+
 	public function getUserInfo($id) {
 		$link_mysql = $this->mysqlConn();
 
@@ -86,7 +125,6 @@ class DBConnectionModel {
 		mysqli_close($link_mysql);
 	}
 
-
 	public function deleteAccount($id){
 		$link_mysql = $this->mysqlConn();
 
@@ -100,7 +138,6 @@ class DBConnectionModel {
 		}
 		mysqli_close($link_mysql);
 	}
-
 
 	public function getUserByEmail($email) {
 		$link_mysql = $this->mysqlConn();
