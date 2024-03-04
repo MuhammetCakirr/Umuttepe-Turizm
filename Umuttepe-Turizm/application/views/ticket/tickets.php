@@ -375,7 +375,7 @@
 		$duration = gmdate('H:i', strtotime($busRoute['arrival_time']) - strtotime($busRoute['departure_time']));
 		$price = isset($busRoute['price']) ? $busRoute['price'] . " TL" : 'Belirtilmemiş';
 		?>
-		<div class="container" style="margin-top: 30px; ">
+		<div class="container" style="margin-top: 30px; margin-bottom: 30px">
 			<div>
 				<div class="bilet-container text-center" style="padding: 20px;">
 					<div class="row">

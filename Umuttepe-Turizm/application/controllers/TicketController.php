@@ -14,9 +14,9 @@ class TicketController extends CI_Controller {
 		if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['operation'] == "searchTicket"){
 			$data['fromCityId'] = isset($_POST['fromCityId']) ? $_POST['fromCityId'] : 1;
 			$data['toCityId']= isset($_POST['toCityId']) ? $_POST['toCityId'] : 2;
-			$data['gTarih'] = date('Y-m-d');
+			$data['gTarih'] = date('Y-m-d', strtotime('-1 day'));
 		}else{
-			$data['gTarih'] = date('Y-m-d');
+			$data['gTarih'] = date('Y-m-d', strtotime('-1 day'));
 			$data['fromCityId'] = 1;
 			$data['toCityId'] = 2;
 		}
