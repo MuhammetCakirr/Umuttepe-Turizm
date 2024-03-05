@@ -1,14 +1,19 @@
 <?php
-class DBConnectionModel {
-	public function __construct() {
+
+class DBConnectionModel
+{
+	public function __construct()
+	{
 		// constructor
 	}
 
-	public function mysqlConn() {
+	public function mysqlConn()
+	{
 		$db = 'umuttepe_turizm';
 		$server = "localhost";
 		$username = "root";
 		$password = "";
+
 		$link_mysql = mysqli_connect($server, $username, $password, $db);
 		if (mysqli_connect_errno()) {
 			die(print_r("Bağlantı Hatası: " . mysqli_connect_errno(), true));
@@ -19,13 +24,14 @@ class DBConnectionModel {
 		return $link_mysql;
 	}
 
-	public function getBusRoutes($fromCityId, $toCityId, $departureDate) {
+	public function getBusRoutesWithSeats($fromCityId, $toCityId, $departureDate)
+	{
 		$link_mysql = $this->mysqlConn();
 
-		$query = "SELECT br.*, from_city.name AS from_city_name, to_city.name AS to_city_name 
+		$query = "SELECT br.*, from_city.name AS from_city_name, to_city.name AS to_city_name
               FROM bus_routes AS br
               INNER JOIN cities AS from_city ON br.from_city_id = from_city.id
-              INNER JOIN cities AS to_city ON br.to_city_id = to_city.id 
+              INNER JOIN cities AS to_city ON br.to_city_id = to_city.id
               WHERE br.from_city_id = $fromCityId AND br.to_city_id = $toCityId
               AND DATE(br.departure_time) = '$departureDate'
               ORDER BY br.departure_time ASC";
@@ -33,8 +39,19 @@ class DBConnectionModel {
 		$result = mysqli_query($link_mysql, $query);
 
 		$busRoutes = array();
+		$seats = array();
 		while ($row = mysqli_fetch_assoc($result)) {
-			$busRoutes[] = $row;
+			$query2 = "SELECT *
+              FROM seat_availability WHERE bus_route_id = " . $row['id'];
+			$result2 = mysqli_query($link_mysql, $query2);
+
+			while ($row2 = mysqli_fetch_assoc($result2)) {
+				$seats[] = $row2;
+			}
+			$busRoutes[] = array(
+				'bus' => $row,
+				'seat' => $seats
+			);
 		}
 
 		mysqli_close($link_mysql);
@@ -42,7 +59,9 @@ class DBConnectionModel {
 		return $busRoutes;
 	}
 
-	public function getCities() {
+
+	public function getCities()
+	{
 		$link_mysql = $this->mysqlConn();
 
 		$query = "SELECT id, name FROM cities";
@@ -58,7 +77,8 @@ class DBConnectionModel {
 		return $cities;
 	}
 
-	public function getUserInfo($id) {
+	public function getUserInfo($id)
+	{
 		$link_mysql = $this->mysqlConn();
 
 		$query = "SELECT * FROM account WHERE id=$id AND isActive = 1";
@@ -70,7 +90,8 @@ class DBConnectionModel {
 		return $data;
 	}
 
-	public function checkLogin($email, $password) {
+	public function checkLogin($email, $password)
+	{
 		$link_mysql = $this->mysqlConn();
 
 		$email = mysqli_real_escape_string($link_mysql, $email);
@@ -88,7 +109,8 @@ class DBConnectionModel {
 		mysqli_close($link_mysql);
 	}
 
-	public function updateUserInfo($id, $fullName, $tcKimlikNo, $email, $tel, $gender, $birthDate) {
+	public function updateUserInfo($id, $fullName, $tcKimlikNo, $email, $tel, $gender, $birthDate)
+	{
 		$link_mysql = $this->mysqlConn();
 
 		$id = mysqli_real_escape_string($link_mysql, $id);
@@ -111,7 +133,8 @@ class DBConnectionModel {
 		mysqli_close($link_mysql);
 	}
 
-	public function updateUserPassword($id, $newPassword) {
+	public function updateUserPassword($id, $newPassword)
+	{
 		$link_mysql = $this->mysqlConn();
 
 		$query = "UPDATE account SET password = '$newPassword' WHERE id = $id";
@@ -125,7 +148,8 @@ class DBConnectionModel {
 		mysqli_close($link_mysql);
 	}
 
-	public function deleteAccount($id){
+	public function deleteAccount($id)
+	{
 		$link_mysql = $this->mysqlConn();
 
 		$query = "UPDATE account SET isActive = 0 WHERE id = $id";
@@ -139,7 +163,8 @@ class DBConnectionModel {
 		mysqli_close($link_mysql);
 	}
 
-	public function getUserByEmail($email) {
+	public function getUserByEmail($email)
+	{
 		$link_mysql = $this->mysqlConn();
 
 		$email = mysqli_real_escape_string($link_mysql, $email);
@@ -156,7 +181,8 @@ class DBConnectionModel {
 		mysqli_close($link_mysql);
 	}
 
-	public function registerUser($fullName, $email, $birthDate, $gender, $tcKimlikNo, $tel, $password) {
+	public function registerUser($fullName, $email, $birthDate, $gender, $tcKimlikNo, $tel, $password)
+	{
 		$link_mysql = $this->mysqlConn();
 
 		$fullName = mysqli_real_escape_string($link_mysql, $fullName);

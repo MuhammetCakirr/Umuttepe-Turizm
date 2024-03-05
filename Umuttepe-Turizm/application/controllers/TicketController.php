@@ -14,13 +14,13 @@ class TicketController extends CI_Controller {
 		if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['operation'] == "searchTicket"){
 			$data['fromCityId'] = isset($_POST['fromCityId']) ? $_POST['fromCityId'] : 1;
 			$data['toCityId']= isset($_POST['toCityId']) ? $_POST['toCityId'] : 2;
-			$data['gTarih'] = date('Y-m-d', strtotime('-1 day'));
+			$data['gTarih'] = isset($_POST['gTarih']) ? $_POST['gTarih'] : date('Y-m-d', strtotime('-2 day'));
 		}else{
-			$data['gTarih'] = date('Y-m-d', strtotime('-1 day'));
+			$data['gTarih'] = date('Y-m-d', strtotime('-2 day'));
 			$data['fromCityId'] = 1;
 			$data['toCityId'] = 2;
 		}
-		$data['busRoutes'] = $this->DBConnectionModel->getBusRoutes($data['fromCityId'] , $data['toCityId'], $data['gTarih']);
+		$data['busRoutes'] = $this->DBConnectionModel->getBusRoutesWithSeats($data['fromCityId'] , $data['toCityId'], $data['gTarih']);
 
 		$data['fromCity'] = $this->getCityNameById($data['fromCityId'], $cities);
 		$data['toCity'] = $this->getCityNameById($data['toCityId'], $cities);

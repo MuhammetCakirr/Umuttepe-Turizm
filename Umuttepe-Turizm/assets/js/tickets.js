@@ -4,9 +4,23 @@ document.getElementById('toggleButton').addEventListener('click', function () {
     cardBody.style.display = (cardBody.style.display === 'none' || cardBody.style.display === '') ? 'block' : 'none';
 });
 
-document.getElementById('koltuksec').addEventListener('click', function () {
-    var koltuksec = document.getElementById('koltuk-sec');
-    koltuksec.style.display = (koltuksec.style.display === 'none' || koltuksec.style.display === '') ? 'block' : 'none';
+var koltukSecBtns = document.querySelectorAll('[id^="koltuksecbtn"]');
+
+// Her bir buton için dinleme ekleyin
+document.querySelectorAll('[id^="koltuksecbtn"]').forEach(function(btn) {
+	btn.addEventListener('click', function () {
+		// Butona ait $id değerini al
+		var id = btn.getAttribute('data-content');
+
+		// Koltuk-sec div'idini oluştur
+		var koltukSecID = 'koltuk-sec-div' + id;
+
+		// Koltuk-sec div'ini al
+		var koltukSec = document.getElementById(koltukSecID);
+
+		// Durumu kontrol et ve tersine çevir
+		koltukSec.style.display = (koltukSec.style.display === 'none' || koltukSec.style.display === '') ? 'block' : 'none';
+	});
 });
 
 
