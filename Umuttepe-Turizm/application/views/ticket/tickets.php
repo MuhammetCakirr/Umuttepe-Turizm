@@ -8,8 +8,14 @@
 	<link rel="stylesheet" href="assets/css/all.min.css">
 	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-		  integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-		  crossorigin="anonymous" referrerpolicy="no-referrer"/>
+		integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 	<!-- bootstrap -->
 	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
@@ -212,7 +218,6 @@
 		.legend {
 			padding: 16px;
 			text-align: center;
-			width: 100%;
 		}
 
 		.legend span {
@@ -230,7 +235,7 @@
 			width: 40px;
 			height: 40px;
 			background: url(https://i.imgur.com/efGtLJb.png);
-			padding: 24px;
+			padding-top: 16px;
 			text-align: right;
 			cursor: pointer;
 			font-size: 20px;
@@ -270,6 +275,36 @@
 			background-size: cover;
 		}
 
+		.bus-seat.soldd {
+			width: 40px;
+			height: 40px;
+			background: url(https://i.imgur.com/X1BbzeC.png);
+			color: rgba(0, 0, 0, 0);
+			background-repeat: no-repeat;
+			/* Tekrar etme */
+			background-size: cover;
+		}
+
+		.bus-seat.reservedd {
+			width: 40px;
+			height: 40px;
+			background: url(https://i.imgur.com/LXm8GKY.png);
+			color: #eee;
+			background-repeat: no-repeat;
+			/* Tekrar etme */
+			background-size: cover;
+		}
+
+		.bus-seat.activee {
+			width: 40px;
+			height: 40px;
+			background: url(https://i.imgur.com/lXv7u3Y.png);
+			color: white;
+			background-repeat: no-repeat;
+			/* Tekrar etme */
+			background-size: cover;
+		}
+
 		.otobus {
 			border: 1px solid #000000;
 			border-radius: 10px;
@@ -284,92 +319,239 @@
 			align-self: flex-end;
 			/* Butonu en altına alır */
 		}
+
+		.modal-confirm {
+			color: #636363;
+
+			margin: auto;
+			position: fixed;
+			top: 20%;
+			/* Sayfanın yüzde 40'ında başlat */
+			left: 40%;
+
+			z-index: 9999;
+			/* Modal pencerenin diğer elemanların üzerine gelmesi için */
+		}
+
+		.modal-confirm .modal-content {
+			padding: 20px;
+			border-radius: 5px;
+			border: none;
+		}
+
+		.modal-confirm .modal-header {
+			border-bottom: none;
+			position: relative;
+		}
+
+		.modal-confirm h4 {
+			text-align: center;
+			font-size: 26px;
+			margin: 30px 0 -15px;
+		}
+
+		.modal-confirm .form-control,
+		.modal-confirm .btn {
+			min-height: 40px;
+			border-radius: 3px;
+		}
+
+		.modal-confirm .close {
+			position: absolute;
+			top: -5px;
+			right: -5px;
+		}
+
+		.modal-confirm .modal-footer {
+			border: none;
+			text-align: center;
+			border-radius: 5px;
+			font-size: 13px;
+		}
+
+		.modal-confirm .icon-box {
+			color: #fff;
+			position: absolute;
+			margin: 0 auto;
+			left: 0;
+			right: 0;
+			top: -70px;
+			width: 95px;
+			height: 95px;
+			border-radius: 50%;
+			z-index: 9;
+			background: #ef513a;
+			padding: 15px;
+			text-align: center;
+			box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+		}
+
+		.modal-confirm .icon-box i {
+			font-size: 56px;
+			position: relative;
+			top: 4px;
+		}
+
+		.modal-confirm .btn {
+			color: #fff;
+			border-radius: 4px;
+			background: #ef513a;
+			text-decoration: none;
+			transition: all 0.4s;
+			line-height: normal;
+			border: none;
+		}
+
+		.modal-confirm .btn:hover,
+		.modal-confirm .btn:focus {
+			background: #da2c12;
+			outline: none;
+		}
+
+
+		@media (max-width: 768px) {
+			.otobus {
+				overflow-x: auto;
+				/* Sağa doğru kaydırma için */
+				white-space: nowrap;
+				/* Satır atlamayı engelle */
+				width: 100%;
+				/* Genişliği 100% olarak ayarla */
+			}
+
+			.modal-confirm {
+				color: #636363;
+				margin: auto;
+				position: fixed;
+				top: 20%;
+				/* Sayfanın yüzde 40'ında başlat */
+				left: 0%;
+				width: 100%;
+				z-index: 9999;
+				/* Modal pencerenin diğer elemanların üzerine gelmesi için */
+			}
+		}
 	</style>
 </head>
-<body>
-<div class="container" style="margin-top: 130px;">
-	<div class="card text-center">
-		<div class="card-header" id="toggleButton">
-			<ul class="nav nav-pills card-header-pills">
-				<li class="nav-item">
-					<div class="flex-container">
-						<div>
-							<strong><?php echo isset($data) ? $data['fromCity'] : ""; ?></strong>
-						</div>
-						<div>
-							<i class="fa-solid fa-van-shuttle"
-							   style="color: #000714; font-size: 15px; margin-left: 10px; margin-right:10px"></i>
-						</div>
-						<div>
-							<strong><?php echo $data['toCity']; ?></strong>
-						</div>
-						<div>
-							<i class="fa-solid fa-minus"
-							   style="color: #000714; font-size: 15px; margin-left: 10px; margin-right:10px"></i>
-						</div>
-						<div>
-							<strong><?php echo $data['gTarihFormat']; ?></strong>
-						</div>
-					</div>
-				</li>
-				<li class="nav-item">
-					<div>
-						<i class="fas fa-caret-down" style="color: #000714; font-size: 15px; margin-left: 10px;"></i>
-					</div>
-				</li>
-			</ul>
-		</div>
 
-		<div class="card-body" id="cardBody">
-			<div class="card-deck">
-				<form class="row" method="post" style="width: 100%;">
-					<div class="col-lg-3 col-md-6 col-sm-12">
-						<div class="form-group">
-							<label for="fromCityId"> <strong>Nereden</strong> </label>
-							<select class="fromCityId" id="fromCityId" name="fromCityId" required>
-								<?php if (isset($data['cities'])) {
-									foreach ($data['cities'] as $city): ?>
-										<option value="<?php echo $city['id']; ?>"
-												style="text-color:black;" <?php echo isset($data['fromCityId']) && $data['fromCityId'] == $city['id'] ? 'selected' : ''; ?>><?php echo $city['name']; ?></option>
-									<?php endforeach;
-								} ?>
-							</select>
-						</div>
+<body>
+
+	<!--Error Dialog-->
+	<div id="myModal" class="modal col-lg-12 col-md-12 col-sm-12">
+		<div class="modal-dialog modal-confirm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div class="icon-box">
+						<i class="material-icons">&#xE5CD;</i>
 					</div>
-					<div class="col-lg-3 col-md-6 col-sm-12">
-						<div class="form-group">
-							<label for="toCityId"> <strong>Nereye</strong> </label>
-							<select class="toCityId" id="toCityId" name="toCityId" required>
-								<?php foreach ($data['cities'] as $city): ?>
-									<option
-										value="<?php echo $city['id']; ?>" <?php echo isset($data['toCityId']) && $data['toCityId'] == $city['id'] ? 'selected' : ''; ?>><?php echo $city['name']; ?></option>
-								<?php endforeach; ?>
-							</select>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-6 col-sm-12">
-						<div class="form-group">
-							<label for="gTarih"> <strong>Gidiş Tarihi</strong> </label>
-							<input class="gTarih" type="date" id="gTarih" name="gTarih"
-								   value="<?php echo isset($data['gTarih']) ? $data['gTarih'] : date('Y-m-d'); ?>">
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-6 col-sm-12">
-						<div class="form-group">
-							<label for="searchbtn" style="visibility: hidden;"> Button </label>
-							<input type="hidden" name="operation" value="searchTicket">
-							<button class="search-button" type="submit" style="width:100%;" id="searchbtn">
-								<i class="fas fa-search"></i>
-								Otobüs Bileti Ara
-							</button>
-						</div>
-					</div>
-				</form>
+					<h4 class="modal-title">Üzgünüz</h4>
+				</div>
+				<div class="modal-body">
+					<p class="text-center">Tek seferde en fazla 4 koltuk seçebilirsiniz.</p>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-danger btn-block" data-dismiss="modal">Kapat</button>
+				</div>
 			</div>
 		</div>
 	</div>
-	<?php echo isset($data['error']) ?  $data['error'] : ""; ?>
-	<?php foreach ($data['busRoutes'] as $busRoute) {
+	<!--Error Dialog End-->
+
+
+	<div class="container" style="margin-top: 130px;">
+		<div class="card text-center">
+			<div class="card-header" id="toggleButton">
+				<ul class="nav nav-pills card-header-pills">
+					<li class="nav-item">
+						<div class="flex-container">
+							<div>
+								<strong>
+									<?php echo isset($data) ? $data['fromCity'] : ""; ?>
+								</strong>
+							</div>
+							<div>
+								<i class="fa-solid fa-van-shuttle"
+									style="color: #000714; font-size: 15px; margin-left: 10px; margin-right:10px"></i>
+							</div>
+							<div>
+								<strong>
+									<?php echo $data['toCity']; ?>
+								</strong>
+							</div>
+							<div>
+								<i class="fa-solid fa-minus"
+									style="color: #000714; font-size: 15px; margin-left: 10px; margin-right:10px"></i>
+							</div>
+							<div>
+								<strong>
+									<?php echo $data['gTarihFormat']; ?>
+								</strong>
+							</div>
+						</div>
+					</li>
+					<li class="nav-item">
+						<div>
+							<i class="fas fa-caret-down"
+								style="color: #000714; font-size: 15px; margin-left: 10px;"></i>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+			<div class="card-body" id="cardBody">
+				<div class="card-deck">
+					<form class="row" method="post" style="width: 100%;">
+						<div class="col-lg-3 col-md-6 col-sm-12">
+							<div class="form-group">
+								<label for="fromCityId"> <strong>Nereden</strong> </label>
+								<select class="fromCityId" id="fromCityId" name="fromCityId" required>
+									<?php if (isset($data['cities'])) {
+										foreach ($data['cities'] as $city): ?>
+											<option value="<?php echo $city['id']; ?>" style="text-color:black;" <?php echo isset($data['fromCityId']) && $data['fromCityId'] == $city['id'] ? 'selected' : ''; ?>>
+												<?php echo $city['name']; ?>
+											</option>
+										<?php endforeach;
+									} ?>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6 col-sm-12">
+							<div class="form-group">
+								<label for="toCityId"> <strong>Nereye</strong> </label>
+								<select class="toCityId" id="toCityId" name="toCityId" required>
+									<?php foreach ($data['cities'] as $city): ?>
+										<option value="<?php echo $city['id']; ?>" <?php echo isset($data['toCityId']) && $data['toCityId'] == $city['id'] ? 'selected' : ''; ?>>
+											<?php echo $city['name']; ?>
+										</option>
+									<?php endforeach; ?>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6 col-sm-12">
+							<div class="form-group">
+								<label for="gTarih"> <strong>Gidiş Tarihi</strong> </label>
+								<input class="gTarih" type="date" id="gTarih" name="gTarih"
+									value="<?php echo isset($data['gTarih']) ? $data['gTarih'] : date('Y-m-d'); ?>">
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6 col-sm-12">
+							<div class="form-group">
+								<label for="searchbtn" style="visibility: hidden;"> Button </label>
+								<input type="hidden" name="operation" value="searchTicket">
+								<button class="search-button" type="submit" style="width:100%;" id="searchbtn">
+									<i class="fas fa-search"></i>
+									Otobüs Bileti Ara
+								</button>
+							</div>
+						</div>
+					</form>
+
+				</div>
+			</div>
+		</div>
+		<div class="container mt-5" id="myModal" style="margin-top: 200px;">
+		</div>
+		<?php foreach ($data['busRoutes'] as $busRoute) {
 		$busRouteBus = $busRoute['bus'];
 		$busRouteSeat = $busRoute['seat'];
 		$departure_time = date('H:i', strtotime($busRouteBus['departure_time']));
@@ -380,8 +562,9 @@
 		$j = 0;
 		?>
 		<form action="buying" method="post">
-			<div class="container" style="margin-top: 30px; margin-bottom: 30px; user-select: none;">
-				<div class="bilet-container text-center" style="padding: 20px;">
+		<div class="container" style="margin-top: 30px; margin-bottom: 30px">
+				<div>
+					<div class="bilet-container text-center" style="padding: 20px;">
 					<div class="row">
 						<div class="col-lg-2">
 							<img src="https://cdn2.enuygun.com/img/company_logos_bus/suha-turizm.png" alt="logo"
@@ -419,10 +602,10 @@
 								   style="background-color: red;color:white;">
 						</div>
 					</div>
+						<div id="koltuk-sec-div<?php echo $id; ?>" style="display:none">
+							<div class="row">
 
-					<div id="koltuk-sec-div<?php echo $id; ?>" style="display:none">
-						<div class="row">
-							<div class="col-8">
+								<div class="col-lg-8  col-sm-12">
 								<div ng-app="app" ng-controller="main" class="otobus">
 									<div style="display: flex; flex-direction: row;">
 										<img src="assets/img/direksiyon.png" alt=""
@@ -476,50 +659,56 @@
 										</div>
 									</div>
 								</div>
+									<div style="display: flex; flex-direction:row; margin-top:5px;">
+										<i class="fa-solid fa-rectangle-xmark"
+											style="color: #e21212; font-size:22px; margin-right:3px;"></i>
+										<p>Biletinizi son 2 saate kadar online iptal edebilirsiniz.</p>
+									</div>
 
-								<div style="display: flex; flex-direction:row; margin-top:5px;">
-									<i class="fa-solid fa-rectangle-xmark"
-									   style="color: #e21212; font-size:22px; margin-right:3px;"></i>
-									<p>Biletinizi son 2 saate kadar online iptal edebilirsiniz.</p>
+
+									<div class="legend">
+										<div class="bus-seat activee">&nbsp;</div>
+										<span>Seçili</span>
+										<div class="bus-seat">&nbsp;</div>
+										<span> Müsait</span>
+										<div class="bus-seat reservedd">&nbsp;</div>
+										<span> Rezerve</span>
+										<div class="bus-seat soldd">&nbsp;</div>
+										<span> Dolu</span>
+									</div>
 								</div>
+								<div class="col-lg-4 col-md-12 col-sm-12 sagkisim">
+									<p>Lütfen Sol kısımdan koltuk seçiniz.</p>
+									<div>
+										<h4>Seçtiğiniz Koltuklar:</h4>
+										<div style="display: flex; flex-direction:row"
+											id="secilikoltuklar<?php echo $id; ?>">
 
-
-								<div class="legend">
-									<div class="bus-seat active">&nbsp;</div>
-									<span>Seçili</span>
-									<div class="bus-seat">&nbsp;</div>
-									<span> Müsait</span>
-									<div class="bus-seat reserved">&nbsp;</div>
-									<span> Rezerve</span>
-									<div class="bus-seat sold">&nbsp;</div>
-									<span> Dolu</span>
-								</div>
-							</div>
-							<div class="col-4 sagkisim">
-								<p>Lütfen Sol kısımdan koltuk seçiniz.</p>
-								<div>
-									<h4>Seçtiğiniz Koltuklar:</h4>
-									<div style="display: flex; flex-direction:row" id="secilikoltuklar">
+										</div>
 
 									</div>
 
+									<input id="onaylabtn" type="submit" value="Onayla" data-content="<?php echo $id ?>">
+
+									<input type="hidden" value="<?php echo $id ?>" name="id">
+									<input type="hidden" value="" name="seat_numbers">
+									<input type="hidden" value="buying" name="operation">
+									
+
+
 								</div>
-								<input type="hidden" value="<?php echo $id ?>" name="id">
-								<input type="hidden" value="" name="seat_numbers">
-								<input type="hidden" value="buying" name="operation">
-								<input type="submit" value="Onayla" data-content="<?php echo $id ?>">
+
 							</div>
-
-
 						</div>
 					</div>
 				</div>
 			</div>
 		</form>
 
-	<?php } ?>
+		<?php } ?>
 
-</div>
-<script src="assets/js/tickets.js"></script>
+	</div>
+	<script src="assets/js/tickets.js"></script>
 </body>
+
 </html>

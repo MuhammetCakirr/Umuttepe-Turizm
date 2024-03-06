@@ -4,37 +4,65 @@ document.getElementById('toggleButton').addEventListener('click', function () {
     cardBody.style.display = (cardBody.style.display === 'none' || cardBody.style.display === '') ? 'block' : 'none';
 });
 
+// Butonları bir dizi olarak al
 var koltukSecBtns = document.querySelectorAll('[id^="koltuksecbtn"]');
 
-// Her bir buton için dinleme ekleyin
-document.querySelectorAll('[id^="koltuksecbtn"]').forEach(function(btn) {
-	btn.addEventListener('click', function () {
-		// Butona ait $id değerini al
-		var id = btn.getAttribute('data-content');
 
-		// Koltuk-sec div'idini oluştur
-		var koltukSecID = 'koltuk-sec-div' + id;
-
-		// Koltuk-sec div'ini al
-		var koltukSec = document.getElementById(koltukSecID);
-
-		// Durumu kontrol et ve tersine çevir
-		koltukSec.style.display = (koltukSec.style.display === 'none' || koltukSec.style.display === '') ? 'block' : 'none';
-	});
-});
 
 
 document.addEventListener("DOMContentLoaded", function () {
 
     var secilikoltuklarlist = [];
     var seats = document.querySelectorAll('.bus-seat');
-    var selectedSeatsContainer = document.querySelector('.col-4 .sagkisim');
+    var erroralert = document.getElementById('myModal');
+    var onaylabtn = document.getElementById('onaylabtn');
+    idgenel="";
+
+    function updateOnaylaButton() {
+        if (secilikoltuklarlist.length >= 1) {
+            onaylabtn.disabled = false;
+        } else {
+            onaylabtn.disabled = true;
+        }
+    }
+
+    document.querySelectorAll('[id^="koltuksecbtn"]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            updateOnaylaButton();
+            // Butona ait $id değerini al
+            var id = btn.getAttribute('data-content');
+            idgenel = id;
+            // Koltuk-sec div'idini oluştur
+            var koltukSecID = 'koltuk-sec-div' + id;
+            // Koltuk-sec div'ini al
+            var koltukSec = document.getElementById(koltukSecID);
+            // Diğer tüm koltuk-sec div'lerini kapat
+            document.querySelectorAll('[id^="koltuk-sec-div"]').forEach(function (otherDiv) {
+                if (otherDiv.id !== koltukSecID) {
+                    otherDiv.style.display = 'none';
+                }
+            });
+            // Durumu kontrol et ve tersine çevir
+            koltukSec.style.display = (koltukSec.style.display === 'none' || koltukSec.style.display === '') ? 'block' : 'none';
+    
+            // Seçili koltukları temizle
+            document.querySelectorAll('.bus-seat.active').forEach(function (seat) {
+                seat.classList.remove('active');
+                secilikoltuklarlist.splice(0, secilikoltuklarlist.length);
+                var selectedSeatsContainer = document.getElementById('secilikoltuklar'+id);
+                selectedSeatsContainer.removeChild(selectedSeatsContainer.firstChild);
+            });
+            
+    
+
+        });
+    });
 
     seats.forEach(function (seat, index) {
         seat.addEventListener('click', function () {
             var span = seat.querySelector('span');
             var seatNumber = span.innerText;
-            span.style.color ='black';
+            span.style.color = 'black';
 
             if (seat.classList.contains('reserved')) {
                 alert('Bu koltuk rezerve edilmiştir.');
@@ -47,32 +75,31 @@ document.addEventListener("DOMContentLoaded", function () {
                     secilikoltuklarlist.splice(index, 1);
                     seat.classList.remove("active");
                 }
-
                 secilikoltuklarlist.forEach(element => {
                     console.log(element);
                 });
-                updateSelectedSeats();
+                updateSelectedSeats(idgenel);
             }
             else {
-
                 if (secilikoltuklarlist.length >= 4) {
-                    alert('En fazla 4 tane seçebilirsiniz.');
+                    $('#myModal').modal('show');
+                    //  erroralert.style.display='block';
                 }
                 else {
                     seat.classList.toggle('active');
                     secilikoltuklarlist.push(seatNumber);
                 }
-
-
-
-                updateSelectedSeats();
+                updateSelectedSeats(idgenel);
 
 
             }
         });
     });
-    function updateSelectedSeats() {
-        var selectedSeatsContainer = document.getElementById('secilikoltuklar');
+
+
+
+    function updateSelectedSeats(id) {
+        var selectedSeatsContainer = document.getElementById('secilikoltuklar'+id);
 
         // Eğer secilikoltuklarlist dizisi boş değilse
         if (secilikoltuklarlist.length >= 0) {
@@ -83,6 +110,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Ardından secilikoltuklarlist dizisini döngüye alabilir ve yeni elemanları ekleyebilirsiniz
             secilikoltuklarlist.forEach(element => {
+
+
                 var selectedSeatDiv = document.createElement('div');
                 selectedSeatDiv.classList.add('bus-row');
                 var selectedSeatSpan = document.createElement('span');
@@ -94,13 +123,24 @@ document.addEventListener("DOMContentLoaded", function () {
                 selectedSeatsContainer.appendChild(selectedSeatDiv);
             });
         }
-		// Gizli girişleri al
+        		// Gizli girişleri al
 		var seatNumbersInputs = document.querySelectorAll('[name^="seat_numbers"]');
 		// seat_numbers gizli girişlerine secilikoltuklarlist verilerini atayın
 		seatNumbersInputs.forEach(function(seat_number) {
 			seat_number.value = secilikoltuklarlist.join(',');
 		});
+        updateOnaylaButton();
+
     }
+
+    // Sayfa yüklendiğinde ve koltuk güncelleme işlemlerinde çağrılarak kontrolü sağla
+    document.addEventListener('DOMContentLoaded', function () {
+        // Sayfa yüklendiğinde ve koltuk güncelleme işlemlerinde kontrolü sağla
+        updateOnaylaButton();
+    });
+
+
+    
 });
 
 
