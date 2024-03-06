@@ -23,6 +23,43 @@ class DBConnectionModel
 		mysqli_query($link_mysql, "COLLATE 'utf8_turkish_ci'");
 		return $link_mysql;
 	}
+	public function  createTicket($busRouteId,$contactFullName,$contactTel,$cartFullName,$cartNo,$cartMonth,$cartYear,$cartCvc,$price){
+		$link_mysql = $this->mysqlConn();
+
+		$query = "INSERT INTO tickets (bus_route_id, contact_full_name, contact_tel, cart_no, cart_full_name, cart_month, cart_year, cart_cvc, price, status, created_at)
+		VALUES ($busRouteId, '$contactFullName', '$contactTel','$cartNo', '$cartFullName', '$cartMonth', '$cartYear', '$cartCvc', $price, 1, CURRENT_TIMESTAMP)";
+
+		mysqli_query($link_mysql, $query);
+
+		return mysqli_insert_id($link_mysql);
+
+		mysqli_close($link_mysql);
+	}
+
+	public function createPassenger($ticketId,$passengerName,$passengerSurname,$passengerTc,$passengeSelector,$seatNumber){
+		$link_mysql = $this->mysqlConn();
+
+		$query = "INSERT INTO passenger (ticket_id, passenger_name, passenger_surname, passenger_tc, passenger_gender,seat_number,created_at)
+		VALUES ($ticketId, '$passengerName', '$passengerSurname','$passengerTc', $passengeSelector,$seatNumber, CURRENT_TIMESTAMP)";
+
+		$result = mysqli_query($link_mysql, $query);
+
+		mysqli_close($link_mysql);
+
+		return $result;
+	}
+
+	public function changeSeatAvailability($busRouteId,$seatNumber,$status){
+		$link_mysql = $this->mysqlConn();
+
+		$query = "UPDATE seat_availability SET  seat_status = $status WHERE bus_route_id = $busRouteId AND seat_number = $seatNumber";
+
+		$result = mysqli_query($link_mysql, $query);
+
+		mysqli_close($link_mysql);
+
+		return $result;
+	}
 
 	public function  getBusRoute($id){
 		$link_mysql = $this->mysqlConn();

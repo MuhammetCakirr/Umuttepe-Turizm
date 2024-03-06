@@ -169,7 +169,6 @@
 				<?php
 				foreach ($data['seatNumbers'] as $number) {
 					?>
-
 					<div class="kutular">
 						<div style="display:flex; flex-direction:row">
 
@@ -177,9 +176,9 @@
 							   style="color: #071327; font-size: 15px; margin-top:5px; margin-right:5px;"></i>
 							<h6 style="margin-top:3px;">Yolcu Bilgileri</h6>
 						</div>
-
 						<p style="margin-top: 5px; color:blue;"><?= $number ?>. Koltuk yolcu bilgisi</p>
 						<div class="row">
+							<input type="hidden" name="passengerName<?= $number?>">
 							<div class="col-lg-6 col-sm-12 form-group">
 								<label for="account-fn">Ad</label>
 								<input class="form-control" type="text" id="account-fn" name="passengerName<?= $number?>" required>
@@ -193,23 +192,19 @@
 								<label for="account-fn">T.C. Kimlik No</label>
 								<input class="form-control" type="text" id="account-fn" name="passengerTc<?= $number?>" required>
 							</div>
-
 							<div class="col-lg-6 col-sm-12 form-group">
 								<label for="cinsiyet">Cinsiyet</label>
 								<div id="cinsiyet">
-									<label for="f-option" class="l-radio">
-										<input type="radio" id="f-option" name="selector" tabindex="1">
+									<label for="f-option<?= $number?>" class="l-radio">
+										<input type="radio" id="f-option<?= $number?>" name="passengeSelector<?= $number?>" value="0" tabindex="1">
 										<span>Kadın</span>
 									</label>
-									<label for="s-option" class="l-radio">
-										<input type="radio" id="s-option" name="selector" tabindex="2">
+									<label for="s-option<?= $number?>" class="l-radio">
+										<input type="radio" id="s-option<?= $number?>" name="passengeSelector<?= $number?>" value="1" tabindex="2">
 										<span>Erkek</span>
 									</label>
 								</div>
-
 							</div>
-
-
 						</div>
 						<p>Servis rezervasyonu için biletinizi aldıktan sonra otobüs firması ile görüşebilirsiniz.</p>
 						<hr>
@@ -265,8 +260,8 @@
 									<option value="11">11</option>
 									<option value="12">12</option>
 								</select>
-								<select class="month">
-									<option value="Yıl Seçiniz" selected>Yıl Seçiniz</option>
+								<select id="yıllar" name="yıllar" class="month">
+									<option value="Yıl Seçiniz"  selected>Yıl Seçiniz</option>
 									<option value="2024">2024</option>
 									<option value="2025">2025</option>
 									<option value="2026">2026</option>
@@ -281,19 +276,14 @@
 									<option value="2035">2035</option>
 								</select>
 							</div>
-
 						</div>
 						<div class="col-lg-6 col-sm-12 form-group">
 							<label for="account-fn">CVC</label>
 							<input class="form-control" type="text" id="account-fn" name="cartCvc" placeholder="XXX"
 								   required>
 						</div>
-
-
 					</div>
-
 					<hr>
-
 					<div style="display:flex; flex-direction:row">
 						<input type="checkbox" style="margin-right: 4px;">
 						<p>Kart Bilgilerimi Kaydet.</p>
@@ -309,7 +299,9 @@
 						<p style="font-size: 15px; color:grey; margin-left:5px;">Umuttepe Turizm üzerinden yapılan
 							işlemler güvenlik sertifikalarıyla korunmaktadır.</p>
 					</div>
-					<input type="hidden" name="id" value="<?= $data['id'] ?>>">
+					<input type="hidden" name="id" value="<?= $data['id'] ?>">
+					<input type="hidden" name="seatNumbers" value="<?= $data['seat_numbers'] ?>">
+					<input type="hidden" name="totalPrice" value="<?= $data['totalPrice'] ?>">
 					<input type="hidden" name="operation" value="paying">
 					<button class="custom-button" type="submit">
 						<i class="fas fa-shield-alt"></i> <!-- Güvenlik iconu -->
@@ -393,13 +385,6 @@
 
 							 echo $tarih . ', ' . $gun;
 						}
-
-
-
-						//$departure_time = strtotime($data['busRoute']['departure_time']);
-						//setlocale(LC_TIME, 'tr_TR.UTF-8');
-						//$formatted_date = strftime('%d %B %Y %A', $departure_time);
-						//echo mb_convert_case($formatted_date, MB_CASE_TITLE, "UTF-8");
 						echo tarihFormat($data['busRoute']['departure_time']);
 						?>
 					</p>
@@ -425,7 +410,7 @@
 				</div>
 				<div style="display:flex; flex-direction:row;">
 					<i class="fa-regular fa-clock" style="color: #000000; font-size:20px; margin:7px;"></i>
-					<p><strong>Tahmini Sefer Süresi : </strong></p>
+					<p><strong>Tahmini Sefer Süresi : </strong>
 					<p class="sefer-p" style="margin-left: 6px;"><?php
 						$departure_time = strtotime($data['busRoute']['departure_time']);
 						$arrival_time = strtotime($data['busRoute']['arrival_time']);
@@ -436,7 +421,7 @@
 						$time_diff_hours = floor($time_diff_seconds / 3600);
 						$time_diff_minutes = floor(($time_diff_seconds % 3600) / 60);
 						echo $time_diff_hours . " saat " . ($time_diff_minutes == 0 ? "" :  $time_diff_minutes . " dakika") ;
-						?></p>
+						?></p></p>
 				</div>
 				<div style="display:flex; flex-direction:row; padding-left: 10px; padding-right: 10px;">
 					<label for="kalkis"><Strong>İptal Koşulları </Strong> </label>

@@ -1,14 +1,19 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class SettingsController extends CI_Controller {
-	public function __construct() {
+class SettingsController extends CI_Controller
+{
+	public function __construct()
+	{
 		parent::__construct();
 		$this->load->library('session');
 		$this->load->model('DBConnectionModel');
+		$this->load->helper('url');
+
 	}
 
-	public function index($page) {
+	public function index($page)
+	{
 		$id = $this->session->userdata('id');
 
 		if ($id) {
@@ -18,24 +23,23 @@ class SettingsController extends CI_Controller {
 				$data['content'] = "settings/settings";
 				$data['contentPlaceholder'] = "settings/$page";
 				if ($_SERVER["REQUEST_METHOD"] == "POST") {
-					switch ($_POST['page']){
+					switch ($_POST['page']) {
 						case 'sifreDegistir':
 							$data['result'] = $this->sifreDegistir();
 							break;
 						case 'hesapBilgilerim':
 							$result = $this->hesapBilgilerimiGuncelle();
-							if ($result['result']){
+							if ($result['result']) {
 								$data['hesapBilgilerim'] = $result['hesapBilgilerim'];
-							}else{
+							} else {
 								$data['error'] = $result['error'];
 							}
 							break;
 						default:
 							break;
 					}
-				}else{
-					$this->load->helper('url');
-					switch ($page){
+				} else {
+					switch ($page) {
 						case 'hesap_bilgilerim':
 							$data['hesapBilgilerim'] = $this->hesapBilgilerim();
 							break;
@@ -56,11 +60,13 @@ class SettingsController extends CI_Controller {
 				redirect('');
 			}
 		} else {
-			redirect('login');
+
+			redirect('../login');
 		}
 	}
 
-	public function hesapBilgilerimiGuncelle() {
+	public function hesapBilgilerimiGuncelle()
+	{
 		$data = array();
 
 		$fullName = $_POST['fullName'];
@@ -76,7 +82,7 @@ class SettingsController extends CI_Controller {
 
 		if ($isUpdated) {
 			$data['result'] = true;
-			$data['hesapBilgilerim'] =  $this->hesapBilgilerim();
+			$data['hesapBilgilerim'] = $this->hesapBilgilerim();
 		} else {
 			$data['result'] = false;
 			$data['error'] = "<div class='alert alert-danger' role='alert'>Hesap bilgileri güncellenirken bir hata oluştu. Lütfen tekrar deneyin.</div>";
@@ -100,7 +106,9 @@ class SettingsController extends CI_Controller {
 
 		return $data;
 	}
-	public function sifreDegistir(){
+
+	public function sifreDegistir()
+	{
 		$mevcutSifre = $_POST['mevcut'];
 		$yeniSifre = $_POST['newPass'];
 		$yeniSifreTekrar = $_POST['newPassAgain'];
@@ -122,12 +130,14 @@ class SettingsController extends CI_Controller {
 	}
 
 
-	public function cikis(){
+	public function cikis()
+	{
 		session_unset(); // Tüm oturum değişkenlerini temizle
 		session_destroy(); // Oturumu yok et
 	}
 
-	public function hesabimiSil(){
+	public function hesabimiSil()
+	{
 		$id = $this->session->userdata('id');
 		$this->load->model('DBConnectionModel');
 		$this->DBConnectionModel->deleteAccount($id);

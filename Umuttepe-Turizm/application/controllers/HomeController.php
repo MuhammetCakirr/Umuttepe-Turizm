@@ -10,23 +10,8 @@ class HomeController extends CI_Controller {
 		$this->load->helper('url');
 	}
 
-	public function index() {
-		//if ($this->session->userdata('user_id')) {
-			$data['content'] = 'home/index';
-			$this->load->view('template', array('data' => $data));
-		//} else {
-			//redirect('login');
-		//	$this->load->view('template', array('content' => "login/login"));
-		//}
-	}
-
-	public function changePage($page) {
-		//if ($this->session->userdata('user_id')) {
-			$data['content'] = "home/$page";
-			$this->load->view('template', array('data' => $data));
-		//} else {
-			//redirect('login');
-		//	$this->load->view('template', array('content' => "login/login"));
-		//}
+	public function index($page) {
+		$data['content'] = "home/$page";
+		$this->load->view('template', array('data' => $data));
 	}
 }
