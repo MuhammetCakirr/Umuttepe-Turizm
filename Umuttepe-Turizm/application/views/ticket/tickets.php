@@ -481,7 +481,7 @@
 <body>
 
 	<!--Error Dialog-->
-	<div id="myModal" class="modal col-lg-12 col-md-12 col-sm-12">
+	<div id="myModal" class="modal col-lg-12 col-md-12 col-sm-12" >
 		<div class="modal-dialog modal-confirm">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -543,7 +543,7 @@
 	<!--Error Dialog End-->
 
 
-	<div class="container" style="margin-top: 130px;">
+	<div class="container" style="margin-top: 130px; user-select: none;">
 		<div class="card text-center">
 			<div class="card-header" id="toggleButton">
 				<ul class="nav nav-pills card-header-pills">
