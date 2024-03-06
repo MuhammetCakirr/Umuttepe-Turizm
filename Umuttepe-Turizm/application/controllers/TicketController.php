@@ -11,12 +11,28 @@ class TicketController extends CI_Controller {
 	public function index() {
 		$cities = $this->DBConnectionModel->getCities();
 
-		if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['operation'] == "searchTicket"){
-			$data['fromCityId'] = isset($_POST['fromCityId']) ? $_POST['fromCityId'] : 1;
-			$data['toCityId']= isset($_POST['toCityId']) ? $_POST['toCityId'] : 2;
-			$data['gTarih'] = isset($_POST['gTarih']) ? $_POST['gTarih'] : date('Y-m-d', strtotime('-2 day'));
+		if ($_SERVER["REQUEST_METHOD"] == "POST"){
+			if($_POST['operation'] == "searchTicket"){
+				$data['fromCityId'] = isset($_POST['fromCityId']) ? $_POST['fromCityId'] : 1;
+				$data['toCityId']= isset($_POST['toCityId']) ? $_POST['toCityId'] : 2;
+				$data['gTarih'] = isset($_POST['gTarih']) ? $_POST['gTarih'] : date('Y-m-d', strtotime('-3 day'));
+			}else if($_POST['operation'] == "buying"){
+				if($_POST['seat_numbers'] == ''){
+					$data['gTarih'] = date('Y-m-d', strtotime('-3 day'));
+					$data['fromCityId'] = 1;
+					$data['toCityId'] = 2;
+					$data['error'] = "<div class='alert alert-danger' role='alert'>Lütfen en az birkoltuk seçiniz.</div>";
+				}else {
+					// burada buraya gelen post verileri ile buying sayfasına post et
+					$data['content'] = "buying/buying";
+					$data['seat_numbers'] = $_POST['seat_numbers'];
+					$data['id'] = $_POST['id'];
+					$this->load->view('template', array('data' => $data));
+					return;
+				}
+			}
 		}else{
-			$data['gTarih'] = date('Y-m-d', strtotime('-2 day'));
+			$data['gTarih'] = date('Y-m-d', strtotime('-3 day'));
 			$data['fromCityId'] = 1;
 			$data['toCityId'] = 2;
 		}

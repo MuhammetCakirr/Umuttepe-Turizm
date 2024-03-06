@@ -83,8 +83,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Ardından secilikoltuklarlist dizisini döngüye alabilir ve yeni elemanları ekleyebilirsiniz
             secilikoltuklarlist.forEach(element => {
-
-
                 var selectedSeatDiv = document.createElement('div');
                 selectedSeatDiv.classList.add('bus-row');
                 var selectedSeatSpan = document.createElement('span');
@@ -96,7 +94,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 selectedSeatsContainer.appendChild(selectedSeatDiv);
             });
         }
-
+		// Gizli girişleri al
+		var seatNumbersInputs = document.querySelectorAll('[name^="seat_numbers"]');
+		// seat_numbers gizli girişlerine secilikoltuklarlist verilerini atayın
+		seatNumbersInputs.forEach(function(seat_number) {
+			seat_number.value = secilikoltuklarlist.join(',');
+		});
     }
 });
 

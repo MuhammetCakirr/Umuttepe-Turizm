@@ -24,6 +24,21 @@ class DBConnectionModel
 		return $link_mysql;
 	}
 
+	public function  getBusRoute($id){
+		$link_mysql = $this->mysqlConn();
+		$query = "SELECT br.*, from_city.name AS from_city_name, to_city.name AS to_city_name
+              FROM bus_routes AS br
+              INNER JOIN cities AS from_city ON br.from_city_id = from_city.id
+              INNER JOIN cities AS to_city ON br.to_city_id = to_city.id
+              WHERE br.id = $id";
+
+		$result = mysqli_query($link_mysql, $query);
+
+		$data = mysqli_fetch_assoc($result);
+		mysqli_close($link_mysql);
+
+		return $data;
+	}
 	public function getBusRoutesWithSeats($fromCityId, $toCityId, $departureDate)
 	{
 		$link_mysql = $this->mysqlConn();
@@ -39,12 +54,12 @@ class DBConnectionModel
 		$result = mysqli_query($link_mysql, $query);
 
 		$busRoutes = array();
-		$seats = array();
 		while ($row = mysqli_fetch_assoc($result)) {
 			$query2 = "SELECT *
-              FROM seat_availability WHERE bus_route_id = " . $row['id'];
+              FROM seat_availability WHERE bus_route_id = '".$row['id']."'" ;
 			$result2 = mysqli_query($link_mysql, $query2);
 
+			$seats = array();
 			while ($row2 = mysqli_fetch_assoc($result2)) {
 				$seats[] = $row2;
 			}

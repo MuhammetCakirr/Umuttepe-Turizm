@@ -368,153 +368,155 @@
 			</div>
 		</div>
 	</div>
-
+	<?php echo isset($data['error']) ?  $data['error'] : ""; ?>
 	<?php foreach ($data['busRoutes'] as $busRoute) {
 		$busRouteBus = $busRoute['bus'];
 		$busRouteSeat = $busRoute['seat'];
-		var_dump($busRouteSeat[1]['id']);
 		$departure_time = date('H:i', strtotime($busRouteBus['departure_time']));
 		$arrival_time = date('H:i', strtotime($busRouteBus['arrival_time']));
 		$duration = gmdate('H:i', strtotime($busRouteBus['arrival_time']) - strtotime($busRouteBus['departure_time']));
 		$price = isset($busRouteBus['price']) ? $busRouteBus['price'] . " TL" : 'Belirtilmemiş';
 		$id = $busRouteBus['id'];
-
+		$j = 0;
 		?>
-		<div class="container" style="margin-top: 30px; margin-bottom: 30px; user-select: none;">
-			<div class="bilet-container text-center" style="padding: 20px;">
-				<div class="row">
-					<div class="col-lg-2">
-						<img src="https://cdn2.enuygun.com/img/company_logos_bus/suha-turizm.png" alt="logo"
-							 style="margin-left: 5px;">
-					</div>
-					<div class="col-lg-3">
-						<div
-							style="display: flex; flex-direction: row; align-items: center; justify-content: center; margin-top:3px">
-							<i class="fa-regular fa-clock"
-							   style="color: #000000; font-size:20px; margin-right:2px"></i>
-							<p style="font-size: 16px;"><?php echo $departure_time; ?></p>
-						</div>
-						<p style="font-size: 12px;">(<?php echo $duration; ?>)*</p>
-					</div>
-					<div class="col-lg-3">
-						<div style="display: flex; flex-direction: column; align-items: center;">
-							<div style="display: flex; flex-direction: row; align-items: center;">
-								<i class="fa-solid fa-chair"
-								   style="color: #000000; font-size: 20px; margin-right: 5px;"></i>
-								<p style="font-size: 16px;">2+1</p>
-							</div>
-							<div style="display: flex; flex-direction: row; margin-top: 12px;">
-								<p><strong><?php echo $busRouteBus['from_city_name']; ?></strong></p>
-								<i class="fa-solid fa-truck-arrow-right"
-								   style="color: #000000; font-size: 18px; margin-left: 3px; margin-right: 3px;"></i>
-								<p><strong><?php echo $busRouteBus['to_city_name']; ?></strong></p>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-2">
-						<strong style="font-size: 25px;"><?php echo $price; ?></strong>
-					</div>
-					<div class="col-lg-2">
-						<input type="button" id="koltuksecbtn" value="Koltuk Seç" data-content="<?php echo $id; ?>"
-							   style="background-color: red;color:white;">
-					</div>
-				</div>
-
-				<div id="koltuk-sec-div<?php echo $id; ?>" style="display:none">
+		<form action="buying" method="post">
+			<div class="container" style="margin-top: 30px; margin-bottom: 30px; user-select: none;">
+				<div class="bilet-container text-center" style="padding: 20px;">
 					<div class="row">
-						<div class="col-8">
-							<div ng-app="app" ng-controller="main" class="otobus">
-								<?php $i = 1; ?>
-								<div style="display: flex; flex-direction: row;">
-									<img src="assets/img/direksiyon.png" alt=""
-										 style="width:30px; height:30px; margin:7px; visibility: hidden;">
-									<div class="aisle">
-										<div class="bus-row">
-											<?php
-											for ($j = 1; $j < 10; $j++) {
-												?>
-												<div ng-click="selectSeat(seat)" class="bus-seat <?php echo $busRouteSeat[$j-1]['seat_status'] == 1 ? "" : ($busRouteSeat[$j-1]['seat_status'] == 2 ? "sold" : "reserved"); ?>"
-													 ng-repeat="seat in row1">
-													<span style="color: #000;">
-														<?= $j ?>
-													</span>
-												</div>
+						<div class="col-lg-2">
+							<img src="https://cdn2.enuygun.com/img/company_logos_bus/suha-turizm.png" alt="logo"
+								 style="margin-left: 5px;">
+						</div>
+						<div class="col-lg-3">
+							<div
+								style="display: flex; flex-direction: row; align-items: center; justify-content: center; margin-top:3px">
+								<i class="fa-regular fa-clock"
+								   style="color: #000000; font-size:20px; margin-right:2px"></i>
+								<p style="font-size: 16px;"><?php echo $departure_time; ?></p>
+							</div>
+							<p style="font-size: 12px;">(<?php echo $duration; ?>)*</p>
+						</div>
+						<div class="col-lg-3">
+							<div style="display: flex; flex-direction: column; align-items: center;">
+								<div style="display: flex; flex-direction: row; align-items: center;">
+									<i class="fa-solid fa-chair"
+									   style="color: #000000; font-size: 20px; margin-right: 5px;"></i>
+									<p style="font-size: 16px;">2+1</p>
+								</div>
+								<div style="display: flex; flex-direction: row; margin-top: 12px;">
+									<p><strong><?php echo $busRouteBus['from_city_name']; ?></strong></p>
+									<i class="fa-solid fa-truck-arrow-right"
+									   style="color: #000000; font-size: 18px; margin-left: 3px; margin-right: 3px;"></i>
+									<p><strong><?php echo $busRouteBus['to_city_name']; ?></strong></p>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-2">
+							<strong style="font-size: 25px;"><?php echo $price; ?></strong>
+						</div>
+						<div class="col-lg-2">
+							<input type="button" id="koltuksecbtn" value="Koltuk Seç" data-content="<?php echo $id; ?>"
+								   style="background-color: red;color:white;">
+						</div>
+					</div>
+
+					<div id="koltuk-sec-div<?php echo $id; ?>" style="display:none">
+						<div class="row">
+							<div class="col-8">
+								<div ng-app="app" ng-controller="main" class="otobus">
+									<div style="display: flex; flex-direction: row;">
+										<img src="assets/img/direksiyon.png" alt=""
+											 style="width:30px; height:30px; margin:7px; visibility: hidden;">
+										<div class="aisle">
+											<div class="bus-row">
 												<?php
-											}
-											$i = 10; ?>
-										</div>
-										<div class="bus-row">
-											<?php
-											for ($j = 10; $j < 19; $j++) {
-												?>
-												<div ng-click="selectSeat(seat)" class="bus-seat <?php echo $busRouteSeat[$j-1]['seat_status'] == 1 ? "" : ($busRouteSeat[$j-1]['seat_status'] == 2 ? "sold" : "reserved"); ?>"
-													 ng-repeat="seat in row2">
+												for ($j = 1; $j < 10; $j++) {
+													?>
+													<div ng-click="selectSeat(seat)" class="bus-seat <?php echo $busRouteSeat[$j-1]['seat_status'] == 1 ? "" : ($busRouteSeat[$j-1]['seat_status'] == 2 ? "sold" : "reserved"); ?>"
+														 ng-repeat="seat in row1">
 													<span style="color: #000;">
-														<?= $j ?>
+														<?= $busRouteSeat[$j-1]['seat_number'] ?>
 													</span>
-												</div>
-											<?php }
-											$i = 19; ?>
+													</div>
+													<?php
+												} ?>
+											</div>
+											<div class="bus-row">
+												<?php
+												for ($j = 10; $j < 19; $j++) {
+													?>
+													<div ng-click="selectSeat(seat)" class="bus-seat <?php echo $busRouteSeat[$j-1]['seat_status'] == 1 ? "" : ($busRouteSeat[$j-1]['seat_status'] == 2 ? "sold" : "reserved"); ?>"
+														 ng-repeat="seat in row2">
+													<span style="color: #000;">
+														<?= $busRouteSeat[$j-1]['seat_number']?>
+													</span>
+													</div>
+												<?php } ?>
+											</div>
 										</div>
-									</div>
-								</div> <!-- End of flex row -->
-								<div style="display: flex; flex-direction: row; margin-top:10px;">
-									<img src="assets/img/direksiyon.png" alt=""
-										 style="width: 30px; height: 30px; margin: 7px; transform: rotate(-90deg);">
-									<div class="aisle">
-										<div class="bus-row">
-											<?php
-											for ($j = 19; $j < 28; $j++) {
-												?>
-												<div ng-click="selectSeat(seat)" class="bus-seat <?php echo $busRouteSeat[$j-1]['seat_status'] == 1 ? "" : ($busRouteSeat[$j-1]['seat_status'] == 2 ? "sold" : "reserved"); ?>"
-													 ng-repeat="seat in row1"
-													 ng-class="{sold: seat.status === 'Sold', reserved: seat.status === 'Reserved', active: seat.number == selectedSeat.number}">
+									</div> <!-- End of flex row -->
+									<div style="display: flex; flex-direction: row; margin-top:10px;">
+										<img src="assets/img/direksiyon.png" alt=""
+											 style="width: 30px; height: 30px; margin: 7px; transform: rotate(-90deg);">
+										<div class="aisle">
+											<div class="bus-row">
+												<?php
+												for ($j = 19; $j < 28; $j++) {
+													?>
+													<div ng-click="selectSeat(seat)" class="bus-seat <?php echo $busRouteSeat[$j-1]['seat_status'] == 1 ? "" : ($busRouteSeat[$j-1]['seat_status'] == 2 ? "sold" : "reserved"); ?>"
+														 ng-repeat="seat in row1"
+														 ng-class="{sold: seat.status === 'Sold', reserved: seat.status === 'Reserved', active: seat.number == selectedSeat.number}">
 															<span style="color: #000;">
-																<?= $j ?>
+																<?= $busRouteSeat[$j-1]['seat_number'] ?>
 															</span>
-												</div>
-											<?php }
-											?>
+													</div>
+												<?php }
+												?>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
 
-							<div style="display: flex; flex-direction:row; margin-top:5px;">
-								<i class="fa-solid fa-rectangle-xmark"
-								   style="color: #e21212; font-size:22px; margin-right:3px;"></i>
-								<p>Biletinizi son 2 saate kadar online iptal edebilirsiniz.</p>
-							</div>
-
-
-							<div class="legend">
-								<div class="bus-seat active">&nbsp;</div>
-								<span>Seçili</span>
-								<div class="bus-seat">&nbsp;</div>
-								<span> Müsait</span>
-								<div class="bus-seat reserved">&nbsp;</div>
-								<span> Rezerve</span>
-								<div class="bus-seat sold">&nbsp;</div>
-								<span> Dolu</span>
-							</div>
-						</div>
-						<div class="col-4 sagkisim">
-							<p>Lütfen Sol kısımdan koltuk seçiniz.</p>
-							<div>
-								<h4>Seçtiğiniz Koltuklar:</h4>
-								<div style="display: flex; flex-direction:row" id="secilikoltuklar">
-
+								<div style="display: flex; flex-direction:row; margin-top:5px;">
+									<i class="fa-solid fa-rectangle-xmark"
+									   style="color: #e21212; font-size:22px; margin-right:3px;"></i>
+									<p>Biletinizi son 2 saate kadar online iptal edebilirsiniz.</p>
 								</div>
 
+
+								<div class="legend">
+									<div class="bus-seat active">&nbsp;</div>
+									<span>Seçili</span>
+									<div class="bus-seat">&nbsp;</div>
+									<span> Müsait</span>
+									<div class="bus-seat reserved">&nbsp;</div>
+									<span> Rezerve</span>
+									<div class="bus-seat sold">&nbsp;</div>
+									<span> Dolu</span>
+								</div>
 							</div>
-							<input type="button" value="Onayla">
+							<div class="col-4 sagkisim">
+								<p>Lütfen Sol kısımdan koltuk seçiniz.</p>
+								<div>
+									<h4>Seçtiğiniz Koltuklar:</h4>
+									<div style="display: flex; flex-direction:row" id="secilikoltuklar">
+
+									</div>
+
+								</div>
+								<input type="hidden" value="<?php echo $id ?>" name="id">
+								<input type="hidden" value="" name="seat_numbers">
+								<input type="hidden" value="buying" name="operation">
+								<input type="submit" value="Onayla" data-content="<?php echo $id ?>">
+							</div>
+
+
 						</div>
-
-
 					</div>
 				</div>
 			</div>
-		</div>
+		</form>
+
 	<?php } ?>
 
 </div>
