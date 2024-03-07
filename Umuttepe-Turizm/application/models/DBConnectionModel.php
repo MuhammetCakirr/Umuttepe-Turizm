@@ -26,8 +26,36 @@ class DBConnectionModel
 	public function  createTicket($busRouteId,$contactFullName,$contactTel,$cartFullName,$cartNo,$cartMonth,$cartYear,$cartCvc,$price){
 		$link_mysql = $this->mysqlConn();
 
-		$query = "INSERT INTO tickets (bus_route_id, contact_full_name, contact_tel, cart_no, cart_full_name, cart_month, cart_year, cart_cvc, price, status, created_at)
-		VALUES ($busRouteId, '$contactFullName', '$contactTel','$cartNo', '$cartFullName', '$cartMonth', '$cartYear', '$cartCvc', $price, 1, CURRENT_TIMESTAMP)";
+		// Türkiye saatiyle ilgili zaman dilimini ayarla
+		date_default_timezone_set('Europe/Istanbul');
+
+		// Plaka Kodunu Çekme
+		$query = "SELECT c.plate_code, br.departure_time, br.bus_plate_code FROM bus_routes AS br
+				  INNER JOIN cities AS c ON br.from_city_id = c.id
+				  WHERE br.id = $busRouteId";
+		$result = mysqli_query($link_mysql, $query);
+		$row = mysqli_fetch_assoc($result);
+		$plateCode = $row['plate_code'];
+
+
+		// Öğleden Önce veya Sonra Bilgisini Belirleme
+		$departureTime = $row['departure_time'];
+		$timeOfDay = (date('H', strtotime($departureTime)) < 12) ? "ÖÖ" : "ÖS";
+
+		// Bilet Satış Zamanını Oluşturma
+		$saleTime = date('dmYHis');
+
+		// Peron Numarasını Oluşturma
+		$peronNumarasi = chr(rand(65, 90)); // A'dan Z'ye rastgele bir harf seçme
+
+		// Seferi Yapan Otobüsün Plakasını Alma
+		$busPlateCode = $row['bus_plate_code'];
+
+		// PNR Kodunu Oluşturma
+		$pnr = $plateCode . $timeOfDay . $saleTime . $peronNumarasi . $busPlateCode;
+
+		$query = "INSERT INTO tickets (bus_route_id, contact_full_name, contact_tel, cart_no, cart_full_name, cart_month, cart_year, cart_cvc, price, status,pnr, created_at)
+		VALUES ($busRouteId, '$contactFullName', '$contactTel','$cartNo', '$cartFullName', '$cartMonth', '$cartYear', '$cartCvc', $price , 1, '$pnr',CURRENT_TIMESTAMP)";
 
 		mysqli_query($link_mysql, $query);
 
@@ -80,7 +108,7 @@ class DBConnectionModel
 	{
 		$link_mysql = $this->mysqlConn();
 
-		$query = "SELECT br.*, from_city.name AS from_city_name, to_city.name AS to_city_name
+		$query = "SELECT br.*, from_city.name AS from_city_name, to_city.name AS to_city_name , from_city.plate_code AS plate_code
               FROM bus_routes AS br
               INNER JOIN cities AS from_city ON br.from_city_id = from_city.id
               INNER JOIN cities AS to_city ON br.to_city_id = to_city.id
@@ -111,12 +139,33 @@ class DBConnectionModel
 		return $busRoutes;
 	}
 
+	public function getBus()
+	{
+		$link_mysql = $this->mysqlConn();
+
+		$query = "SELECT br.*, from_city.name AS from_city_name, to_city.name AS to_city_name , from_city.plate_code AS plate_code
+              FROM bus_routes AS br
+              INNER JOIN cities AS from_city ON br.from_city_id = from_city.id
+              INNER JOIN cities AS to_city ON br.to_city_id = to_city.id
+              ORDER BY br.departure_time ASC";
+
+		$result = mysqli_query($link_mysql, $query);
+
+		$busRoutes = array();
+		while ($row = mysqli_fetch_assoc($result)) {
+			$busRoutes[] = $row;
+		}
+
+		mysqli_close($link_mysql);
+
+		return $busRoutes;
+	}
 
 	public function getCities()
 	{
 		$link_mysql = $this->mysqlConn();
 
-		$query = "SELECT id, name FROM cities";
+		$query = "SELECT * FROM cities";
 		$result = mysqli_query($link_mysql, $query);
 
 		$cities = array();
@@ -190,6 +239,20 @@ class DBConnectionModel
 		$link_mysql = $this->mysqlConn();
 
 		$query = "UPDATE account SET password = '$newPassword' WHERE id = $id";
+		$result = mysqli_query($link_mysql, $query);
+
+		if ($result) {
+			return true;
+		} else {
+			return false;
+		}
+		mysqli_close($link_mysql);
+	}
+	public function setBusPlateCode($plate,$id)
+	{
+		$link_mysql = $this->mysqlConn();
+
+		$query = "UPDATE bus_routes SET bus_plate_code = '$plate' WHERE id = $id";
 		$result = mysqli_query($link_mysql, $query);
 
 		if ($result) {

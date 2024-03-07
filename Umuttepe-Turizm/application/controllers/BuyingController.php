@@ -11,7 +11,7 @@ class BuyingController extends CI_Controller
 		$this->load->helper('url');
 	}
 
-	public function index()
+	public function index($page)
 	{
 		$id = $this->session->userdata('id');
 
@@ -58,7 +58,7 @@ class BuyingController extends CI_Controller
 						break;
 				}
 			}
-			$data['content'] = 'buying/buying';
+			$data['content'] = "buying/$page";
 			$this->load->view('template', array('data' => $data));
 		}else {
 			redirect("../login");
