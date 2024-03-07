@@ -214,6 +214,14 @@
 			height: 40%;
 			background-color: white;
 			margin-bottom: 10px;
+			transition: transform 0.3s, box-shadow 0.3s;
+		}
+
+		.bilet-container:hover {
+			transform: scale(1.05);
+			/* Büyüklük oranını artırır */
+			box-shadow: 10px 20px #888888;
+			/* Biraz daha belirgin gölge ekler */
 		}
 
 		.aisle,
@@ -224,7 +232,7 @@
 
 		.legend span {
 			font-size: 16px;
-			
+
 			font-style: italic;
 			font-family: "Times New Roman", Times, serif;
 		}
@@ -315,7 +323,8 @@
 		}
 
 		.otobus {
-			border: 1px solid #000000;
+			border: 2px solid #3d4c66;
+			background-color: aliceblue;
 			border-radius: 10px;
 		}
 
@@ -445,33 +454,50 @@
 
 		#onaylabtn {
 			border-radius: 8px;
-			/* Örneğin 8px olarak ayarladım, ihtiyacınıza göre ayarlayabilirsiniz */
+
 			background-color: slategray;
-			/* Örneğin mavi renk, ihtiyacınıza göre ayarlayabilirsiniz */
+
 			color: #ffffff;
-			/* Beyaz renk, metin rengini ihtiyacınıza göre ayarlayabilirsiniz */
+
+		}
+
+		#onaylabtn:hover {
+			background-color: yellowgreen;
+			color: black;
 		}
 
 		#koltuksecbtn {
-			
-			border-radius: 8px;
-			/* Örneğin 8px olarak ayarladım, ihtiyacınıza göre ayarlayabilirsiniz */
+			border-radius: 15px;
+			height: 45%;
 			background-color: slategray;
-			/* Örneğin mavi renk, ihtiyacınıza göre ayarlayabilirsiniz */
 			color: #ffffff;
-			/* Beyaz renk, metin rengini ihtiyacınıza göre ayarlayabilirsiniz */
+
 		}
-		.fromcityp{
+
+		#koltuksecbtn:hover {
+			background-color: beige;
+			color: black;
+			/* Başka hover efektleri ekleyebilirsiniz */
+		}
+
+		.fromcityp {
 			font-size: 22px;
 			font-family: "Lucida Console", "Courier New", monospace;
 		}
-		.bilet-iptal-p{
-			
+
+		.bilet-iptal-p {
+
 			font-family: "Times New Roman", Times, serif;
 		}
-		.koltuk-seciniz-p{
+
+		.koltuk-seciniz-p {
 			font-size: 18px;
 			font-family: "Times New Roman", Times, serif;
+		}
+
+		.kalkiscity {
+			font-size: 18px;
+			font-family: "Lucida Console", "Courier New", monospace;
 		}
 	</style>
 
@@ -481,7 +507,7 @@
 <body>
 
 	<!--Error Dialog-->
-	<div id="myModal" class="modal col-lg-12 col-md-12 col-sm-12" >
+	<div id="myModal" class="modal col-lg-12 col-md-12 col-sm-12">
 		<div class="modal-dialog modal-confirm">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -502,16 +528,17 @@
 	<!--Error Dialog End-->
 
 	<!--Warning Dialog-->
-		<div id="myModalrez" class="modal col-lg-12 col-md-12 col-sm-12">
+	<div id="myModalrez" class="modal col-lg-12 col-md-12 col-sm-12">
 		<div class="modal-dialog modal-confirm">
 			<div class="modal-content">
 				<div class="modal-header">
 					<div class="icon-box">
-					<i class="material-icons">&#xE5CD;</i>
+						<i class="material-icons">&#xE5CD;</i>
 					</div>
 				</div>
 				<div class="modal-body">
-					<p class="text-center">Bu koltuk başka bir kişi tarafından rezerve edilmiştir.Lütfen boş (beyaz renkli) koltuklardan birini seçin.</p>
+					<p class="text-center">Bu koltuk başka bir kişi tarafından rezerve edilmiştir.Lütfen boş (beyaz
+						renkli) koltuklardan birini seçin.</p>
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-warning btn-block" data-dismiss="modal">Kapat</button>
@@ -522,17 +549,18 @@
 	<!--Error Dialog End-->
 
 	<!--Warning Dialog-->
-		<div id="myModaldolu" class="modal col-lg-12 col-md-12 col-sm-12">
+	<div id="myModaldolu" class="modal col-lg-12 col-md-12 col-sm-12">
 		<div class="modal-dialog modal-confirm">
 			<div class="modal-content">
 				<div class="modal-header">
 					<div class="icon-box">
 						<i class="material-icons">&#xE5CD;</i>
 					</div>
-					
+
 				</div>
 				<div class="modal-body">
-					<p class="text-center">Seçtiğiniz koltuk zaten alınmış, lütfen boş (beyaz renkli) koltuklardan birini seçin.</p>
+					<p class="text-center">Seçtiğiniz koltuk zaten alınmış, lütfen boş (beyaz renkli) koltuklardan
+						birini seçin.</p>
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-danger btn-block" data-dismiss="modal">Kapat</button>
@@ -543,7 +571,7 @@
 	<!--Error Dialog End-->
 
 
-	<div class="container" style="margin-top: 130px; user-select: none;">
+	<div class="container" style="margin-top: 130px;">
 		<div class="card text-center">
 			<div class="card-header" id="toggleButton">
 				<ul class="nav nav-pills card-header-pills">
@@ -652,20 +680,19 @@
 						<div class="bilet-container text-center" style="padding: 20px;">
 							<div class="row">
 								<div class="col-lg-2 col-sm-12">
-									<img src="https://cdn2.enuygun.com/img/company_logos_bus/suha-turizm.png" alt="logo"
-										style="margin-left: 5px;">
+									<img src="assets/img/umuttepelogo3.png" alt="logo" style="margin-left: 5px;">
 								</div>
 								<div class="col-lg-3 col-sm-12">
 									<div
 										style="display: flex; flex-direction: row; align-items: center; justify-content: center; margin-top:3px">
 										<i class="fa-regular fa-clock"
 											style="color: #000000; font-size:20px; margin-right:5px"></i>
-										<p style="font-size: 16px;">
-											<?php echo $busRouteBus['from_city_name']. " - "  .$departure_time; ?>
+										<p class="kalkiscity">
+											<?php echo $busRouteBus['from_city_name'] . " - " . $departure_time; ?>
 										</p>
 									</div>
-									<p style="font-size: 12px;">(
-										<?php echo $busRouteBus['to_city_name']. "" .$duration; ?>)*
+									<p class="kalkiscity">(
+										<?php echo $busRouteBus['to_city_name'] . " - " . $arrival_time; ?>)*
 									</p>
 								</div>
 								<div class="col-lg-3 col-sm-12">
@@ -758,7 +785,8 @@
 										<div style="display: flex; flex-direction:row; margin-top:5px;">
 											<i class="fa-solid fa-rectangle-xmark"
 												style="color: #e21212; font-size:22px; margin-right:3px;"></i>
-											<p class="bilet-iptal-p" >Biletinizi son 2 saate kadar online iptal edebilirsiniz.</p>
+											<p class="bilet-iptal-p">Biletinizi son 2 saate kadar online iptal
+												edebilirsiniz.</p>
 										</div>
 
 
@@ -774,9 +802,10 @@
 										</div>
 									</div>
 									<div class="col-lg-4 col-md-12 col-sm-12 sagkisim">
-										<p id="koltuk-seciniz-p" class="koltuk-seciniz-p" >Lütfen Sol kısımdan koltuk seçiniz.</p>
+										<p id="koltuk-seciniz-p" class="koltuk-seciniz-p">Lütfen Sol kısımdan koltuk
+											seçiniz.</p>
 										<div>
-											<h4 id="secilen-koltuklar" >Seçtiğiniz Koltuklar:</h4>
+											<h4 id="secilen-koltuklar">Seçtiğiniz Koltuklar:</h4>
 											<div style="display: flex; flex-direction:row"
 												id="secilikoltuklar<?php echo $id; ?>">
 
@@ -784,7 +813,7 @@
 
 										</div>
 
-										<input  id="onaylabtn" type="submit" value="Onayla" data-content="<?php echo $id ?>">
+										<input id="onaylabtn" type="submit" value="Onayla" data-content="<?php echo $id ?>">
 
 										<input type="hidden" value="<?php echo $id ?>" name="id">
 										<input type="hidden" value="" name="seat_numbers">
