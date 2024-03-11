@@ -13,9 +13,9 @@ class BuyingController extends CI_Controller
 
 	public function index($page)
 	{
-		$id = $this->session->userdata('id');
+		$account_id = $this->session->userdata('id');
 
-		if ($id) {
+		if ($account_id) {
 			if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				switch ($_POST['operation']) {
 					case 'buying':
@@ -31,6 +31,7 @@ class BuyingController extends CI_Controller
 						$data['seat_numbers'] = $_POST['seat_numbers'];
 						break;
 					case 'paying':
+						$buying = $_POST['buying']; // 1 ise satın alım 2 ise rezervasyon
 						$contactFullName = $_POST['contactFullName'];
 						$contactTel = $_POST['contactTel'];
 						$seatNumbers = explode(',', $_POST['seatNumbers']);
@@ -42,7 +43,7 @@ class BuyingController extends CI_Controller
 						$id = $_POST['id'];
 						$totalPrice = $_POST['totalPrice'];
 
-						$ticketId = $this->DBConnectionModel->createTicket($id, $contactFullName, $contactTel, $cartFullName, $cartNo, $aylar, $yillar, $cartCvc, $totalPrice);
+						$ticketId = $this->DBConnectionModel->createTicket($account_id,$id, $contactFullName, $contactTel, $cartFullName, $cartNo, $aylar, $yillar, $cartCvc, $totalPrice,$buying);
 
 						foreach ($seatNumbers as $seatNumber) {
 							$passengerName = $_POST["passengerName$seatNumber"];

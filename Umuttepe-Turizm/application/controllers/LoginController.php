@@ -47,7 +47,7 @@ class LoginController extends CI_Controller
 			$this->session->set_userdata('email', $account['email']);
 			$this->session->set_userdata('name', $account['fullName']);
 			$this->load->helper('url');
-			redirect('');
+			redirect('../index');
 		} else {
 			$data['error'] = "<div class='alert alert-danger' role='alert'>Hatalı e-posta adresi veya şifre. Lütfen tekrar deneyin.</div>";
 		}

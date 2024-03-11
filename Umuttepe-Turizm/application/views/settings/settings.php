@@ -241,10 +241,7 @@
 <div class="container" style="margin-top: 130px;">
 	<div class="row">
 		<div id="contentPlaceholder" class="col-lg-8" style="background-color:whitesmoke">
-			<!-- İçerik buraya gelecek -->
-			<div>
 				<?php $this->load->view($data['contentPlaceholder'], $data); ?>
-			</div>
 		</div>
 
 		<div class="col-lg-4 pb-5">

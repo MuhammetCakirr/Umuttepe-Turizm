@@ -23,7 +23,25 @@ class DBConnectionModel
 		mysqli_query($link_mysql, "COLLATE 'utf8_turkish_ci'");
 		return $link_mysql;
 	}
-	public function  createTicket($busRouteId,$contactFullName,$contactTel,$cartFullName,$cartNo,$cartMonth,$cartYear,$cartCvc,$price){
+
+	public function  getTicketById($id){
+		$link_mysql = $this->mysqlConn();
+		$query = "SELECT *
+              FROM tickets 
+              WHERE account_id = $id";
+		$result = mysqli_query($link_mysql, $query);
+
+		$tickets = array();
+		while ($row = mysqli_fetch_assoc($result)) {
+			$tickets[] = $row;
+		}
+		$data = $tickets;
+		mysqli_close($link_mysql);
+
+		return $data;
+	}
+
+	public function  createTicket($id,$busRouteId,$contactFullName,$contactTel,$cartFullName,$cartNo,$cartMonth,$cartYear,$cartCvc,$price,$buying){
 		$link_mysql = $this->mysqlConn();
 
 		// Türkiye saatiyle ilgili zaman dilimini ayarla
@@ -54,8 +72,8 @@ class DBConnectionModel
 		// PNR Kodunu Oluşturma
 		$pnr = $plateCode . $timeOfDay . $saleTime . $peronNumarasi . $busPlateCode;
 
-		$query = "INSERT INTO tickets (bus_route_id, contact_full_name, contact_tel, cart_no, cart_full_name, cart_month, cart_year, cart_cvc, price, status,pnr, created_at)
-		VALUES ($busRouteId, '$contactFullName', '$contactTel','$cartNo', '$cartFullName', '$cartMonth', '$cartYear', '$cartCvc', $price , 1, '$pnr',CURRENT_TIMESTAMP)";
+		$query = "INSERT INTO tickets (account_id,bus_route_id, contact_full_name, contact_tel, cart_no, cart_full_name, cart_month, cart_year, cart_cvc, price, status,pnr, created_at)
+		VALUES ($id,$busRouteId, '$contactFullName', '$contactTel','$cartNo', '$cartFullName', '$cartMonth', '$cartYear', '$cartCvc', $price , $buying, '$pnr',CURRENT_TIMESTAMP)";
 
 		mysqli_query($link_mysql, $query);
 

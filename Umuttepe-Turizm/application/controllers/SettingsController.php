@@ -40,16 +40,19 @@ class SettingsController extends CI_Controller
 					}
 				} else {
 					switch ($page) {
+						case 'biletlerim':
+							$data['biletlerim'] = $this->biletlerim();
+							break;
 						case 'hesap_bilgilerim':
 							$data['hesapBilgilerim'] = $this->hesapBilgilerim();
 							break;
 						case 'cikis':
 							$this->cikis();
-							redirect('');
+							redirect('../index');
 							return;
 						case 'hesabimi_sil':
 							$this->hesabimiSil();
-							redirect('');
+							redirect('../index');
 							return;
 						default:
 							break;
@@ -57,12 +60,18 @@ class SettingsController extends CI_Controller
 				}
 				$this->load->view('template', array('data' => $data));
 			} else {
-				redirect('');
+				redirect('../index');
 			}
 		} else {
 
 			redirect('../login');
 		}
+	}
+
+	public function biletlerim()
+	{
+		$id = $this->session->userdata('id');
+		return $this->DBConnectionModel->getTicketById($id);
 	}
 
 	public function hesapBilgilerimiGuncelle()

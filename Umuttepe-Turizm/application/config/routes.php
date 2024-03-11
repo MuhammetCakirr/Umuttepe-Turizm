@@ -12,6 +12,7 @@ $route['checkout'] = 'HomeController/changePage/checkout';
 $route['contact'] = 'HomeController/changePage/contact';
 $route['news'] = 'HomeController/changePage/news';
 $route['shop'] = 'HomeController/changePage/shop';
+$route['maps'] = 'HomeController/changePage/maps';
 
 $route['login'] = 'LoginController/index/login';
 $route['register'] = 'LoginController/index/register';
