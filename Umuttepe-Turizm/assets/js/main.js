@@ -25,33 +25,6 @@
             }
         });
 
-        // homepage slider
-        $(".homepage-slider").owlCarousel({
-            items: 1,
-            loop: true,
-            autoplay: true,
-            nav: true,
-            dots: false,
-            navText: ['<i class="fas fa-angle-left"></i>', '<i class="fas fa-angle-right"></i>'],
-            responsive:{
-                0:{
-                    items:1,
-                    nav:false,
-                    loop:true
-                },
-                600:{
-                    items:1,
-                    nav:true,
-                    loop:true
-                },
-                1000:{
-                    items:1,
-                    nav:true,
-                    loop:true
-                }
-            }
-        });
-
         // logo carousel
         $(".logo-carousel-inner").owlCarousel({
             items: 4,
@@ -167,3 +140,20 @@
 
 }(jQuery));
 
+document.addEventListener('DOMContentLoaded', function() {
+    const oneWayRadio = document.getElementById('flexRadioDefault1');
+    const roundTripRadio = document.getElementById('flexRadio2');
+    const returnDateField = document.querySelector('.col-md-3.col-sm-12:nth-child(4)');
+
+    oneWayRadio.addEventListener('change', function() {
+        if (oneWayRadio.checked) {
+            returnDateField.style.display = 'none';
+        }
+    });
+
+    roundTripRadio.addEventListener('change', function() {
+        if (roundTripRadio.checked) {
+            returnDateField.style.display = 'block';
+        }
+    });
+});

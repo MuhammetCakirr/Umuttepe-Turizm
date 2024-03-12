@@ -8,6 +8,14 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 		integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
 		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+		integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+
 	<title>Document</title>
 	<style>
 		.form-control {
@@ -20,9 +28,8 @@
 			border-radius: 10px;
 			padding: 10px;
 			margin-bottom: 15px;
-			
-		}
 
+		}
 
 		.l-radio {
 			padding: 6px;
@@ -71,9 +78,9 @@
 		}
 
 		.month {
-			width: 50%;
+			width: 100%;
 			border: 1px solid grey;
-			border-radius: 10px;
+			border-radius: 5px;
 			padding: 6px;
 			margin-right: 5px;
 		}
@@ -103,6 +110,7 @@
 			border-bottom-left-radius: 10px;
 			border-bottom-right-radius: 10px;
 		}
+
 		.custom-buttonrez {
 			margin-top: 5px;
 			width: 100%;
@@ -118,20 +126,21 @@
 			align-items: center;
 			transition: transform 0.3s, box-shadow 0.3s;
 		}
-		.custom-buttonrez:hover{
+
+		.custom-buttonrez:hover {
 			transform: scale(1.05);
 			background-color: steelblue;
 		}
 
 		.custom-buttonrez i {
 			margin-right: 10px;
-			
+
 		}
 
 		.custom-buttonrez span {
 			flex-grow: 1;
 			text-align: center;
-			
+
 		}
 
 		.custom-buttonrez .right-arrow-icon {
@@ -153,22 +162,23 @@
 			align-items: center;
 			transition: transform 0.3s, box-shadow 0.3s;
 		}
-		.custom-button:hover{
+
+		.custom-button:hover {
 			transform: scale(1.05);
 			/* Büyüklük oranını artırır */
-			
-			
+
+
 		}
 
 		.custom-button i {
 			margin-right: 10px;
-			
+
 		}
 
 		.custom-button span {
 			flex-grow: 1;
 			text-align: center;
-			
+
 		}
 
 		.custom-button .right-arrow-icon {
@@ -198,6 +208,120 @@
 			width: 100%;
 
 		}
+
+		.modal-confirm {
+			color: #636363;
+
+			margin: auto;
+			position: fixed;
+			top: 20%;
+			/* Sayfanın yüzde 40'ında başlat */
+			left: 40%;
+
+			z-index: 9999;
+			/* Modal pencerenin diğer elemanların üzerine gelmesi için */
+		}
+
+		.modal-confirm .modal-content {
+			padding: 20px;
+			border-radius: 5px;
+			border: none;
+		}
+
+		.modal-confirm .modal-header {
+			border-bottom: none;
+			position: relative;
+		}
+
+		.modal-confirm h4 {
+			text-align: center;
+			font-size: 26px;
+			margin: 30px 0 -15px;
+		}
+
+		.modal-confirm .form-control,
+		.modal-confirm .btn {
+			min-height: 40px;
+			border-radius: 3px;
+		}
+
+		.modal-confirm .close {
+			position: absolute;
+			top: -5px;
+			right: -5px;
+		}
+
+		.modal-confirm .modal-footer {
+			border: none;
+			text-align: center;
+			border-radius: 5px;
+			font-size: 13px;
+		}
+
+		.modal-confirm .icon-box {
+			color: #fff;
+			position: absolute;
+			margin: 0 auto;
+			left: 0;
+			right: 0;
+			top: -70px;
+			width: 95px;
+			height: 95px;
+			border-radius: 50%;
+			z-index: 9;
+			background: #ef513a;
+			padding: 15px;
+			text-align: center;
+			box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+		}
+
+		.modal-confirm .icon-box i {
+			font-size: 56px;
+			position: relative;
+			top: 4px;
+		}
+
+		.modal-confirm .btn {
+			color: #fff;
+			border-radius: 4px;
+			background: #ef513a;
+			text-decoration: none;
+			transition: all 0.4s;
+			line-height: normal;
+			border: none;
+		}
+
+		.modal-confirm .btn:hover,
+		.modal-confirm .btn:focus {
+			background: #da2c12;
+			outline: none;
+		}
+
+
+		@media (max-width: 768px) {
+			.otobus {
+				overflow-x: auto;
+				/* Sağa doğru kaydırma için */
+				white-space: nowrap;
+				/* Satır atlamayı engelle */
+				width: 100%;
+				/* Genişliği 100% olarak ayarla */
+			}
+
+			.modal-confirm {
+				color: #636363;
+				margin: auto;
+				position: fixed;
+				top: 20%;
+				/* Sayfanın yüzde 40'ında başlat */
+				left: 0%;
+				width: 100%;
+				z-index: 9999;
+				/* Modal pencerenin diğer elemanların üzerine gelmesi için */
+			}
+
+
+		}
 	</style>
 </head>
 
@@ -218,8 +342,7 @@
 
 						</div>
 						<div class="col-lg-6 col-sm-12">
-							<img src="assets/img/umuttepelogo6.png" alt="kartlar"
-								style="width: 100%; height:100%;">
+							<img src="assets/img/umuttepelogo6.png" alt="kartlar" style="width: 100%; height:100%;">
 						</div>
 					</div>
 					<div style="display:flex; flex-direction:row; padding-left: 10px; padding-right: 10px;">
@@ -372,21 +495,38 @@
 						</div>
 					</div>
 					<!-- İLETİŞİM BİLGİLERİ KUTUSU END -->
-
 					<!-- GİDİŞ YOLCU BİLGİLERİ KUTUSU -->
-					<?php
-					foreach ($data['seatNumbers'] as $number) {
-						?>
-						<div class="kutular">
-							<div style="display:flex; flex-direction:row">
+					<div class="kutular">
+						<div style="display:flex; flex-direction:row">
+							<i class="fa-solid fa-user"
+								style="color: #071327; font-size: 15px; margin-top:5px; margin-right:5px;"></i>
+							<h6 style="margin-top:3px;">Yolcu Bilgileri</h6>
+						</div>
+						<?php
+						foreach ($data['seatNumbers'] as $number) {
+							?>
+							<div class="row">
+								<div class="col-lg-6 col-sm-12">
+									<p style="margin-top: 5px; color:blue;">
+										<?= $number ?>. Koltuk yolcu bilgisi
+									</p>
+								</div>
+								<div class="col-lg-6 col-sm-12" style="text-align: right;">									
+									<p id="kisifiyat<?= $number ?>"  style="margin-top: 5px; color:grey; font-size:16px;">
+										<?php
+										$seatNumbers = $data['seat_numbers'];
+										$totalprice =$data['totalPrice'];
+										$seatNumberArray = explode(',', $seatNumbers);
+										$numberOfSeats = count($seatNumberArray);
+										$personprice=$totalprice/$numberOfSeats;
+										?>
+										 <?= $personprice ?> TL
+									</p>
 
-								<i class="fa-solid fa-user"
-									style="color: #071327; font-size: 15px; margin-top:5px; margin-right:5px;"></i>
-								<h6 style="margin-top:3px;">Yolcu Bilgileri</h6>
+								</div>
+
 							</div>
-							<p style="margin-top: 5px; color:blue;">
-								<?= $number ?>. Koltuk yolcu bilgisi
-							</p>
+
 							<div class="row">
 								<input type="hidden" name="passengerName<?= $number ?>">
 								<div class="col-lg-6 col-sm-12 form-group">
@@ -397,19 +537,59 @@
 								<div class="col-lg-6 col-sm-12 form-group">
 									<label for="account-fn">Soyad</label>
 									<input class="form-control" type="text" id="account-fn"
-										name="passengerSurname<?= $number ?>" placeholder="(5xx) xxx xx xx " required>
+										name="passengerSurname<?= $number ?>" placeholder="" required>
 								</div>
 								<div class="col-lg-6 col-sm-12 form-group">
 									<label for="account-fn">T.C. Kimlik No</label>
 									<input class="form-control" type="text" id="account-fn" name="passengerTc<?= $number ?>"
 										required>
 								</div>
+
+								<div class="col-lg-6 col-sm-12 form-group">
+									<label for="dogumTarih"> Doğum Tarihi </label>
+									<input class="dogumTarih form-control" type="date" id="dogumTarih<?= $number ?>" name="dogumTarih"
+										value="">
+								</div>
+								<div class="col-lg-6 col-sm-12 form-group">
+									<label for="tarife<?= $number ?>">Tarife</label>
+									<select id="tarife<?= $number ?>" name="tarife" class="month form-control" onchange="kontrolEt()">
+										<option value="1" selected>Genç (13-26)</option>
+										<option value="2">Çocuk (7-12)</option>
+										<option value="3">Yaşlı (65+)</option>
+										<option value="4">Öğretmen</option>
+										<option value="5">TSK Çalışan</option>
+										<option value="6">Basın (Press)</option>
+									</select>
+								</div>
+
+								<!--Error Dialog-->
+								<div id="myModal" class="modal col-lg-12 col-md-12 col-sm-12">
+									<div class="modal-dialog modal-confirm">
+										<div class="modal-content">
+											<div class="modal-header">
+												<div class="icon-box">
+													<i class="material-icons">&#xE5CD;</i>
+												</div>
+												<h4 class="modal-title">HATA!</h4>
+											</div>
+											<div class="modal-body">
+												<p style="font-size: 17px;" class="text-center">Seçtiğiniz tarife ile
+													yaşınız uyuşmuyor.</p>
+											</div>
+											<div class="modal-footer">
+												<button class="btn btn-danger btn-block" data-dismiss="modal">Kapat</button>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!--Error Dialog End-->
+
 								<div class="col-lg-6 col-sm-12 form-group">
 									<label for="cinsiyet">Cinsiyet</label>
 									<div id="cinsiyet">
 										<label for="f-option<?= $number ?>" class="l-radio">
 											<input type="radio" id="f-option<?= $number ?>"
-												name="passengeSelector<?= $number ?>" value="0" tabindex="1">
+												name="passengeSelector<?= $number ?>" value="0" tabindex="1" checked>
 											<span>Kadın</span>
 										</label>
 										<label for="s-option<?= $number ?>" class="l-radio">
@@ -419,11 +599,13 @@
 										</label>
 									</div>
 								</div>
+
 							</div>
 							<p>Servis rezervasyonu için biletinizi aldıktan sonra otobüs firması ile görüşebilirsiniz.</p>
 							<hr>
-						</div>
-					<?php } ?>
+
+						<?php } ?>
+					</div>
 					<!-- GİDİŞ YOLCU BİLGİLERİ KUTUSU END -->
 
 					<!-- ÖDEME BİLGİLERİ KUTUSU -->
@@ -516,16 +698,16 @@
 						</div>
 						<input type="hidden" name="id" value="<?= $data['id'] ?>">
 						<input type="hidden" name="seatNumbers" value="<?= $data['seat_numbers'] ?>">
-						<input type="hidden" name="totalPrice" value="<?= $data['totalPrice'] ?>">
+						<input type="hidden" name="totalPrice" id="totalprice" value="<?= $data['totalPrice'] ?>">
 						<input type="hidden" name="operation" value="paying">
 						<div class="row">
 							<div class="col-lg-6 col-sm-12">
-								<button class="custom-button" type="submit" name="buying" value="1">
+								<button class="custom-button" type="submit">
 									<i class="fas fa-shield-alt"></i>
 									<div style="display: flex; flex-direction:column">
-										<span> <strong>
-												<?= $data['totalPrice'] ?> TL
-											</strong> </span>
+										<span id="totalpricee"> <strong >
+										<?= $data['totalPrice'] ?> TL </strong>
+											  </span>
 										<p style="color: white;">Güvenli ödeme yap </p>
 									</div>
 
@@ -533,17 +715,16 @@
 								</button>
 							</div>
 							<div class="col-lg-6 col-sm-12">
-							<button class="custom-buttonrez"  type="submit" name="buying" value="2
-">
-							<i style="visibility: hidden;" class="fas fa-shield-alt"></i>
-							<div style="display: flex; flex-direction:column">
-								<span> <strong>
-										<?= $data['totalPrice'] ?> TL
-									</strong> </span>
-								<p>Rezervasyon Yap </p>
-							</div>
-							<i class="fas fa-chevron-right right-arrow-icon"></i>
-						</button>
+								<button class="custom-buttonrez" type="submit">
+									<i style="visibility: hidden;" class="fas fa-shield-alt"></i>
+									<div style="display: flex; flex-direction:column">
+										<span> <strong id="totalpricerez">
+												<?= $data['totalPrice'] ?> TL
+											</strong> </span>
+										<p>Rezervasyon Yap </p>
+									</div>
+									<i class="fas fa-chevron-right right-arrow-icon"></i>
+								</button>
 							</div>
 						</div>
 
@@ -557,6 +738,7 @@
 
 		</div>
 	</div>
+	<script src="assets/js/buying.js"></script>
 </body>
 
 </html>
