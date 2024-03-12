@@ -16,7 +16,7 @@ class BuyingController extends CI_Controller
 		$account_id = $this->session->userdata('id');
 
 		if ($account_id) {
-			if ($_SERVER["REQUEST_METHOD"] == "POST") {
+			if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['operation'])) {
 				switch ($_POST['operation']) {
 					case 'buying':
 						$id = $_POST['id'];
@@ -55,8 +55,6 @@ class BuyingController extends CI_Controller
 						}
 						redirect("../biletlerim");
 						return;
-					default:
-						break;
 				}
 			}
 			$data['content'] = "buying/$page";

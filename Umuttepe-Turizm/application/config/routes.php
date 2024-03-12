@@ -27,6 +27,11 @@ $route['hesabimi_sil'] = 'SettingsController/index/hesabimi_sil';
 
 $route['tickets'] = 'TicketController/index';
 $route['buying'] = 'BuyingController/index/buying';
+$route['barcode'] = 'BuyingController/index/barcode';
+$route['barcodeIndex'] = 'BuyingController/index/index';
+
+$route['qr'] = 'Render/index';
+
 
 
 

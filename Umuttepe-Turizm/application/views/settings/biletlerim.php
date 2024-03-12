@@ -1,4 +1,9 @@
 <?php print_r($data['biletlerim']) ?>
+
+<?php
+echo '<img class="barcode" alt="'.$data['biletlerim'][4]['pnr'].'" src="Render/barcode?text='.$data['biletlerim'][4]['pnr'].'"/>';
+echo '<img class="qr" alt="arabam" src="Render/qr?text='.$data['biletlerim'][4]['pnr'].'"/>';
+?>
 <div class="card text-center">
 	<div class="card-header">
 		<ul class="nav nav-pills card-header-pills">

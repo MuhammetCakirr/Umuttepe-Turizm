@@ -58,7 +58,7 @@ class DBConnectionModel
 
 		// Öğleden Önce veya Sonra Bilgisini Belirleme
 		$departureTime = $row['departure_time'];
-		$timeOfDay = (date('H', strtotime($departureTime)) < 12) ? "ÖÖ" : "ÖS";
+		$timeOfDay = (date('H', strtotime($departureTime)) < 12) ? "OO" : "OS";
 
 		// Bilet Satış Zamanını Oluşturma
 		$saleTime = date('dmYHis');

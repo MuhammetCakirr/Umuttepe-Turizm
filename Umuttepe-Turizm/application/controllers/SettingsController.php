@@ -9,7 +9,6 @@ class SettingsController extends CI_Controller
 		$this->load->library('session');
 		$this->load->model('DBConnectionModel');
 		$this->load->helper('url');
-
 	}
 
 	public function index($page)
@@ -71,7 +70,13 @@ class SettingsController extends CI_Controller
 	public function biletlerim()
 	{
 		$id = $this->session->userdata('id');
-		return $this->DBConnectionModel->getTicketById($id);
+		$result = $this->DBConnectionModel->getTicketById($id);
+		foreach ($result as $row){
+			//$barcodeImage = $this->ZendModel->generateBarcode($row['pnr']);
+			//echo $barcodeImage;
+
+		}
+		return $result;
 	}
 
 	public function hesapBilgilerimiGuncelle()
