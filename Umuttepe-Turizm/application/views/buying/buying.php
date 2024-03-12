@@ -702,7 +702,7 @@
 						<input type="hidden" name="operation" value="paying">
 						<div class="row">
 							<div class="col-lg-6 col-sm-12">
-								<button class="custom-button" type="submit">
+								<button class="custom-button" type="submit" name="buying" value="1">
 									<i class="fas fa-shield-alt"></i>
 									<div style="display: flex; flex-direction:column">
 										<span id="totalpricee"> <strong >
@@ -715,7 +715,7 @@
 								</button>
 							</div>
 							<div class="col-lg-6 col-sm-12">
-								<button class="custom-buttonrez" type="submit">
+								<button class="custom-buttonrez" type="submit" name="buying" value="2" >
 									<i style="visibility: hidden;" class="fas fa-shield-alt"></i>
 									<div style="display: flex; flex-direction:column">
 										<span> <strong id="totalpricerez">
