@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'homecontroller/index';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
-$route['index'] = 'HomeController/changePage/index';
+$route['index'] = 'HomeController/index';
 $route['about'] = 'HomeController/changePage/about';
 $route['404'] = 'HomeController/changePage/404';
 $route['cart'] = 'HomeController/changePage/cart';

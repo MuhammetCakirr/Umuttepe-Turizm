@@ -48,9 +48,11 @@ class DBConnectionModel
 		date_default_timezone_set('Europe/Istanbul');
 
 		// Plaka Kodunu Çekme
-		$query = "SELECT c.plate_code, br.departure_time, br.bus_plate_code FROM bus_routes AS br
-				  INNER JOIN cities AS c ON br.from_city_id = c.id
+		$query = "SELECT c.plate_code, br.departure_date ,r.departure_time, r.bus_plate_code FROM bus_routes AS br
+				  INNER JOIN routes AS r ON r.id = br.routes_id
+				  INNER JOIN cities AS c ON r.from_city_id = c.id
 				  WHERE br.id = $busRouteId";
+
 		$result = mysqli_query($link_mysql, $query);
 		$row = mysqli_fetch_assoc($result);
 		$plateCode = $row['plate_code'];
@@ -109,10 +111,12 @@ class DBConnectionModel
 
 	public function  getBusRoute($id){
 		$link_mysql = $this->mysqlConn();
-		$query = "SELECT br.*, from_city.name AS from_city_name, to_city.name AS to_city_name
+		$query = "SELECT br.departure_date,br.id as bus_routes_id,r.id as routes_id,r.departure_time,r.arrival_time,r.price,r.bus_plate_code,
+       		  from_city.name AS from_city_name, to_city.name AS to_city_name
               FROM bus_routes AS br
-              INNER JOIN cities AS from_city ON br.from_city_id = from_city.id
-              INNER JOIN cities AS to_city ON br.to_city_id = to_city.id
+              INNER JOIN routes AS r ON r.id = br.routes_id
+              INNER JOIN cities AS from_city ON r.from_city_id = from_city.id
+              INNER JOIN cities AS to_city ON r.to_city_id = to_city.id
               WHERE br.id = $id";
 
 		$result = mysqli_query($link_mysql, $query);
@@ -126,29 +130,32 @@ class DBConnectionModel
 	{
 		$link_mysql = $this->mysqlConn();
 
-		$query = "SELECT br.*, from_city.name AS from_city_name, to_city.name AS to_city_name , from_city.plate_code AS plate_code
-              FROM bus_routes AS br
-              INNER JOIN cities AS from_city ON br.from_city_id = from_city.id
-              INNER JOIN cities AS to_city ON br.to_city_id = to_city.id
-              WHERE br.from_city_id = $fromCityId AND br.to_city_id = $toCityId
-              AND DATE(br.departure_time) = '$departureDate'
-              ORDER BY br.departure_time ASC";
+		$query = "SELECT br.departure_date,br.id as bus_routes_id,r.id as routes_id,r.departure_time,r.arrival_time,r.price,r.bus_plate_code, 
+       				from_city.name AS from_city_name, to_city.name AS to_city_name , from_city.plate_code AS plate_code 
+					FROM bus_routes AS br INNER JOIN routes AS r ON r.id = br.routes_id 
+					    INNER JOIN cities AS from_city ON r.from_city_id = from_city.id 
+					    INNER JOIN cities AS to_city ON r.to_city_id = to_city.id 
+					WHERE r.from_city_id = $fromCityId AND r.to_city_id = $toCityId AND DATE(br.departure_date) = '$departureDate' 
+					AND br.isActive = 1 ORDER BY r.departure_time ASC;";
 
 		$result = mysqli_query($link_mysql, $query);
 
 		$busRoutes = array();
 		while ($row = mysqli_fetch_assoc($result)) {
-			$query2 = "SELECT *
-              FROM seat_availability WHERE bus_route_id = '".$row['id']."'" ;
+			$query2 = "SELECT seat_number, seat_status
+                   FROM seat_availability
+                   WHERE bus_route_id = '".$row['bus_routes_id']."'";
 			$result2 = mysqli_query($link_mysql, $query2);
 
 			$seats = array();
 			while ($row2 = mysqli_fetch_assoc($result2)) {
 				$seats[] = $row2;
+
 			}
+
 			$busRoutes[] = array(
 				'bus' => $row,
-				'seat' => $seats
+				'seats' => $seats
 			);
 		}
 
@@ -157,12 +164,13 @@ class DBConnectionModel
 		return $busRoutes;
 	}
 
-	public function getBus()
+
+	public function getRoutes()
 	{
 		$link_mysql = $this->mysqlConn();
 
 		$query = "SELECT br.*, from_city.name AS from_city_name, to_city.name AS to_city_name , from_city.plate_code AS plate_code
-              FROM bus_routes AS br
+              FROM routes AS br
               INNER JOIN cities AS from_city ON br.from_city_id = from_city.id
               INNER JOIN cities AS to_city ON br.to_city_id = to_city.id
               ORDER BY br.departure_time ASC";
@@ -270,7 +278,7 @@ class DBConnectionModel
 	{
 		$link_mysql = $this->mysqlConn();
 
-		$query = "UPDATE bus_routes SET bus_plate_code = '$plate' WHERE id = $id";
+		$query = "UPDATE routes SET bus_plate_code = '$plate' WHERE id = $id";
 		$result = mysqli_query($link_mysql, $query);
 
 		if ($result) {

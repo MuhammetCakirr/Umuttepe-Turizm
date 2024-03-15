@@ -1,47 +1,71 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class TicketController extends CI_Controller {
-	public function __construct() {
+class TicketController extends CI_Controller
+{
+	public function __construct()
+	{
 		parent::__construct();
 		$this->load->library('session');
 		$this->load->model('DBConnectionModel');
+		$this->load->helper('url');
 	}
 
-	public function index() {
+	public function index()
+	{
 		$cities = $this->DBConnectionModel->getCities();
-
-		if ($_SERVER["REQUEST_METHOD"] == "POST"){
-			if($_POST['operation'] == "searchTicket"){
-				$data['fromCityId'] = isset($_POST['fromCityId']) ? $_POST['fromCityId'] : 1;
-				$data['toCityId']= isset($_POST['toCityId']) ? $_POST['toCityId'] : 2;
-				$data['gTarih'] = isset($_POST['gTarih']) ? $_POST['gTarih'] : date('Y-m-d', strtotime('-3 day'));
-			}else if($_POST['operation'] == "buying"){
-				if($_POST['seat_numbers'] == ''){
-					$data['gTarih'] = date('Y-m-d', strtotime('-3 day'));
+		$data['isSingle'] = true;
+		if ($_SERVER["REQUEST_METHOD"] == "POST") {
+			switch ($_POST['operation']) {
+				case 'homeSearch':
+					$data['fromCityId'] = isset($_POST['fromCityId']) ? $_POST['fromCityId'] : 1;
+					$data['toCityId'] = isset($_POST['toCityId']) ? $_POST['toCityId'] : 2;
+					$data['gTarih'] = isset($_POST['gTarih']) ? $_POST['gTarih'] : date('Y-m-d');
+					$data['dTarih'] = isset($_POST['dTarih']) ? $_POST['dTarih'] : date('Y-m-d');
+					$data['seferTuru'] = isset($_POST['seferTuru']) ? $_POST['seferTuru'] == "1" ? 1 : 2 : 1;
+					$this->session->set_userdata('fromCityId', $data['fromCityId']);
+					$this->session->set_userdata('toCityId', $data['toCityId']);
+					$this->session->set_userdata('gTarih', $data['gTarih']);
+					$this->session->set_userdata('dTarih', $data['dTarih']);
+					$this->session->set_userdata('seferTuru', $data['seferTuru']);
+					$this->session->set_userdata('isFirstTicket', !($data['seferTuru'] == 1));
+					break;
+				case 'searchTicket':
+					$data['fromCityId'] = isset($_POST['fromCityId']) ? $_POST['fromCityId'] : 1;
+					$data['toCityId'] = isset($_POST['toCityId']) ? $_POST['toCityId'] : 2;
+					$data['gTarih'] = isset($_POST['gTarih']) ? $_POST['gTarih'] : date('Y-m-d');
+					break;
+				case 'buying':
+					$data['id'] = $_POST['id'];
+					if($this->session->userdata('isFirstTicket')){
+						$this->session->set_userdata('isFirstTicket', false);
+						$data['fromCityId'] = $this->session->userdata('toCityId');
+						$data['toCityId'] = $this->session->userdata('fromCityId');
+						$data['gTarih'] = $this->session->userdata('dTarih');
+						$this->session->set_userdata('bus_id1', $data['id']);
+						$this->session->set_userdata('seat_numbers1', $_POST['seat_numbers']);
+					}else{
+						$this->session->set_userdata('seat_numbers2', $_POST['seat_numbers']);
+						$this->session->set_userdata('bus_id2', $data['id']);
+						redirect('../buying');
+						return;
+					}
+					break;
+				default :
+					$data['gTarih'] = date('Y-m-d');
 					$data['fromCityId'] = 1;
 					$data['toCityId'] = 2;
-					$data['error'] = "<div class='alert alert-danger' role='alert'>Lütfen en az birkoltuk seçiniz.</div>";
-				}else {
-					// burada buraya gelen post verileri ile buying sayfasına post et
-					$data['content'] = "buying/buying";
-					$data['seat_numbers'] = $_POST['seat_numbers'];
-					$data['id'] = $_POST['id'];
-					$this->load->view('template', array('data' => $data));
-					return;
-				}
+					break;
 			}
-		}else{
-			$data['gTarih'] = date('Y-m-d', strtotime('-3 day'));
+		} else {
+			$data['gTarih'] = date('Y-m-d');
 			$data['fromCityId'] = 1;
 			$data['toCityId'] = 2;
 		}
-		$data['busRoutes'] = $this->DBConnectionModel->getBusRoutesWithSeats($data['fromCityId'] , $data['toCityId'], $data['gTarih']);
-
+		$data['busRoutes'] = $this->DBConnectionModel->getBusRoutesWithSeats($data['fromCityId'], $data['toCityId'], $data['gTarih']);
 		$data['fromCity'] = $this->getCityNameById($data['fromCityId'], $cities);
 		$data['toCity'] = $this->getCityNameById($data['toCityId'], $cities);
 
-		// gTarih = 2024-03-03 dır
 		$data['gTarihFormat'] = $this->tarihFormat($data['gTarih']);
 
 
@@ -52,7 +76,8 @@ class TicketController extends CI_Controller {
 	}
 
 	// Şehir adını id'ye göre almak için bir fonksiyon
-	public function getCityNameById($cityId, $cities) {
+	public function getCityNameById($cityId, $cities)
+	{
 		foreach ($cities as $city) {
 			if ($city['id'] == $cityId) {
 				return $city['name'];
@@ -60,7 +85,9 @@ class TicketController extends CI_Controller {
 		}
 		return '';
 	}
-	public function tarihFormat($gTarih) {
+
+	public function tarihFormat($gTarih)
+	{
 		$aylar = array(
 			'01' => 'Ocak',
 			'02' => 'Şubat',

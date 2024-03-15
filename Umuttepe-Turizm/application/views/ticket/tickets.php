@@ -666,15 +666,17 @@
 
 		<?php foreach ($data['busRoutes'] as $busRoute) {
 			$busRouteBus = $busRoute['bus'];
-			$busRouteSeat = $busRoute['seat'];
+			$busRouteSeat = $busRoute['seats'];
+			$departure_datetime = date('Y-m-d H:i', strtotime($busRouteBus['departure_date'] . ' ' . $busRouteBus['departure_time']));
+			$arrival_datetime = date('Y-m-d H:i', strtotime($busRouteBus['departure_date'] . ' ' . $busRouteBus['arrival_time']));
 			$departure_time = date('H:i', strtotime($busRouteBus['departure_time']));
 			$arrival_time = date('H:i', strtotime($busRouteBus['arrival_time']));
-			$duration = gmdate('H:i', strtotime($busRouteBus['arrival_time']) - strtotime($busRouteBus['departure_time']));
+			$duration = gmdate('H:i', strtotime($arrival_datetime) - strtotime($departure_datetime));
 			$price = isset($busRouteBus['price']) ? $busRouteBus['price'] . " TL" : 'Belirtilmemiş';
-			$id = $busRouteBus['id'];
+			$id = $busRouteBus['bus_routes_id'];
 			$j = 0;
 			?>
-			<form action="buying" method="post">
+			<form action="tickets" method="post">
 				<div class="container" style="margin-top: 30px; margin-bottom: 30px">
 					<div>
 						<div class="bilet-container text-center" style="padding: 20px;">
@@ -691,8 +693,8 @@
 											<?php echo $busRouteBus['from_city_name'] . " - " . $departure_time; ?>
 										</p>
 									</div>
-									<p class="kalkiscity">(
-										<?php echo $busRouteBus['to_city_name'] . " - " . $arrival_time; ?>)*
+									<p class="kalkiscity">
+										<?php echo $busRouteBus['to_city_name'] . " - " . $arrival_time; ?>
 									</p>
 								</div>
 								<div class="col-lg-3 col-sm-12">
@@ -808,21 +810,17 @@
 											<h4 id="secilen-koltuklar">Seçtiğiniz Koltuklar:</h4>
 											<div style="display: flex; flex-direction:row"
 												id="secilikoltuklar<?php echo $id; ?>">
-
 											</div>
 
 										</div>
 
 										<input id="onaylabtn" type="submit" value="Onayla" data-content="<?php echo $id ?>">
 
+										<input type="hidden" value="<?php echo $this->session->userdata('isFirstTicket') ?>" name="isFirstTicket">
 										<input type="hidden" value="<?php echo $id ?>" name="id">
 										<input type="hidden" value="" name="seat_numbers">
 										<input type="hidden" value="buying" name="operation">
-
-
-
 									</div>
-
 								</div>
 							</div>
 						</div>
