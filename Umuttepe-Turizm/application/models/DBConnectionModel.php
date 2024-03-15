@@ -24,15 +24,42 @@ class DBConnectionModel
 		return $link_mysql;
 	}
 
+	public function getTarife(){
+		$link_mysql = $this->mysqlConn();
+		$query = "SELECT * FROM tarife ";
+		$result = mysqli_query($link_mysql, $query);
+
+		$tarife = array();
+		while ($row = mysqli_fetch_assoc($result)) {
+			$tarife[] = $row;
+		}
+
+		return $tarife;
+	}
+
 	public function  getTicketById($id){
 		$link_mysql = $this->mysqlConn();
-		$query = "SELECT *
-              FROM tickets 
+		$query = "SELECT t.*,br.departure_date,br.created_at,r.departure_time,r.arrival_time,r.price,r.bus_plate_code,from_city.name as from_city_name ,to_city.name as to_city_name,br.isActive 
+			  FROM tickets as t
+              INNER JOIN bus_routes as br on br.id = t.bus_route_id 
+              INNER JOIN routes as r on r.id = br.routes_id  
+              INNER JOIN cities AS from_city ON r.from_city_id = from_city.id
+              INNER JOIN cities AS to_city ON r.to_city_id = to_city.id
               WHERE account_id = $id";
 		$result = mysqli_query($link_mysql, $query);
 
 		$tickets = array();
 		while ($row = mysqli_fetch_assoc($result)) {
+			$query2 = "SELECT p.name,p.surname,p.tc,p.gender,p.seat_number,p.birthday,p.tarife as tarife,ta.name as tarife_name FROM passenger as p 
+    					INNER JOIN tickets as t on t.id = p.ticket_id
+    					INNER JOIN tarife as ta on ta.id = p.tarife";
+
+			$result2 = mysqli_query($link_mysql, $query2);
+			$passengers = array();
+			while ($row2 = mysqli_fetch_assoc($result2)) {
+				$passengers[] = $row2;
+			}
+			$row['passenger'] = $passengers;
 			$tickets[] = $row;
 		}
 		$data = $tickets;

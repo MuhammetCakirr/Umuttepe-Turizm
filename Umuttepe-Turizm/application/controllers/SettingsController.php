@@ -41,6 +41,7 @@ class SettingsController extends CI_Controller
 					switch ($page) {
 						case 'biletlerim':
 							$data['biletlerim'] = $this->biletlerim();
+							$data['tarife'] = $this->DBConnectionModel->getTarife();
 							break;
 						case 'hesap_bilgilerim':
 							$data['hesapBilgilerim'] = $this->hesapBilgilerim();
@@ -70,13 +71,7 @@ class SettingsController extends CI_Controller
 	public function biletlerim()
 	{
 		$id = $this->session->userdata('id');
-		$result = $this->DBConnectionModel->getTicketById($id);
-		foreach ($result as $row){
-			//$barcodeImage = $this->ZendModel->generateBarcode($row['pnr']);
-			//echo $barcodeImage;
-
-		}
-		return $result;
+		return $this->DBConnectionModel->getTicketById($id);
 	}
 
 	public function hesapBilgilerimiGuncelle()
