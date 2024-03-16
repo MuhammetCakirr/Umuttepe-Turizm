@@ -255,7 +255,7 @@
 			font-size: 20px;
 			background-repeat: no-repeat;
 			background-size: cover;
-			/* Resmi boyutlandırma */
+
 		}
 
 		.bus-seat.sold {
@@ -312,7 +312,6 @@
 		}
 
 		.bus-seat.activee {
-
 			width: 40px;
 			height: 40px;
 			background: url(https://i.imgur.com/lXv7u3Y.png);
@@ -340,13 +339,11 @@
 
 		.modal-confirm {
 			color: #636363;
-
 			margin: auto;
 			position: fixed;
 			top: 20%;
 			/* Sayfanın yüzde 40'ında başlat */
 			left: 40%;
-
 			z-index: 9999;
 			/* Modal pencerenin diğer elemanların üzerine gelmesi için */
 		}
@@ -499,12 +496,41 @@
 			font-size: 18px;
 			font-family: "Lucida Console", "Courier New", monospace;
 		}
+
+		.input-hidden {
+			position: absolute;
+			left: -9999px;
+		}
+
+		input[type=radio]+label>img {
+			width: 100px;
+			height: 100px;
+			transition: 500ms all;
+			border-radius: 100px;
+		}
+
+		input[type=radio]:checked+label>img {
+			border: 1px solid #fff;
+			box-shadow: 0 0 3px 3px #090;
+		}
+
+		input[type=radio]:checked+label>img {
+			transform:
+				< !-- rotateZ(-10deg) rotateX(10deg);
+			-->
+		}
+
+		#select-gender {
+			display: flex;
+			flex-direction: row;
+		}
 	</style>
 
 
 </head>
 
 <body>
+
 
 	<!--Error Dialog-->
 	<div id="myModal" class="modal col-lg-12 col-md-12 col-sm-12">
@@ -556,7 +582,6 @@
 					<div class="icon-box">
 						<i class="material-icons">&#xE5CD;</i>
 					</div>
-
 				</div>
 				<div class="modal-body">
 					<p class="text-center">Seçtiğiniz koltuk zaten alınmış, lütfen boş (beyaz renkli) koltuklardan
@@ -571,6 +596,7 @@
 	<!--Error Dialog End-->
 
 
+
 	<div class="container" style="margin-top: 130px;">
 		<div class="card text-center">
 			<div class="card-header" id="toggleButton">
@@ -579,7 +605,7 @@
 						<div class="flex-container">
 							<div>
 								<strong>
-									<?php echo isset($data) ? $data['fromCity'] : ""; ?>
+									<?php echo isset ($data) ? $data['fromCity'] : ""; ?>
 								</strong>
 							</div>
 							<div>
@@ -618,9 +644,9 @@
 							<div class="form-group">
 								<label for="fromCityId"> <strong>Nereden</strong> </label>
 								<select class="fromCityId" id="fromCityId" name="fromCityId" required>
-									<?php if (isset($data['cities'])) {
+									<?php if (isset ($data['cities'])) {
 										foreach ($data['cities'] as $city): ?>
-											<option value="<?php echo $city['id']; ?>" style="text-color:black;" <?php echo isset($data['fromCityId']) && $data['fromCityId'] == $city['id'] ? 'selected' : ''; ?>>
+											<option value="<?php echo $city['id']; ?>" style="text-color:black;" <?php echo isset ($data['fromCityId']) && $data['fromCityId'] == $city['id'] ? 'selected' : ''; ?>>
 												<?php echo $city['name']; ?>
 											</option>
 										<?php endforeach;
@@ -634,7 +660,7 @@
 								<label for="toCityId"> <strong>Nereye</strong> </label>
 								<select class="toCityId" id="toCityId" name="toCityId" required>
 									<?php foreach ($data['cities'] as $city): ?>
-										<option value="<?php echo $city['id']; ?>" <?php echo isset($data['toCityId']) && $data['toCityId'] == $city['id'] ? 'selected' : ''; ?>>
+										<option value="<?php echo $city['id']; ?>" <?php echo isset ($data['toCityId']) && $data['toCityId'] == $city['id'] ? 'selected' : ''; ?>>
 											<?php echo $city['name']; ?>
 										</option>
 									<?php endforeach; ?>
@@ -645,7 +671,7 @@
 							<div class="form-group">
 								<label for="gTarih"> <strong>Gidiş Tarihi</strong> </label>
 								<input class="gTarih" type="date" id="gTarih" name="gTarih"
-									value="<?php echo isset($data['gTarih']) ? $data['gTarih'] : date('Y-m-d'); ?>">
+									value="<?php echo isset ($data['gTarih']) ? $data['gTarih'] : date('Y-m-d'); ?>">
 							</div>
 						</div>
 						<div class="col-lg-3 col-md-6 col-sm-12">
@@ -672,10 +698,42 @@
 			$departure_time = date('H:i', strtotime($busRouteBus['departure_time']));
 			$arrival_time = date('H:i', strtotime($busRouteBus['arrival_time']));
 			$duration = gmdate('H:i', strtotime($arrival_datetime) - strtotime($departure_datetime));
-			$price = isset($busRouteBus['price']) ? $busRouteBus['price'] . " TL" : 'Belirtilmemiş';
+			$price = isset ($busRouteBus['price']) ? $busRouteBus['price'] . " TL" : 'Belirtilmemiş';
 			$id = $busRouteBus['bus_routes_id'];
 			$j = 0;
 			?>
+			<?php
+			for ($j = 1; $j < 28; $j++) {
+				?>
+				<div id="myModalcinsiyet" data-content="<?= $busRouteSeat[$j - 1]['seat_number'] ?><?php echo $id; ?>"
+					class="modal col-lg-12 col-md-12 col-sm-12">
+					<div class="modal-dialog modal-confirm">
+						<div class="modal-content">
+							<div class="modal-header">
+								<p class="text-center" id="cinsiyettext"
+									data-content="<?= $busRouteSeat[$j - 1]['seat_number'] ?><?php echo $id; ?>"></p>
+							</div>
+							<div class="modal-body">
+								<div id="select-gender">
+									<input type="radio" name="emotion" id="sad<?= $busRouteSeat[$j - 1]['seat_number'] ?><?php echo $id; ?>" class="input-hidden" />
+									<label for="sad<?= $busRouteSeat[$j - 1]['seat_number'] ?><?php echo $id; ?>">
+										<img
+											src="https://cdn3.iconfinder.com/data/icons/business-avatar-1/512/8_avatar-512.png" />
+									</label>
+
+									<input type="radio" name="emotion" id="happy<?= $busRouteSeat[$j - 1]['seat_number'] ?><?php echo $id; ?>" class="input-hidden"  />
+									<label for="happy<?= $busRouteSeat[$j - 1]['seat_number'] ?><?php echo $id; ?>">
+										<img
+											src="https://cdn3.iconfinder.com/data/icons/business-avatar-1/512/11_avatar-512.png" />
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<?php
+			} ?>
+
 			<form action="tickets" method="post">
 				<div class="container" style="margin-top: 30px; margin-bottom: 30px">
 					<div>
@@ -727,8 +785,8 @@
 							</div>
 							<div id="koltuk-sec-div<?php echo $id; ?>" style="display:none">
 								<div class="row">
-
 									<div class="col-lg-8  col-sm-12">
+
 										<div ng-app="app" ng-controller="main" class="otobus">
 											<div style="display: flex; flex-direction: row;">
 												<img src="assets/img/direksiyon.png" alt=""
@@ -738,12 +796,17 @@
 														<?php
 														for ($j = 1; $j < 10; $j++) {
 															?>
+
 															<div
 																class="bus-seat <?php echo $busRouteSeat[$j - 1]['seat_status'] == 1 ? "" : ($busRouteSeat[$j - 1]['seat_status'] == 2 ? "sold" : "reserved"); ?>">
-																<span style="color: #000;">
+																<span style="color: #000;"
+																	data-content="<?= $busRouteSeat[$j - 1]['seat_number'] ?><?php echo $id; ?>">
 																	<?= $busRouteSeat[$j - 1]['seat_number'] ?>
 																</span>
 															</div>
+															<input type="text"
+																id="<?= $busRouteSeat[$j - 1]['seat_number'] ?><?php echo $id; ?>"
+																style="display: none;">
 															<?php
 														} ?>
 													</div>
@@ -751,17 +814,22 @@
 														<?php
 														for ($j = 10; $j < 19; $j++) {
 															?>
+
 															<div ng-click="selectSeat(seat)"
 																class="bus-seat <?php echo $busRouteSeat[$j - 1]['seat_status'] == 1 ? "" : ($busRouteSeat[$j - 1]['seat_status'] == 2 ? "sold" : "reserved"); ?>"
 																ng-repeat="seat in row2">
-																<span style="color: #000;">
+																<span style="color: #000;"
+																	data-content="<?= $busRouteSeat[$j - 1]['seat_number'] ?><?php echo $id; ?>">
 																	<?= $busRouteSeat[$j - 1]['seat_number'] ?>
 																</span>
 															</div>
 														<?php } ?>
 													</div>
 												</div>
-											</div> <!-- End of flex row -->
+											</div>
+
+
+											<!-- End of flex row -->
 											<div style="display: flex; flex-direction: row; margin-top:10px;">
 												<img src="assets/img/direksiyon.png" alt=""
 													style="width: 30px; height: 30px; margin: 7px; transform: rotate(-90deg);">
@@ -770,11 +838,13 @@
 														<?php
 														for ($j = 19; $j < 28; $j++) {
 															?>
+
 															<div ng-click="selectSeat(seat)"
 																class="bus-seat <?php echo $busRouteSeat[$j - 1]['seat_status'] == 1 ? "" : ($busRouteSeat[$j - 1]['seat_status'] == 2 ? "sold" : "reserved"); ?>"
 																ng-repeat="seat in row1"
 																ng-class="{sold: seat.status === 'Sold', reserved: seat.status === 'Reserved', active: seat.number == selectedSeat.number}">
-																<span style="color: #000;">
+																<span style="color: #000;"
+																	data-content="<?= $busRouteSeat[$j - 1]['seat_number'] ?><?php echo $id; ?>">
 																	<?= $busRouteSeat[$j - 1]['seat_number'] ?>
 																</span>
 															</div>
@@ -816,7 +886,8 @@
 
 										<input id="onaylabtn" type="submit" value="Onayla" data-content="<?php echo $id ?>">
 
-										<input type="hidden" value="<?php echo $this->session->userdata('isFirstTicket') ?>" name="isFirstTicket">
+										<input type="hidden" value="<?php echo $this->session->userdata('isFirstTicket') ?>"
+											name="isFirstTicket">
 										<input type="hidden" value="<?php echo $id ?>" name="id">
 										<input type="hidden" value="" name="seat_numbers">
 										<input type="hidden" value="buying" name="operation">

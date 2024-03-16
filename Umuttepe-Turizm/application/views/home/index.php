@@ -157,6 +157,13 @@
 	input:checked + section.box .box-title:before {
 		transform: rotate(90deg);
 	}
+	.anasayfa-input{
+		border: 1px solid black;
+		border-radius: 10px;
+		width: 100%;
+		padding: 10px;
+
+	}
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 	  integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
@@ -211,7 +218,7 @@
 										<div class="col-md-3 col-sm-12">
 											<div class="form-group">
 												<h6 for="from" style="font-size: 15px!important">Kalkış:</h6>
-												<select class="fromCityId form-select p-2" id="fromCityId"
+												<select class="fromCityId form-select anasayfa-input" id="fromCityId"
 														name="fromCityId" required>
 													<?php if (isset($data['cities'])) {
 														foreach ($data['cities'] as $city): ?>
@@ -227,7 +234,7 @@
 										<div class="col-md-3 col-sm-12">
 											<div class="form-group">
 												<h6 for="from" style="font-size: 15px!important">Varış:</h6>
-												<select class="toCityId form-select p-2" id="toCityId" name="toCityId"
+												<select class="toCityId form-select  anasayfa-input" id="toCityId" name="toCityId"
 														required>
 													<?php foreach ($data['cities'] as $city): ?>
 														<option
@@ -241,7 +248,7 @@
 										<div class="col-md-3 col-sm-12">
 											<div class="form-group">
 												<h6 for="from" style="font-size: 15px!important">Gidiş Tarihi:</h6>
-												<input class="gTarih p-1" type="date" id="gTarih" name="gTarih"
+												<input class="gTarih anasayfa-input" type="date" id="gTarih" name="gTarih"
 													   value="<?php echo isset($data['gTarih']) ? $data['gTarih'] : date('Y-m-d'); ?>"
 													   min="<?php echo date('Y-m-d'); ?>">
 											</div>
@@ -249,7 +256,7 @@
 										<div class="col-md-3 col-sm-12">
 											<div class="form-group">
 												<h6 for="from" style="font-size: 15px!important">Dönüş Tarihi:</h6>
-												<input class="dTarih p-1" type="date" id="dTarih" name="dTarih"
+												<input class="dTarih anasayfa-input" type="date" id="dTarih" name="dTarih"
 													   value="<?php echo isset($data['dTarih']) ? $data['dTarih'] : date('Y-m-d'); ?>"
 													   min="<?php echo isset($data['gTarih']) ? $data['gTarih'] : date('Y-m-d'); ?>">
 											</div>
