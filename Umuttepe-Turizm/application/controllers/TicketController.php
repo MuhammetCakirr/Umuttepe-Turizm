@@ -37,19 +37,27 @@ class TicketController extends CI_Controller
 					break;
 				case 'buying':
 					$data['id'] = $_POST['id'];
-					if($this->session->userdata('isFirstTicket')){
-						$this->session->set_userdata('isFirstTicket', false);
-						$data['fromCityId'] = $this->session->userdata('toCityId');
-						$data['toCityId'] = $this->session->userdata('fromCityId');
-						$data['gTarih'] = $this->session->userdata('dTarih');
+					if($this->session->userdata('seferTuru') == 2){
+						if($this->session->userdata('isFirstTicket')){
+							$this->session->set_userdata('isFirstTicket', false);
+							$data['fromCityId'] = $this->session->userdata('toCityId');
+							$data['toCityId'] = $this->session->userdata('fromCityId');
+							$data['gTarih'] = $this->session->userdata('dTarih');
+							$this->session->set_userdata('bus_id1', $data['id']);
+							$this->session->set_userdata('seat_numbers1', $_POST['seat_numbers']);
+						}else{
+							$this->session->set_userdata('seat_numbers2', $_POST['seat_numbers']);
+							$this->session->set_userdata('bus_id2', $data['id']);
+							redirect('../buying');
+							return;
+						}
+					}else{
 						$this->session->set_userdata('bus_id1', $data['id']);
 						$this->session->set_userdata('seat_numbers1', $_POST['seat_numbers']);
-					}else{
-						$this->session->set_userdata('seat_numbers2', $_POST['seat_numbers']);
-						$this->session->set_userdata('bus_id2', $data['id']);
 						redirect('../buying');
 						return;
 					}
+
 					break;
 				default :
 					$data['gTarih'] = date('Y-m-d');

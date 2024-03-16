@@ -32,6 +32,9 @@ $route['barcodeIndex'] = 'BuyingController/index/index';
 
 $route['qr'] = 'Render/index';
 
+$route['admin'] = 'AdminController/index';
+
+
 
 
 

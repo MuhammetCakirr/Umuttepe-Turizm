@@ -65,6 +65,7 @@ class BuyingController extends CI_Controller
 					$data['seat_numbers2'] = $this->session->userdata('seat_numbers2');
 				}
 			}
+			$data['tarife'] = $this->DBConnectionModel->getTarife();
 			$data['content'] = "buying/$page";
 			$this->load->view('template', array('data' => $data));
 		}else {

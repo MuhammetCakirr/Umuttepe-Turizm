@@ -936,7 +936,7 @@
 					<input type="hidden" name="id" value="<?= $data['id'] ?>">
 					<input type="hidden" name="seatNumbers" value="<?= $data['seat_numbers'] ?>">
 					<input type="hidden" name="totalPrice" id="totalprice"
-						   value="<?= $data['totalPrice1'] + $data['totalPrice2'] ?>">
+						   value="<?= $data['totalPrice1'] + (isset($data['id2']) ? $data['totalPrice2'] : 0) ?>">
 					<input type="hidden" name="operation" value="paying">
 					<div class="row">
 						<div class="col-lg-6 col-sm-12">
@@ -944,7 +944,7 @@
 								<i class="fas fa-shield-alt"></i>
 								<div style="display: flex; flex-direction:column">
 										<span id="totalpricee"> <strong>
-										<?= $data['totalPrice1'] + $data['totalPrice2'] ?> TL </strong>
+										<?= $data['totalPrice1'] + (isset($data['id2']) ? $data['totalPrice2'] : 0) ?> TL </strong>
 											  </span>
 									<p style="color: white;">Güvenli ödeme yap </p>
 								</div>
@@ -957,7 +957,7 @@
 								<i style="visibility: hidden;" class="fas fa-shield-alt"></i>
 								<div style="display: flex; flex-direction:column">
 										<span> <strong id="totalpricerez">
-												<?= $data['totalPrice1'] + $data['totalPrice2'] ?> TL
+												<?= $data['totalPrice1'] + (isset($data['id2']) ? $data['totalPrice2'] : 0) ?> TL
 											</strong> </span>
 									<p>Rezervasyon Yap </p>
 								</div>
