@@ -17,27 +17,84 @@ class BuyingController extends CI_Controller
 		if ($account_id) {
 			if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['operation'])) {
 				if ($_POST['operation'] == 'paying') {
-					$buying = $_POST['buying']; // 1 ise satın alım 2 ise rezervasyon
-					$contactFullName = $_POST['contactFullName'];
-					$contactTel = $_POST['contactTel'];
-					$seatNumbers = explode(',', $_POST['seatNumbers']);
-					$cartNo = $_POST['cartNo'];
-					$cartFullName = $_POST['cartFullName'];
-					$aylar = $_POST['aylar'];
-					$yillar = $_POST['yıllar'];
-					$cartCvc = $_POST['cartCvc'];
-					$id = $_POST['id'];
-					$totalPrice = $_POST['totalPrice'];
 
-					$ticketId = $this->DBConnectionModel->createTicket($account_id, $id, $contactFullName, $contactTel, $cartFullName, $cartNo, $aylar, $yillar, $cartCvc, $totalPrice, $buying);
+					if($this->session->userdata('seferTuru') != "2"){
+						$buying = $_POST['buying']; // 1 ise satın alım 2 ise rezervasyon
+						$contactFullName = $_POST['contactFullName'];
+						$contactTel = $_POST['contactTel'];
+						$seatNumbers = explode(',', $_POST['seatNumbers']);
+						$cartNo = $_POST['cartNo'];
+						$cartFullName = $_POST['cartFullName'];
+						$aylar = $_POST['aylar'];
+						$yillar = $_POST['yıllar'];
+						$cartCvc = $_POST['cartCvc'];
+						$id = $_POST['id'];
+						$totalPrice = $_POST['totalPrice'];
 
-					foreach ($seatNumbers as $seatNumber) {
-						$passengerName = $_POST["passengerName$seatNumber"];
-						$passengerSurname = $_POST["passengerSurname$seatNumber"];
-						$passengerTc = $_POST["passengerTc$seatNumber"];
-						$passengeSelector = $_POST["passengeSelector$seatNumber"];
-						$this->DBConnectionModel->createPassenger($ticketId, $passengerName, $passengerSurname, $passengerTc, $passengeSelector, $seatNumber);
-						$this->DBConnectionModel->changeSeatAvailability($id, $seatNumber, 2);
+						$ticketId = $this->DBConnectionModel->createTicket($account_id, $id, $contactFullName, $contactTel, $cartFullName, $cartNo, $aylar, $yillar, $cartCvc, $totalPrice, $buying);
+
+						foreach ($seatNumbers as $seatNumber) {
+							$parts = explode('-', $seatNumber);
+							$koltuk_numarasi = $parts[0];
+							$cinsiyet = $parts[1] == "Erkek" ? 1 : 0;
+							$passengerName = $_POST["passengerName$seatNumber"];
+							$passengerSurname = $_POST["passengerSurname$seatNumber"];
+							$passengerTc = $_POST["passengerTc$seatNumber"];
+							//$passengeSelector = $_POST["passengeSelector$seatNumber"];
+							$tarife = isset($_POST["passengerTarife$seatNumber"]) ? $_POST["passengerTarife$seatNumber"] : 1 ;
+							$birthday = $_POST["passengerBirthdayGidis$seatNumber"];
+							$paymentType = $_POST["buying"];
+							$this->DBConnectionModel->createPassenger($ticketId, $passengerName, $passengerSurname, $passengerTc, $cinsiyet, $koltuk_numarasi,$tarife,$birthday);
+							$this->DBConnectionModel->changeSeatAvailability($id, $koltuk_numarasi, $paymentType);
+
+						}
+					}else{
+						$buying = $_POST['buying']; // 1 ise satın alım 2 ise rezervasyon
+						$contactFullName = $_POST['contactFullName'];
+						$contactTel = $_POST['contactTel'];
+						$cartNo = $_POST['cartNo'];
+						$cartFullName = $_POST['cartFullName'];
+						$aylar = $_POST['aylar'];
+						$yillar = $_POST['yıllar'];
+						$cartCvc = $_POST['cartCvc'];
+						$totalPrice = $_POST['totalPrice'];
+						$id = $_POST['id'];
+						$seatNumbers = explode(',', $_POST['seatNumbers']);
+						$ticketId = $this->DBConnectionModel->createTicket($account_id, $id, $contactFullName, $contactTel, $cartFullName, $cartNo, $aylar, $yillar, $cartCvc, $totalPrice, $buying);
+						foreach ($seatNumbers as $seatNumber) {
+							$parts = explode('-', $seatNumber);
+							$koltuk_numarasi = $parts[0];
+							$cinsiyet = $parts[1] == "Erkek" ? 1 : 0;
+
+							$passengerName = $_POST["passengerName$seatNumber"];
+							$passengerSurname = $_POST["passengerSurname$seatNumber"];
+							$passengerTc = $_POST["passengerTc$seatNumber"];
+							//$passengeSelector = $_POST["passengeSelector$seatNumber"];
+							$tarife = isset($_POST["passengerTarife$seatNumber"]) ? $_POST["passengerTarife$seatNumber"] : 1 ;
+							$birthday = $_POST["passengerBirthdayGidis$seatNumber"];
+							$paymentType = $_POST["buying"];
+							$this->DBConnectionModel->createPassenger($ticketId, $passengerName, $passengerSurname, $passengerTc, $cinsiyet, $koltuk_numarasi,$tarife,$birthday);
+							$this->DBConnectionModel->changeSeatAvailability($id, $koltuk_numarasi, $paymentType);
+						}
+
+						$id2 = $_POST['id2'];
+						$seatNumbers2 = explode(',', $_POST['seatNumbers2']);
+						$ticketId2 = $this->DBConnectionModel->createTicket($account_id, $id2, $contactFullName, $contactTel, $cartFullName, $cartNo, $aylar, $yillar, $cartCvc, $totalPrice, $buying);
+						foreach ($seatNumbers2 as $seatNumber) {
+							$parts = explode('-', $seatNumber);
+							$koltuk_numarasi = $parts[0];
+							$cinsiyet = $parts[1] == "Erkek" ? 1 : 0;
+
+							$passengerName = $_POST["passengerName$seatNumber"];
+							$passengerSurname = $_POST["passengerSurname$seatNumber"];
+							$passengerTc = $_POST["passengerTc$seatNumber"];
+							//$passengeSelector = $_POST["passengeSelector$seatNumber"];
+							$tarife = isset($_POST["passengerTarife$seatNumber"]) ? $_POST["passengerTarife$seatNumber"] : 1 ;
+							$birthday = $_POST["passengerBirthdayDonus$seatNumber"];
+							$paymentType = $_POST["buying"];
+							$result = $this->DBConnectionModel->createPassenger($ticketId2, $passengerName, $passengerSurname, $passengerTc, $cinsiyet, $koltuk_numarasi,$tarife,$birthday);
+							$this->DBConnectionModel->changeSeatAvailability($id2, $koltuk_numarasi, $paymentType);
+						}
 					}
 					redirect("../biletlerim");
 					return;

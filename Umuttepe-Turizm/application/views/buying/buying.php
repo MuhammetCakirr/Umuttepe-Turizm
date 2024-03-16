@@ -658,14 +658,14 @@
 							</div>
 
 							<div class="col-lg-6 col-sm-12 form-group">
-								<label for="dogumTarih"> Doğum Tarihi </label>
-								<input class="dogumTarih form-control" type="date" id="dogumTarih<?= $number ?>"
-									   name="dogumTarih"
+								<label for="passengerBirthdayGidis<?= $number ?>"> Doğum Tarihi </label>
+								<input class="passengerBirthdayGidis form-control" type="date" id="passengerBirthdayGidis<?= $number ?>"
+									   name="passengerBirthdayGidis<?= $number ?>"
 									   value="">
 							</div>
 							<div class="col-lg-6 col-sm-12 form-group">
-								<label for="tarife<?= $number ?>">Tarife</label>
-								<select id="tarife<?= $number ?>" name="tarife" class="month form-control"
+								<label for="passengerTarife<?= $number ?>">Tarife</label>
+								<select id="passengerTarife<?= $number ?>" name="passengerTarife<?= $number ?>" class="month form-control"
 										onchange="kontrolEt()">
 									<option value="1" selected>Genç (13-26)</option>
 									<option value="2">Çocuk (7-12)</option>
@@ -777,14 +777,14 @@
 								</div>
 
 								<div class="col-lg-6 col-sm-12 form-group">
-									<label for="dogumTarih"> Doğum Tarihi </label>
-									<input class="dogumTarih form-control" type="date" id="dogumTarih<?= $number ?>"
-										   name="dogumTarih"
+									<label for="passengerBirthdayDonus<?= $number ?>"> Doğum Tarihi </label>
+									<input class="passengerBirthdayDonus form-control" type="date" id="passengerBirthdayDonus<?= $number ?>"
+										   name="passengerBirthdayDonus<?= $number ?>"
 										   value="">
 								</div>
 								<div class="col-lg-6 col-sm-12 form-group">
-									<label for="tarife<?= $number ?>">Tarife</label>
-									<select id="tarife<?= $number ?>" name="tarife" class="month form-control"
+									<label for="passengerTarife<?= $number ?>">Tarife</label>
+									<select id="passengerTarife<?= $number ?>" name="passengerTarife<?= $number ?>" class="month form-control"
 											onchange="kontrolEt()">
 										<option value="1" selected>Genç (13-26)</option>
 										<option value="2">Çocuk (7-12)</option>
@@ -934,7 +934,9 @@
 							işlemler güvenlik sertifikalarıyla korunmaktadır.</p>
 					</div>
 					<input type="hidden" name="id" value="<?= $data['id'] ?>">
+					<?php echo isset($data['id2']) ? "<input type='hidden' name='id2' value='".$data['id2']."' ?>'>" : "";?>
 					<input type="hidden" name="seatNumbers" value="<?= $data['seat_numbers'] ?>">
+					<?php echo isset($data['id2']) ? "<input type='hidden' name='seatNumbers2' value='".$data['seat_numbers2']."' ?>'>" : "";?>
 					<input type="hidden" name="totalPrice" id="totalprice"
 						   value="<?= $data['totalPrice1'] + (isset($data['id2']) ? $data['totalPrice2'] : 0) ?>">
 					<input type="hidden" name="operation" value="paying">

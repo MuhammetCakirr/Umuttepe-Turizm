@@ -111,11 +111,11 @@ class DBConnectionModel
 		mysqli_close($link_mysql);
 	}
 
-	public function createPassenger($ticketId,$passengerName,$passengerSurname,$passengerTc,$passengeSelector,$seatNumber){
+	public function createPassenger($ticketId,$passengerName,$passengerSurname,$passengerTc,$passengeSelector,$seatNumber,$tarife,$birthday){
 		$link_mysql = $this->mysqlConn();
 
-		$query = "INSERT INTO passenger (ticket_id, passenger_name, passenger_surname, passenger_tc, passenger_gender,seat_number,created_at)
-		VALUES ($ticketId, '$passengerName', '$passengerSurname','$passengerTc', $passengeSelector,$seatNumber, CURRENT_TIMESTAMP)";
+		$query = "INSERT INTO passenger (ticket_id, name, surname, tc, gender,seat_number,created_at,tarife,birthday)
+		VALUES ($ticketId, '$passengerName', '$passengerSurname','$passengerTc', $passengeSelector,$seatNumber, CURRENT_TIMESTAMP,$tarife,'$birthday')";
 
 		$result = mysqli_query($link_mysql, $query);
 
