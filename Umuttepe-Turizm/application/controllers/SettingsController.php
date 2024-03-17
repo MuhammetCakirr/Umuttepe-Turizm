@@ -126,7 +126,7 @@ class SettingsController extends CI_Controller
 		$user = $this->DBConnectionModel->getUserInfo($id);
 
 		// Kullanıcının mevcut şifresini kontrol et
-		if ($mevcutSifre === $user['password']) {
+		if (password_verify($mevcutSifre, $user['password'])) {
 			if ($yeniSifre === $yeniSifreTekrar) {
 				$this->DBConnectionModel->updateUserPassword($id, $yeniSifre);
 				return "<div class='alert alert-success' role='alert'>Şifreniz başarıyla güncellendi!</div>";
@@ -137,6 +137,7 @@ class SettingsController extends CI_Controller
 			return "<div class='alert alert-danger' role='alert'>Mevcut şifreniz yanlış!</div>";
 		}
 	}
+
 
 
 	public function cikis()

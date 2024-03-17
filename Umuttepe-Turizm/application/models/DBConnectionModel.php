@@ -249,19 +249,26 @@ class DBConnectionModel
 		$link_mysql = $this->mysqlConn();
 
 		$email = mysqli_real_escape_string($link_mysql, $email);
-		$password = mysqli_real_escape_string($link_mysql, $password);
 
-		$query = "SELECT id, email, fullName FROM account WHERE email = '$email' AND password = '$password' AND isActive = 1";
+		$query = "SELECT id, email, fullName, password FROM account WHERE email = '$email' AND isActive = 1";
 		$result = mysqli_query($link_mysql, $query);
 
 		if ($result && mysqli_num_rows($result) == 1) {
-			return mysqli_fetch_assoc($result);
-		} else {
-			return false;
+			$user = mysqli_fetch_assoc($result);
+
+			$hashedPasswordFromDB = $user['password'];
+
+			if (password_verify($password, $hashedPasswordFromDB)) {
+				mysqli_close($link_mysql);
+				unset($user['password']);
+				return $user;
+			}
 		}
 
 		mysqli_close($link_mysql);
+		return false;
 	}
+
 
 	public function updateUserInfo($id, $fullName, $tcKimlikNo, $email, $tel, $gender, $birthDate)
 	{
@@ -287,20 +294,28 @@ class DBConnectionModel
 		mysqli_close($link_mysql);
 	}
 
+
 	public function updateUserPassword($id, $newPassword)
 	{
 		$link_mysql = $this->mysqlConn();
 
-		$query = "UPDATE account SET password = '$newPassword' WHERE id = $id";
+		$newPassword = mysqli_real_escape_string($link_mysql, $newPassword);
+		$hashedNewPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+		$query = "UPDATE account SET password = '$hashedNewPassword' WHERE id = $id";
+
 		$result = mysqli_query($link_mysql, $query);
 
-		if ($result) {
+		if ($result && mysqli_affected_rows($link_mysql) > 0) {
+			mysqli_close($link_mysql);
 			return true;
 		} else {
+			mysqli_close($link_mysql);
 			return false;
 		}
-		mysqli_close($link_mysql);
 	}
+
+
 	public function setBusPlateCode($plate,$id)
 	{
 		$link_mysql = $this->mysqlConn();
@@ -353,23 +368,31 @@ class DBConnectionModel
 	{
 		$link_mysql = $this->mysqlConn();
 
+		// Şifrelenmiş şifreyi oluştur
+		$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+		// Güvenlik amacıyla kullanıcı girişi değerlerini filtrele
 		$fullName = mysqli_real_escape_string($link_mysql, $fullName);
 		$email = mysqli_real_escape_string($link_mysql, $email);
 		$birthDate = mysqli_real_escape_string($link_mysql, $birthDate);
 		$gender = mysqli_real_escape_string($link_mysql, $gender);
 		$tcKimlikNo = mysqli_real_escape_string($link_mysql, $tcKimlikNo);
 		$tel = mysqli_real_escape_string($link_mysql, $tel);
-		$password = mysqli_real_escape_string($link_mysql, $password);
 
-		$query = "INSERT INTO account (fullName, email, birthDate, gender, tcKimlikNo, tel, password, isActive) VALUES ('$fullName', '$email', '$birthDate', '$gender', '$tcKimlikNo', '$tel', '$password', 1)";
+		// SQL sorgusunu oluştur
+		$query = "INSERT INTO account (fullName, email, birthDate, gender, tcKimlikNo, tel, password, isActive) 
+              VALUES ('$fullName', '$email', '$birthDate', '$gender', '$tcKimlikNo', '$tel', '$hashedPassword', 1)";
+
+		// Sorguyu çalıştır ve sonucu kontrol et
 		$result = mysqli_query($link_mysql, $query);
 
+		// Sonucu değerlendir ve işlem başarılı ise true döndür
 		if ($result) {
+			mysqli_close($link_mysql);
 			return true;
 		} else {
+			mysqli_close($link_mysql);
 			return false;
 		}
-
-		mysqli_close($link_mysql);
 	}
 }
