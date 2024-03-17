@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-	  integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-	  crossorigin="anonymous" referrerpolicy="no-referrer"/>
+	integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
 	.biletlerim-container {
 		margin-left: 10px;
@@ -17,13 +17,14 @@
 		box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
 	}
 
-	.biletlerim-container > .row > .col-lg-3 {
+	.biletlerim-container>.row>.col-lg-3 {
 		display: flex;
 		justify-content: flex-end;
 		align-items: center;
 	}
 
 	.bileti-incele-p {
+
 		font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 		font-size: 16px;
 	}
@@ -42,20 +43,53 @@
 
 	.bilet-bilgi {
 
-		margin-bottom: 4px;
+		margin-bottom: 1px;
 		display: flex;
 		flex-direction: column;
 	}
 
 	#yolcu-bilgileri {
 		display: none;
-		/* Dikey olarak açılma animasyonu */
 		transition: height 0.5s ease;
 		overflow: hidden;
 	}
 
 	#yolcu-bilgi-baslik {
 		text-align: left;
+	}
+
+	#bilet-iptal-btn {
+		margin-bottom: 10px;
+		border: 1px solid darkolivegreen;
+		border-radius: 10px;
+		justify-content: center;
+		padding: 10px;
+		background-color: brown;
+		text-align: center;
+	}
+
+	#bilet-iptal-btn:hover {
+		margin-bottom: 10px;
+		border: 1px solid black;
+		border-radius: 10px;
+		justify-content: center;
+		padding: 10px;
+		background-color: red;
+		text-align: center;
+	}
+
+	#bilet-odeme-btn {
+		margin-bottom: 10px;
+		border: 1px solid darkolivegreen;
+		border-radius: 10px;
+		justify-content: center;
+		padding: 10px;
+		background-color: darkgreen;
+		text-align: center;
+	}
+
+	#bilet-odeme-btn:hover {
+		background-color: green;
 	}
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -138,23 +172,30 @@
 								<div class="col-lg-6">
 									<div class="bilet-bilgi">
 										<span for="guzergah" style="color: gray;">Kalkış</span>
-										<span id="guzergah"><strong><?= $bilet['from_city_name'] ?></strong> </span>
+										<span id="guzergah"><strong>
+												<?= $bilet['from_city_name'] ?>
+											</strong> </span>
 									</div>
 									<div class="bilet-bilgi">
 										<span for="guzergah" style="color: gray;">Tarih</span>
-										<span
-											id="guzergah"><strong><?= tarihFormat($bilet['departure_date']) ?></strong> </span>
+										<span id="guzergah"><strong>
+												<?= tarihFormat($bilet['departure_date']) ?>
+											</strong> </span>
 									</div>
 
 								</div>
 								<div class="col-lg-6">
 									<div class="bilet-bilgi">
 										<span for="guzergah" style="color: gray;">Varış</span>
-										<span id="guzergah"><strong><?= $bilet['to_city_name'] ?></strong> </span>
+										<span id="guzergah"><strong>
+												<?= $bilet['to_city_name'] ?>
+											</strong> </span>
 									</div>
 									<div class="bilet-bilgi">
 										<span for="guzergah" style="color: gray;">Kalkış Saati</span>
-										<span id="guzergah"><strong><?= $bilet['departure_time'] ?></strong> </span>
+										<span id="guzergah"><strong>
+												<?= $bilet['departure_time'] ?>
+											</strong> </span>
 									</div>
 								</div>
 
@@ -162,7 +203,9 @@
 						</div>
 						<div class="col-lg-2 mt-3">
 							<div class="bilet-durum-container">
-								<p id="bilet-durum-p"><?= $bilet['isActive'] ?></p>
+								<p id="bilet-durum-p">
+									<?= $bilet['isActive'] ?>
+								</p>
 							</div>
 
 						</div>
@@ -173,51 +216,66 @@
 						for ($i = 1; $i < count($bilet['passenger']); $i++) {
 							$p = $bilet['passenger'][$i];
 							?>
-							<h6 id="yolcu-bilgi-baslik"><?= $i ?>. Yolcu Bilgileri</h6>
+							<h6 id="yolcu-bilgi-baslik">
+								<?= $i ?>. Yolcu Bilgileri
+							</h6>
 							<div class="row" style="margin: 10px;">
 								<div class="col-lg-3">
 									<div class="bilet-bilgi">
 										<span for="adsoyad" style="color: gray;">Ad-Soyad</span>
-										<span
-											id="adsoyad"><strong><?= $p['name'] ?> <?= $p['surname'] ?></strong> </span>
+										<span id="adsoyad"><strong>
+												<?= $p['name'] ?>
+												<?= $p['surname'] ?>
+											</strong> </span>
 									</div>
 								</div>
 								<div class="col-lg-3">
 									<div class="bilet-bilgi">
 										<span for="adsoyad" style="color: gray;">Koltuk</span>
-										<span id="adsoyad"><strong><?= $p['seat_number'] ?></strong> </span>
+										<span id="adsoyad"><strong>
+												<?= $p['seat_number'] ?>
+											</strong> </span>
 									</div>
 								</div>
 								<div class="col-lg-3">
 									<div class="bilet-bilgi">
 										<span for="adsoyad" style="color: gray;">Fiyat</span>
-										<span
-											id="adsoyad"><strong><?php echo $data['tarife'][$p['tarife'] - 1]['sale'] != 0 ? ($data['tarife'][$p['tarife'] - 1]['sale'] * $bilet['price']) / 100 : $bilet['price']; ?> TL</strong> </span>
+										<span id="adsoyad"><strong>
+												<?php echo $data['tarife'][$p['tarife'] - 1]['sale'] != 0 ? ($data['tarife'][$p['tarife'] - 1]['sale'] * $bilet['price']) / 100 : $bilet['price']; ?>
+												TL
+											</strong> </span>
 									</div>
 								</div>
 								<div class="col-lg-3">
 									<div class="bilet-bilgi">
 										<span for="adsoyad" style="color: gray;">TC Kimlik No</span>
-										<span id="adsoyad"><strong><?= $p['tc'] ?></strong> </span>
+										<span id="adsoyad"><strong>
+												<?= $p['tc'] ?>
+											</strong> </span>
 									</div>
 								</div>
 								<div class="col-lg-4">
 									<div class="bilet-bilgi">
 										<span for="adsoyad" style="color: gray;">Cinsiyet</span>
-										<span
-											id="adsoyad"><strong><?= $p['gender'] == 1 ? "Erkek" : "Kadın" ?></strong> </span>
+										<span id="adsoyad"><strong>
+												<?= $p['gender'] == 1 ? "Erkek" : "Kadın" ?>
+											</strong> </span>
 									</div>
 								</div>
 								<div class="col-lg-4">
 									<div class="bilet-bilgi">
 										<span for="adsoyad" style="color: gray;">Tarife</span>
-										<span id="adsoyad"><strong><?= $p['tarife_name'] ?></strong> </span>
+										<span id="adsoyad"><strong>
+												<?= $p['tarife_name'] ?>
+											</strong> </span>
 									</div>
 								</div>
 								<div class="col-lg-4">
 									<div class="bilet-bilgi">
 										<span for="adsoyad" style="color: gray;">Doğum Tarihi</span>
-										<span id="adsoyad"><strong><?= $p['birthday'] ?></strong> </span>
+										<span id="adsoyad"><strong>
+												<?= $p['birthday'] ?>
+											</strong> </span>
 									</div>
 								</div>
 
@@ -225,14 +283,38 @@
 							<hr>
 						<?php } ?>
 					</div>
-					<div style="display:flex; justify-content: flex-end;">
-						<div id="bilet-incele-btn" style="display: flex; flex-direction:row;">
-							<p class="bileti-incele-p">Bileti İncele</p>
-							<i id="arrow-icon" class="fa-solid fa-circle-arrow-down"
-							   style="color: #729289;	 font-size:20px; margin:4px;"></i>
+					<div class="row">
+						<div class="col-lg-6 col-md-6 col-sm-12" style="display:flex; justify-content: flex-start;">
+							<div class="row">
+								<div class="col-lg-6 col-md-6 col-sm-12">
+								<div <?= $bilet['status'] == 1 ? "id=bilet-iptal-btn" : "id=bilet-odeme-btn" ?>>
+									<p style="color: white;">
+										<?= $bilet['status'] == 1 ? "Bileti İptal Et" : "Ödeme Yap" ?>
+									</p>
+								</div>
+								</div>
+								<div class="col-lg-6 col-md-6 col-sm-12">
+								<div <?= $bilet['status'] == 1 ? "id=bilet-iptal-btn" : "id=bilet-odeme-btn" ?>>
+									<p style="color: white;">
+										<?= $bilet['status'] == 1 ? "Bileti İptal Et" : "Ödeme Yap" ?>
+									</p>
+								</div>
+								</div>
+
+
+							</div>
+
 						</div>
 
+						<div class="col-lg-6 col-md-6 col-sm-12" style="display:flex; justify-content: flex-end;">
+							<div id="bilet-incele-btn" style="display: flex; flex-direction:row; justify-content:center;">
+								<p class="bileti-incele-p">Bileti İncele</p>
+								<i id="arrow-icon" class="fa-solid fa-circle-arrow-down"
+									style="color: #729289;	 font-size:20px; margin:4px;"></i>
+							</div>
+						</div>
 					</div>
+
 				</div>
 				<?php
 			}

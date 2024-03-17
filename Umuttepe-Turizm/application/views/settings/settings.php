@@ -11,8 +11,8 @@
 	<link rel="stylesheet" href="assets/css/all.min.css">
 	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-		  integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-		  crossorigin="anonymous" referrerpolicy="no-referrer"/>
+		integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<!-- bootstrap -->
 	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
 	<!-- owl carousel -->
@@ -33,12 +33,11 @@
 		}
 
 		.widget-author {
-			margin-bottom: 58px;
+			margin-bottom: 2px;
 		}
 
 		.author-card {
 			position: relative;
-			padding-bottom: 48px;
 			background-color: #fff;
 			box-shadow: 0 12px 20px 1px rgba(64, 64, 64, .09);
 		}
@@ -63,7 +62,7 @@
 			opacity: 0.5;
 		}
 
-		.author-card .author-card-cover > .btn {
+		.author-card .author-card-cover>.btn {
 			position: absolute;
 			top: 12px;
 			right: 12px;
@@ -93,7 +92,7 @@
 			overflow: hidden;
 		}
 
-		.author-card .author-card-profile .author-card-avatar > img {
+		.author-card .author-card-profile .author-card-avatar>img {
 			display: block;
 			width: 100%;
 		}
@@ -233,100 +232,112 @@
 			background-color: transparent;
 			content: '';
 		}
+
+		.guncel-bakiye {
+
+			font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+			font-size: 16px;
+		}
 	</style>
 </head>
 
 <body>
 
-<div class="container" style="margin-top: 130px;">
-	<div class="row">
-		<div id="contentPlaceholder" class="col-lg-8" style="background-color:whitesmoke">
+	<div class="container" style="margin-top: 130px;">
+		<div class="row">
+			<div id="contentPlaceholder" class="col-lg-8" style="background-color:whitesmoke">
 				<?php $this->load->view($data['contentPlaceholder'], $data); ?>
-		</div>
+			</div>
 
-		<div class="col-lg-4 pb-5">
-			<div class="author-card pb-3">
-				<div class="author-card-cover"
-					 style="background-image: url(https://bootdey.com/img/Content/flores-amarillas-wallpaper.jpeg);">
+			<div class="col-lg-4 pb-5">
+				<div class="author-card pt-3">
+					<div class="author-card-profile">
+						<div class="author-card-avatar">
+							<img <?php if (isset ($data['user']) && $data['user']['gender'] == 1): ?>
+									src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKKOdmJz8Z2pDtYgFgR2u9spABvNNPKYYtGw&usqp=CAU"
+								<?php else: ?>
+									src="https://banner2.cleanpng.com/20180330/fte/kisspng-computer-icons-female-user-icon-design-clip-art-female-5abec8c6b0f284.1534325015224526787248.jpg"
+								<?php endif; ?> alt="Daniel Adams">
+						</div>
+						<div class="author-card-details">
+							<h5 class="author-card-name text-lg">
+								<?php echo $this->session->userdata('name'); ?>
+							</h5>
+							<span class="author-card-position">
+								<?php echo $this->session->userdata('email'); ?>
+							</span>
+						</div>
+					</div>
+
+					<div style="display: flex; flex-direction:row; padding-left: 15px; ">
+						<p class="guncel-bakiye">Güncel Bakiye: </p>
+
+						<p class="guncel-bakiye">&nbsp 761 </p> <i class="fa-solid fa-turkish-lira-sign"
+							style="color: #1e5242; margin: 8px;"></i>
+					</div>
 				</div>
-				<div class="author-card-profile">
-					<div class="author-card-avatar">
-						<img
-							<?php if (isset($data['user']) && $data['user']['gender'] == 1): ?>
-								src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKKOdmJz8Z2pDtYgFgR2u9spABvNNPKYYtGw&usqp=CAU"
-							<?php else: ?>
-								src="https://banner2.cleanpng.com/20180330/fte/kisspng-computer-icons-female-user-icon-design-clip-art-female-5abec8c6b0f284.1534325015224526787248.jpg"
-							<?php endif; ?>
-							alt="Daniel Adams">
-					</div>
-					<div class="author-card-details">
-						<h5 class="author-card-name text-lg"><?php echo $this->session->userdata('name'); ?></h5>
-						<span class="author-card-position"><?php echo $this->session->userdata('email'); ?></span>
-					</div>
+				<div class="wizard">
+					<nav class="list-group list-group-flush" id="wizardNav">
+						<a class="list-group-item" href="hesap_bilgilerim">
+							Hesap Bilgileri
+						</a>
+						<a class="list-group-item " href="biletlerim">
+							Biletlerim
+						</a>
+
+
+						<a class="list-group-item" href="hesap_bilgilerim">
+							Rezervasyonlarım
+						</a>
+						<a class="list-group-item" href="kayitli_kartlarim">
+
+
+							Kayıtlı Kartlarım
+						</a>
+						<a class="list-group-item" href="sifre_degistir">
+							Şifremi Değiştir
+
+						</a>
+						<a class="list-group-item" href="cikis">
+							Çıkış Yap
+
+						</a>
+						<a class="list-group-item" href="hesabimi_sil">
+							Hesabımı Sil
+
+						</a>
+					</nav>
 				</div>
 			</div>
-			<div class="wizard">
-				<nav class="list-group list-group-flush" id="wizardNav">
-					<a class="list-group-item" href="hesap_bilgilerim">
-						Hesap Bilgileri
-					</a>
-					<a class="list-group-item " href="biletlerim">
-						Biletlerim
-					</a>
 
 
-					<a class="list-group-item" href="hesap_bilgilerim">
-						Rezervasyonlarım
-					</a>
-					<a class="list-group-item" href="kayitli_kartlarim">
-
-
-						Kayıtlı Kartlarım
-					</a>
-					<a class="list-group-item" href="sifre_degistir">
-						Şifremi Değiştir
-
-					</a>
-					<a class="list-group-item" href="cikis">
-						Çıkış Yap
-
-					</a>
-					<a class="list-group-item" href="hesabimi_sil">
-						Hesabımı Sil
-
-					</a>
-				</nav>
-			</div>
 		</div>
-
-
 	</div>
-</div>
 
 
-<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript">
-	<script src="assets/js/jquery-1.11.3.min.js"></script>
-<!-- bootstrap -->
-<script src="assets/bootstrap/js/bootstrap.min.js"></script>
-<!-- count down -->
-<script src="assets/js/jquery.countdown.js"></script>
-<!-- isotope -->
-<script src="assets/js/jquery.isotope-3.0.6.min.js"></script>
-<!-- waypoints -->
-<script src="assets/js/waypoints.js"></script>
-<!-- owl carousel -->
-<script src="assets/js/owl.carousel.min.js"></script>
-<!-- magnific popup -->
-<script src="assets/js/jquery.magnific-popup.min.js"></script>
-<!-- mean menu -->
-<script src="assets/js/jquery.meanmenu.min.js"></script>
-<!-- sticker js -->
-<script src="assets/js/sticker.js"></script>
-<!-- main js -->
-<script src="assets/js/main.js"></script>
-</script>
+	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/js/bootstrap.bundle.min.js"></script>
+	<script type="text/javascript">
+		<script src="assets/js/jquery-1.11.3.min.js"></script>
+	<!-- bootstrap -->
+	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+	<!-- count down -->
+	<script src="assets/js/jquery.countdown.js"></script>
+	<!-- isotope -->
+	<script src="assets/js/jquery.isotope-3.0.6.min.js"></script>
+	<!-- waypoints -->
+	<script src="assets/js/waypoints.js"></script>
+	<!-- owl carousel -->
+	<script src="assets/js/owl.carousel.min.js"></script>
+	<!-- magnific popup -->
+	<script src="assets/js/jquery.magnific-popup.min.js"></script>
+	<!-- mean menu -->
+	<script src="assets/js/jquery.meanmenu.min.js"></script>
+	<!-- sticker js -->
+	<script src="assets/js/sticker.js"></script>
+	<!-- main js -->
+	<script src="assets/js/main.js"></script>
+	</script>
 </body>
 
 </html>
