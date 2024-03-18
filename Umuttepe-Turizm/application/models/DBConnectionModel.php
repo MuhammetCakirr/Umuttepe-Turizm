@@ -24,7 +24,56 @@ class DBConnectionModel
 		return $link_mysql;
 	}
 
-	public function getTarife(){
+	public function cron(){
+		$link_mysql = $this->mysqlConn();
+
+		// Önce bugünün tarihini alalım
+		$today = date('Y-m-d');
+
+		// Bugün için bus_routes tablosunda kayıtlı bir rota olup olmadığını kontrol edelim
+		$check_query = "SELECT COUNT(*) as count FROM bus_routes WHERE departure_date = '$today'";
+		$check_result = mysqli_query($link_mysql, $check_query);
+		$row = mysqli_fetch_assoc($check_result);
+		$count = $row['count'];
+
+		// Eğer bu gün için kayıt yoksa, yeni kayıtları oluşturalım
+		if($count == 0) {
+			$insert_query = "
+            INSERT INTO bus_routes (routes_id, departure_date, isActive)
+            SELECT id, DATE_ADD(CURRENT_DATE(), INTERVAL n DAY), 1
+            FROM routes, (SELECT 0 n UNION ALL SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4) numbers;
+            
+            INSERT INTO seat_availability (bus_route_id, seat_number, seat_status)
+            SELECT id, n, 1
+            FROM bus_routes
+            CROSS JOIN (SELECT n FROM (SELECT 1 AS n UNION SELECT 2 UNION SELECT 3 UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7 UNION SELECT 8 UNION SELECT 9 UNION SELECT 10 UNION SELECT 11 UNION SELECT 12 UNION SELECT 13 UNION SELECT 14 UNION SELECT 15 UNION SELECT 16 UNION SELECT 17 UNION SELECT 18 UNION SELECT 19 UNION SELECT 20 UNION SELECT 21 UNION SELECT 22 UNION SELECT 23 UNION SELECT 24 UNION SELECT 25 UNION SELECT 26 UNION SELECT 27) AS numbers) nums;
+        ";
+			mysqli_multi_query($link_mysql, $insert_query);
+		}
+	}
+
+
+	public function getBakiye($id)
+	{
+		$link_mysql = $this->mysqlConn();
+
+		$query = "SELECT bakiye FROM account WHERE id = '$id'";
+
+		$result = mysqli_query($link_mysql, $query);
+
+		if ($result && mysqli_num_rows($result) > 0) {
+			$row = mysqli_fetch_assoc($result);
+			mysqli_close($link_mysql);
+			return $row['bakiye'];
+		} else {
+			mysqli_close($link_mysql);
+			return null; // Eğer böyle bir kullanıcı yoksa veya bakiye bulunamazsa null dönebiliriz.
+		}
+	}
+
+
+	public function getTarife()
+	{
 		$link_mysql = $this->mysqlConn();
 		$query = "SELECT * FROM tarife ";
 		$result = mysqli_query($link_mysql, $query);
@@ -37,7 +86,79 @@ class DBConnectionModel
 		return $tarife;
 	}
 
-	public function  getTicketById($id){
+	public function changeBakiye($account_id, $bakiye)
+	{
+		$link_mysql = $this->mysqlConn();
+
+		$query = "UPDATE account SET bakiye = $bakiye WHERE id = $account_id";
+
+		$result = mysqli_query($link_mysql, $query);
+		mysqli_close($link_mysql);
+
+		return $result;
+	}
+
+	public function changeSeatStatus($id, $status)
+	{
+		$link_mysql = $this->mysqlConn();
+
+		$query = "SELECT bus_route_id FROM tickets WHERE id = $id";
+
+		$result = mysqli_query($link_mysql, $query);
+
+		if ($result && mysqli_num_rows($result) > 0) {
+			$row = mysqli_fetch_assoc($result);
+			$bus_route_id = $row['bus_route_id'];
+			$query2 = "SELECT seat_number FROM passenger WHERE ticket_id = $id";
+			$result2 = mysqli_query($link_mysql, $query2);
+
+			if ($result2 && mysqli_num_rows($result2) > 0) {
+				while ($row2 = mysqli_fetch_assoc($result2)) {
+					$seat_number = $row2['seat_number'];
+					$query3 = "UPDATE seat_availability SET seat_status = $status WHERE bus_route_id = $bus_route_id AND seat_number = $seat_number";
+					$result3 = mysqli_query($link_mysql, $query3);
+				}
+			}
+		}
+
+		mysqli_close($link_mysql);
+	}
+
+	public function changeTicketStatus($id, $status)
+	{
+		$link_mysql = $this->mysqlConn();
+
+		$query = "UPDATE tickets SET status = $status WHERE id = $id";
+
+		$result = mysqli_query($link_mysql, $query);
+
+		mysqli_close($link_mysql);
+
+		return $result;
+	}
+
+	public function getTicketByTicketId($ticketId)
+	{
+		$link_mysql = $this->mysqlConn();
+		$query = "SELECT price ,status,id
+              FROM tickets 
+              WHERE id = $ticketId";
+
+		$result = mysqli_query($link_mysql, $query);
+
+		$ticket = array();
+		if ($row = mysqli_fetch_assoc($result)) {
+			return $row;
+		}
+
+		mysqli_close($link_mysql);
+
+		return $ticket;
+	}
+
+
+	public function getTicketById($id)
+	{
 		$link_mysql = $this->mysqlConn();
 		$query = "SELECT t.*,br.departure_date,br.created_at,r.departure_time,r.arrival_time,r.price,r.bus_plate_code,from_city.name as from_city_name ,to_city.name as to_city_name,br.isActive 
 			  FROM tickets as t
@@ -45,7 +166,8 @@ class DBConnectionModel
               INNER JOIN routes as r on r.id = br.routes_id  
               INNER JOIN cities AS from_city ON r.from_city_id = from_city.id
               INNER JOIN cities AS to_city ON r.to_city_id = to_city.id
-              WHERE account_id = $id";
+              WHERE account_id = $id ORDER BY t.created_at DESC";
+
 		$result = mysqli_query($link_mysql, $query);
 
 		$tickets = array();
@@ -68,7 +190,8 @@ class DBConnectionModel
 		return $data;
 	}
 
-	public function  createTicket($id,$busRouteId,$contactFullName,$contactTel,$cartFullName,$cartNo,$cartMonth,$cartYear,$cartCvc,$price,$buying){
+	public function createTicket($id, $busRouteId, $contactFullName, $contactTel, $cartFullName, $cartNo, $cartMonth, $cartYear, $cartCvc, $price, $buying)
+	{
 		$link_mysql = $this->mysqlConn();
 
 		// Türkiye saatiyle ilgili zaman dilimini ayarla
@@ -104,6 +227,10 @@ class DBConnectionModel
 		$query = "INSERT INTO tickets (account_id,bus_route_id, contact_full_name, contact_tel, cart_no, cart_full_name, cart_month, cart_year, cart_cvc, price, status,pnr, created_at)
 		VALUES ($id,$busRouteId, '$contactFullName', '$contactTel','$cartNo', '$cartFullName', '$cartMonth', '$cartYear', '$cartCvc', $price , $buying, '$pnr',CURRENT_TIMESTAMP)";
 
+		$bakiye = $this->getBakiye($id);
+		$bakiye = $bakiye > $price ? $bakiye - $price : 0;
+		$this->changeBakiye($id,$bakiye);
+
 		mysqli_query($link_mysql, $query);
 
 		return mysqli_insert_id($link_mysql);
@@ -111,7 +238,8 @@ class DBConnectionModel
 		mysqli_close($link_mysql);
 	}
 
-	public function createPassenger($ticketId,$passengerName,$passengerSurname,$passengerTc,$passengeSelector,$seatNumber,$tarife,$birthday){
+	public function createPassenger($ticketId, $passengerName, $passengerSurname, $passengerTc, $passengeSelector, $seatNumber, $tarife, $birthday)
+	{
 		$link_mysql = $this->mysqlConn();
 
 		$query = "INSERT INTO passenger (ticket_id, name, surname, tc, gender,seat_number,created_at,tarife,birthday)
@@ -124,7 +252,8 @@ class DBConnectionModel
 		return $result;
 	}
 
-	public function changeSeatAvailability($busRouteId,$seatNumber,$status){
+	public function changeSeatAvailability($busRouteId, $seatNumber, $status)
+	{
 		$link_mysql = $this->mysqlConn();
 
 		$query = "UPDATE seat_availability SET  seat_status = $status WHERE bus_route_id = $busRouteId AND seat_number = $seatNumber";
@@ -136,7 +265,8 @@ class DBConnectionModel
 		return $result;
 	}
 
-	public function  getBusRoute($id){
+	public function getBusRoute($id)
+	{
 		$link_mysql = $this->mysqlConn();
 		$query = "SELECT br.departure_date,br.id as bus_routes_id,r.id as routes_id,r.departure_time,r.arrival_time,r.price,r.bus_plate_code,
        		  from_city.name AS from_city_name, to_city.name AS to_city_name
@@ -153,6 +283,7 @@ class DBConnectionModel
 
 		return $data;
 	}
+
 	public function getBusRoutesWithSeats($fromCityId, $toCityId, $departureDate)
 	{
 		$link_mysql = $this->mysqlConn();
@@ -171,7 +302,7 @@ class DBConnectionModel
 		while ($row = mysqli_fetch_assoc($result)) {
 			$query2 = "SELECT seat_number, seat_status
                    FROM seat_availability
-                   WHERE bus_route_id = '".$row['bus_routes_id']."'";
+                   WHERE bus_route_id = '" . $row['bus_routes_id'] . "'";
 			$result2 = mysqli_query($link_mysql, $query2);
 
 			$seats = array();
@@ -316,7 +447,7 @@ class DBConnectionModel
 	}
 
 
-	public function setBusPlateCode($plate,$id)
+	public function setBusPlateCode($plate, $id)
 	{
 		$link_mysql = $this->mysqlConn();
 

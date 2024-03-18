@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var secilenkoltuklarp = document.getElementById('secilen-koltuklar');
     var koltuksecinizp = document.getElementById('koltuk-seciniz-p');
 
-
+	var alreadyEnteredElse = false;
     idgenel = 0;
 
     function updateOnaylaButton() {
@@ -75,8 +75,6 @@ document.addEventListener("DOMContentLoaded", function () {
             span.style.color = 'black';
 
 
-
-
             if (seat.classList.contains('reserved')) {
                 $('#myModalrez').modal('show');
             } else if (seat.classList.contains('sold')) {
@@ -96,57 +94,79 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 }
                 else {
-                    var modalToOpen = document.querySelector('#myModalcinsiyet[data-content="' + seatdatacontent + '"]');
-                    var modaltext = document.querySelector('#cinsiyettext[data-content="' + seatdatacontent + '"]');
 
-                    modaltext.textContent = seatNumber + " Numaralı koltuk için Cinsiyet Seçiniz."
+					var selectedSeatNumbersInput = document.querySelector('input[name="selected_seat_numbers"]');
 
-                    if (modalToOpen) {
+					if (!selectedSeatNumbersInput.value) {
+						if(alreadyEnteredElse === true){
+							$('#myModal').modal('show');
+						}else{
+							var modalToOpen = document.querySelector('#myModalcinsiyet[data-content="' + seatdatacontent + '"]');
+							var modaltext = document.querySelector('#cinsiyettext[data-content="' + seatdatacontent + '"]');
 
-                        $(modalToOpen).modal('show');
-                    }
-                    // Radio düğmelerini seç
-                    // "sad" veya "happy" id'sine sahip olan radio düğmelerini seç
-                    var idtext = "sad" + seatdatacontent;
-                    var idtext2 = "happy" + seatdatacontent;
-                    console.log(idtext);
-                    var sadRadioButton = document.querySelector('[id^="' + idtext + '"]');
-                    var happyRadioButton = document.querySelector('[id^="' + idtext2 + '"]');
-                    
-                    console.log(sadRadioButton);
+							modaltext.textContent = seatNumber + " Numaralı koltuk için Cinsiyet Seçiniz."
 
-                    sadRadioButton.addEventListener('click', function () {
-                            // Seçilen cinsiyeti al
-                            var selectedGender = 'erkek';
-                            
-                            secilikoltuklarlistcinsiyetli.push(seatNumber + "-" + selectedGender);
-                            console.log(secilikoltuklarlistcinsiyetli);
-                            // Koltuğu seçili olarak işaretle
-                            seat.classList.toggle('active');
-                            // Koltuk numarasını listeye ekle
-                            secilikoltuklarlist.push(seatNumber);
-                            // Seçilen koltukları güncelle
-                            updateSelectedSeats(idgenel);
-                            // Cinsiyet seçim modalını gizle
-                            $(modalToOpen).modal('hide');
-                        });
-                    
+							if (modalToOpen) {
 
-                    
-                    happyRadioButton.addEventListener('click', function () {
-                        // Seçilen cinsiyeti al
-                        var selectedGender = 'kadın';
-                        secilikoltuklarlistcinsiyetli.push(seatNumber + "-" + selectedGender);
-                        // Koltuğu seçili olarak işaretle
-                        seat.classList.toggle('active');
-                        // Koltuk numarasını listeye ekle
-                        secilikoltuklarlist.push(seatNumber);
-                        // Seçilen koltukları güncelle
-                        updateSelectedSeats(idgenel);
-                        // Cinsiyet seçim modalını gizle
-                        $(modalToOpen).modal('hide');
-                        
-                    });
+								$(modalToOpen).modal('show');
+							}
+							// Radio düğmelerini seç
+							// "sad" veya "happy" id'sine sahip olan radio düğmelerini seç
+							var idtext = "sad" + seatdatacontent;
+							var idtext2 = "happy" + seatdatacontent;
+							console.log(idtext);
+							var sadRadioButton = document.querySelector('[id^="' + idtext + '"]');
+							var happyRadioButton = document.querySelector('[id^="' + idtext2 + '"]');
+
+							console.log(sadRadioButton);
+
+							sadRadioButton.addEventListener('click', function () {
+								// Seçilen cinsiyeti al
+								var selectedGender = 'erkek';
+
+								secilikoltuklarlistcinsiyetli.push(seatNumber + "-" + selectedGender);
+								console.log(secilikoltuklarlistcinsiyetli);
+								// Koltuğu seçili olarak işaretle
+								seat.classList.toggle('active');
+								// Koltuk numarasını listeye ekle
+								secilikoltuklarlist.push(seatNumber);
+								// Seçilen koltukları güncelle
+								updateSelectedSeats(idgenel);
+								// Cinsiyet seçim modalını gizle
+								$(modalToOpen).modal('hide');
+							});
+
+							happyRadioButton.addEventListener('click', function () {
+								// Seçilen cinsiyeti al
+								var selectedGender = 'kadın';
+								secilikoltuklarlistcinsiyetli.push(seatNumber + "-" + selectedGender);
+								// Koltuğu seçili olarak işaretle
+								seat.classList.toggle('active');
+								// Koltuk numarasını listeye ekle
+								secilikoltuklarlist.push(seatNumber);
+								// Seçilen koltukları güncelle
+								updateSelectedSeats(idgenel);
+								// Cinsiyet seçim modalını gizle
+								$(modalToOpen).modal('hide');
+
+							});
+						}
+
+					}else {
+						alreadyEnteredElse = true;
+
+						var selectedGenders = selectedSeatNumbersInput.value.split(',');
+						var selectedGender = selectedGenders.shift(); // İlk cinsiyeti al ve diziden çıkar
+						selectedSeatNumbersInput.value = selectedGenders.join(','); // Kalanları virgülle birleştir ve inputa ata
+
+						secilikoltuklarlistcinsiyetli.push(seatNumber + "-" + selectedGender);
+						seat.classList.toggle('active');
+						// Koltuk numarasını listeye ekle
+						secilikoltuklarlist.push(seatNumber);
+						// Seçilen koltukları güncelle
+						updateSelectedSeats(idgenel);
+					}
+
 
                     // radioButtons.forEach(function (radioButton) {
                     //     if (!radioAdded) { // Eğer radio daha önce eklenmediyse

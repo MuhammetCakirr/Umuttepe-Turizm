@@ -418,12 +418,13 @@
 					<p id="kalkis" class="sefer-p" style="margin-left: 6px;">
 						<?php
 						foreach ($data['seatNumbers'] as $number) {
+						$parts = explode('-', $number);
 						?>
 					<div class="aisle">
 						<div class="bus-row">
 							<div class="bus-seat active">
 										<span>
-											<?php echo $number; ?>
+											<?php echo $parts[0]; ?>
 										</span>
 							</div>
 						</div>
@@ -523,12 +524,13 @@
 						<p id="kalkis" class="sefer-p" style="margin-left: 6px;">
 							<?php
 							foreach ($data['seatNumbers2'] as $number) {
+							$parts = explode('-', $number);
 							?>
 						<div class="aisle">
 							<div class="bus-row">
 								<div class="bus-seat active">
 										<span>
-											<?php echo $number; ?>
+											<?php echo $parts[0]; ?>
 										</span>
 								</div>
 							</div>
@@ -607,20 +609,25 @@
 					</div>
 				</div>
 				<!-- İLETİŞİM BİLGİLERİ KUTUSU END -->
+
 				<!-- GİDİŞ YOLCU BİLGİLERİ KUTUSU -->
 				<div class="kutular">
 					<div style="display:flex; flex-direction:row">
 						<i class="fa-solid fa-user"
 						   style="color: #071327; font-size: 15px; margin-top:5px; margin-right:5px;"></i>
-						<h6 style="margin-top:3px;">Gidiş Yolcu Bilgileri</h6>
+						<h6 style="margin-top:3px;">Yolcu Bilgileri</h6>
 					</div>
 					<?php
-					foreach ($data['seatNumbers'] as $number) {
+					for ($i = 0; $i < count($data['seatNumbers']); $i++) {
+						$number = $data['seatNumbers'][$i];
+						$number2 = isset($data['seatNumbers2']) ? $data['seatNumbers2'][$i] : "";
+						$parts = explode('-', $number);
+						$parts2 = explode('-', $number2);
 						?>
 						<div class="row">
 							<div class="col-lg-6 col-sm-12">
 								<p style="margin-top: 5px; color:blue;">
-									<?= $number ?>. Koltuk yolcu bilgisi
+									<?= "Gidiş:".$parts[0] ." Dönüş:".$parts2[0] ?> Koltuk yolcu bilgisi
 								</p>
 							</div>
 							<div class="col-lg-6 col-sm-12" style="text-align: right;">
@@ -630,7 +637,7 @@
 									$totalprice = $data['totalPrice1'];
 									$seatNumberArray = explode(',', $seatNumbers);
 									$numberOfSeats = count($seatNumberArray);
-									$personprice = $totalprice / $numberOfSeats;
+									$personprice = ($totalprice / $numberOfSeats) *(isset($data['seatNumbers2']) ? 2 : 1);
 									?>
 									<?= $personprice ?> TL
 								</p>
@@ -721,130 +728,7 @@
 					<?php } ?>
 				</div>
 				<!-- GİDİŞ YOLCU BİLGİLERİ KUTUSU END -->
-				<?php
-				if (isset($data['id2'])) {
-					?>
-					<!-- DÖNÜŞ YOLCU BİLGİLERİ KUTUSU -->
-					<div class="kutular">
-						<div style="display:flex; flex-direction:row">
-							<i class="fa-solid fa-user"
-							   style="color: #071327; font-size: 15px; margin-top:5px; margin-right:5px;"></i>
-							<h6 style="margin-top:3px;">Dönüş Yolcu Bilgileri</h6>
-						</div>
-						<?php
-						foreach ($data['seatNumbers2'] as $number) {
-							?>
-							<div class="row">
-								<div class="col-lg-6 col-sm-12">
-									<p style="margin-top: 5px; color:blue;">
-										<?= $number ?>. Koltuk yolcu bilgisi
-									</p>
-								</div>
-								<div class="col-lg-6 col-sm-12" style="text-align: right;">
-									<p id="kisifiyat<?= $number ?>"
-									   style="margin-top: 5px; color:grey; font-size:16px;">
-										<?php
-										$seatNumbers2 = $data['seat_numbers2'];
-										$totalprice2 = $data['totalPrice2'];
-										$seatNumberArray2 = explode(',', $seatNumbers2);
-										$numberOfSeats2 = count($seatNumberArray2);
-										$personprice2 = $totalprice2 / $numberOfSeats2;
-										?>
-										<?= $personprice2 ?> TL
-									</p>
 
-								</div>
-
-							</div>
-
-							<div class="row">
-								<input type="hidden" name="passengerName<?= $number ?>">
-								<div class="col-lg-6 col-sm-12 form-group">
-									<label for="account-fn">Ad</label>
-									<input class="form-control" type="text" id="account-fn"
-										   name="passengerName<?= $number ?>" required>
-								</div>
-								<div class="col-lg-6 col-sm-12 form-group">
-									<label for="account-fn">Soyad</label>
-									<input class="form-control" type="text" id="account-fn"
-										   name="passengerSurname<?= $number ?>" placeholder="" required>
-								</div>
-								<div class="col-lg-6 col-sm-12 form-group">
-									<label for="account-fn">T.C. Kimlik No</label>
-									<input class="form-control" type="text" id="account-fn"
-										   name="passengerTc<?= $number ?>"
-										   required>
-								</div>
-
-								<div class="col-lg-6 col-sm-12 form-group">
-									<label for="passengerBirthdayDonus<?= $number ?>"> Doğum Tarihi </label>
-									<input class="passengerBirthdayDonus form-control" type="date" id="passengerBirthdayDonus<?= $number ?>"
-										   name="passengerBirthdayDonus<?= $number ?>"
-										   value="">
-								</div>
-								<div class="col-lg-6 col-sm-12 form-group">
-									<label for="passengerTarife<?= $number ?>">Tarife</label>
-									<select id="passengerTarife<?= $number ?>" name="passengerTarife<?= $number ?>" class="month form-control"
-											onchange="kontrolEt()">
-										<option value="1" selected>Genç (13-26)</option>
-										<option value="2">Çocuk (7-12)</option>
-										<option value="3">Yaşlı (65+)</option>
-										<option value="4">Öğretmen</option>
-										<option value="5">TSK Çalışan</option>
-										<option value="6">Basın (Press)</option>
-									</select>
-								</div>
-
-								<!--Error Dialog-->
-								<div id="myModal" class="modal col-lg-12 col-md-12 col-sm-12">
-									<div class="modal-dialog modal-confirm">
-										<div class="modal-content">
-											<div class="modal-header">
-												<div class="icon-box">
-													<i class="material-icons">&#xE5CD;</i>
-												</div>
-												<h4 class="modal-title">HATA!</h4>
-											</div>
-											<div class="modal-body">
-												<p style="font-size: 17px;" class="text-center">Seçtiğiniz tarife ile
-													yaşınız uyuşmuyor.</p>
-											</div>
-											<div class="modal-footer">
-												<button class="btn btn-danger btn-block" data-dismiss="modal">Kapat
-												</button>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!--Error Dialog End-->
-
-								<div class="col-lg-6 col-sm-12 form-group">
-									<label for="cinsiyet">Cinsiyet</label>
-									<div id="cinsiyet">
-										<label for="f-option<?= $number ?>" class="l-radio">
-											<input type="radio" id="f-option<?= $number ?>"
-												   name="passengeSelector<?= $number ?>" value="0" tabindex="1" checked>
-											<span>Kadın</span>
-										</label>
-										<label for="s-option<?= $number ?>" class="l-radio">
-											<input type="radio" id="s-option<?= $number ?>"
-												   name="passengeSelector<?= $number ?>" value="1" tabindex="2">
-											<span>Erkek</span>
-										</label>
-									</div>
-								</div>
-
-							</div>
-							<p>Servis rezervasyonu için biletinizi aldıktan sonra otobüs firması ile
-								görüşebilirsiniz.</p>
-							<hr>
-
-						<?php } ?>
-					</div>
-					<!-- DÖNÜŞ YOLCU BİLGİLERİ KUTUSU END -->
-					<?php
-				}
-				?>
 				<!-- ÖDEME BİLGİLERİ KUTUSU -->
 				<div class="kutular">
 					<div class="row">
@@ -934,11 +818,12 @@
 							işlemler güvenlik sertifikalarıyla korunmaktadır.</p>
 					</div>
 					<input type="hidden" name="id" value="<?= $data['id'] ?>">
-					<?php echo isset($data['id2']) ? "<input type='hidden' name='id2' value='".$data['id2']."' ?>'>" : "";?>
+					<?php echo isset($data['id2']) ? "<input type='hidden' name='id2' value='".$data['id2']."'>	" : "";?>
 					<input type="hidden" name="seatNumbers" value="<?= $data['seat_numbers'] ?>">
-					<?php echo isset($data['id2']) ? "<input type='hidden' name='seatNumbers2' value='".$data['seat_numbers2']."' ?>'>" : "";?>
+					<?php echo isset($data['id2']) ? "<input type='hidden' name='seatNumbers2' value='".$data['seat_numbers2']."'>" : "";?>
 					<input type="hidden" name="totalPrice" id="totalprice"
-						   value="<?= $data['totalPrice1'] + (isset($data['id2']) ? $data['totalPrice2'] : 0) ?>">
+						   value="<?= $data['totalPrice1'] ?>">
+					<?php echo isset($data['id2']) ? "<input type='hidden' name='totalPrice2' value='".$data['totalPrice2']."'>" : "";?>
 					<input type="hidden" name="operation" value="paying">
 					<div class="row">
 						<div class="col-lg-6 col-sm-12">

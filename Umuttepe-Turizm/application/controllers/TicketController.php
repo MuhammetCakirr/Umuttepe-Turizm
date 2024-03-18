@@ -18,6 +18,7 @@ class TicketController extends CI_Controller
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			switch ($_POST['operation']) {
 				case 'homeSearch':
+					$this->session->set_userdata('seat_numbers1', null);
 					$data['fromCityId'] = isset($_POST['fromCityId']) ? $_POST['fromCityId'] : 1;
 					$data['toCityId'] = isset($_POST['toCityId']) ? $_POST['toCityId'] : 2;
 					$data['gTarih'] = isset($_POST['gTarih']) ? $_POST['gTarih'] : date('Y-m-d');
@@ -31,6 +32,7 @@ class TicketController extends CI_Controller
 					$this->session->set_userdata('isFirstTicket', !($data['seferTuru'] == 1));
 					break;
 				case 'searchTicket':
+					$this->session->set_userdata('seat_numbers1', null);
 					$data['fromCityId'] = isset($_POST['fromCityId']) ? $_POST['fromCityId'] : 1;
 					$data['toCityId'] = isset($_POST['toCityId']) ? $_POST['toCityId'] : 2;
 					$data['gTarih'] = isset($_POST['gTarih']) ? $_POST['gTarih'] : date('Y-m-d');
@@ -47,6 +49,15 @@ class TicketController extends CI_Controller
 							$data['gTarih'] = $this->session->userdata('dTarih');
 							$this->session->set_userdata('bus_id1', $data['id']);
 							$this->session->set_userdata('seat_numbers1', $_POST['seat_numbers']);
+							$data['selectedSeatNumbers'] = $_POST['seat_numbers'];
+							$cinsiyetler = array();
+							$ayrilmisVeri = explode(',', $data['selectedSeatNumbers']); // Virgülle ayrılmış veriyi ayır
+							foreach ($ayrilmisVeri as $veri) {
+								$parcalar = explode('-', $veri); // Veriyi kırmızıdan parçala
+								$cinsiyetler[] = $parcalar[1]; // Cinsiyeti al
+							}
+							$data['selectedGenders'] = implode(',', $cinsiyetler); // Cinsiyetleri virgülle birleştir
+
 						}else{
 							$this->session->set_userdata('seat_numbers2', $_POST['seat_numbers']);
 							$this->session->set_userdata('bus_id2', $data['id']);
@@ -62,6 +73,7 @@ class TicketController extends CI_Controller
 
 					break;
 				default :
+					$this->session->set_userdata('seat_numbers1', null);
 					$data['gTarih'] = date('Y-m-d');
 					$data['fromCityId'] = 1;
 					$data['toCityId'] = 2;
@@ -70,6 +82,7 @@ class TicketController extends CI_Controller
 					break;
 			}
 		} else {
+			$this->session->set_userdata('seat_numbers1', null);
 			$data['gTarih'] = date('Y-m-d');
 			$data['fromCityId'] = 1;
 			$data['toCityId'] = 2;

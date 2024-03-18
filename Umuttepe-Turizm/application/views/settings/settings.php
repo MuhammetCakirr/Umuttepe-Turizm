@@ -272,7 +272,7 @@
 					<div style="display: flex; flex-direction:row; padding-left: 15px; ">
 						<p class="guncel-bakiye">Güncel Bakiye: </p>
 
-						<p class="guncel-bakiye">&nbsp 761 </p> <i class="fa-solid fa-turkish-lira-sign"
+						<p class="guncel-bakiye">&nbsp <?= $data['bakiye'] ?></p> <i class="fa-solid fa-turkish-lira-sign"
 							style="color: #1e5242; margin: 8px;"></i>
 					</div>
 				</div>

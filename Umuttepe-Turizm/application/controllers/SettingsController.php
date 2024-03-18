@@ -58,6 +58,8 @@ class SettingsController extends CI_Controller
 							break;
 					}
 				}
+				$account_id = $this->session->userdata('id');
+				$data['bakiye'] = $this->DBConnectionModel->getBakiye($account_id);
 				$this->load->view('template', array('data' => $data));
 			} else {
 				redirect('../index');
@@ -66,6 +68,36 @@ class SettingsController extends CI_Controller
 
 			redirect('../login');
 		}
+	}
+
+	public function biletIslem(){
+		$id = $_POST['id'];
+		$islem = $_POST['islem'];
+		$account_id = $this->session->userdata('id');
+
+		switch ($islem){
+			case "1": // Rezervasyon edilmiş biletin Ödemesini Yap
+				$bakiye = $this->DBConnectionModel->getBakiye($account_id);
+				$ticket = $this->DBConnectionModel->getTicketByTicketId($id);
+				$bakiye = $bakiye > $ticket['price'] ? $bakiye - $ticket['price'] : 0;
+				$this->DBConnectionModel->changeBakiye($account_id,$bakiye);
+				$this->DBConnectionModel->changeTicketStatus($id,2);
+				$this->DBConnectionModel->changeSeatStatus($id,2);
+				return true;
+			case "2": // Rezerve edilmiş bileti iptal et
+				$this->DBConnectionModel->changeTicketStatus($id,5);
+				$this->DBConnectionModel->changeSeatStatus($id,1);
+				return true;
+			case "3": // Bileti Açığa Alma
+				$bakiye = $this->DBConnectionModel->getBakiye($account_id);
+				$ticket = $this->DBConnectionModel->getTicketByTicketId($id);
+				$bakiye =  $bakiye + $ticket['price'];
+				$this->DBConnectionModel->changeBakiye($account_id,$bakiye);
+				$this->DBConnectionModel->changeTicketStatus($id,4);
+				$this->DBConnectionModel->changeSeatStatus($id,1);
+				return true;
+		}
+		return false;
 	}
 
 	public function biletlerim()

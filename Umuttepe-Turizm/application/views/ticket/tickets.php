@@ -891,6 +891,7 @@
 										<input type="hidden" value="<?php echo $id ?>" name="id">
 										<input type="hidden" value="" name="seat_numbers">
 										<input type="hidden" value="buying" name="operation">
+										<input type="hidden" value="<?php echo isset($data['selectedGenders']) ? $data['selectedGenders'] : ""; ?>" name="selected_seat_numbers">
 									</div>
 								</div>
 							</div>

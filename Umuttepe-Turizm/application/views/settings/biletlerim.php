@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-	integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-	crossorigin="anonymous" referrerpolicy="no-referrer" />
+	  integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+	  crossorigin="anonymous" referrerpolicy="no-referrer"/>
 <style>
 	.biletlerim-container {
 		margin-left: 10px;
@@ -17,7 +17,7 @@
 		box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
 	}
 
-	.biletlerim-container>.row>.col-lg-3 {
+	.biletlerim-container > .row > .col-lg-3 {
 		display: flex;
 		justify-content: flex-end;
 		align-items: center;
@@ -204,7 +204,7 @@
 						<div class="col-lg-2 mt-3">
 							<div class="bilet-durum-container">
 								<p id="bilet-durum-p">
-									<?= $bilet['isActive'] ?>
+									<?= ($bilet['status'] == 2) ? "Aktif" : ($bilet['status'] == 3 ? "Rezerve" : ($bilet['status'] == 4 ? "Açığa Alınmış" : "İptal Edilmiiş")) ?>
 								</p>
 							</div>
 
@@ -285,32 +285,46 @@
 					</div>
 					<div class="row">
 						<div class="col-lg-6 col-md-6 col-sm-12" style="display:flex; justify-content: flex-start;">
-							<div class="row">
-								<div class="col-lg-6 col-md-6 col-sm-12">
-								<div <?= $bilet['status'] == 1 ? "id=bilet-iptal-btn" : "id=bilet-odeme-btn" ?>>
-									<p style="color: white;">
-										<?= $bilet['status'] == 1 ? "Bileti İptal Et" : "Ödeme Yap" ?>
-									</p>
-								</div>
-								</div>
-								<div class="col-lg-6 col-md-6 col-sm-12">
-								<div <?= $bilet['status'] == 1 ? "id=bilet-iptal-btn" : "id=bilet-odeme-btn" ?>>
-									<p style="color: white;">
-										<?= $bilet['status'] == 1 ? "Bileti İptal Et" : "Ödeme Yap" ?>
-									</p>
-								</div>
-								</div>
+							<?php
+							$id = $bilet['id'];
+							if ($bilet['status'] == 3) {
+								?>
+								<div class="row">
+									<div class="col-lg-6 col-md-6 col-sm-12" onclick="biletIslem(<?php echo $id; ?>,1)" >
+										<div id="bilet-odeme-btn" >
+											<p style="color: white;">
+												Ödeme Yap
+											</p>
+										</div>
+									</div>
 
+									<div class="col-lg-6 col-md-6 col-sm-12" onclick="biletIslem(<?php echo $id; ?>,2)">
+										<div id="bilet-iptal-btn">
+											<p style="color: white;">
+												Bileti İptal Et
+											</p>
+										</div>
+									</div>
 
-							</div>
-
+								</div>
+								<?php
+							}else if($bilet['status'] == 2) { ?>
+								<div class="col-lg-6 col-md-6 col-sm-12" onclick="biletIslem(<?php echo $id; ?>,3)">
+									<div id="bilet-iptal-btn">
+										<p style="color: white;">
+											Bileti Açığa Al
+										</p>
+									</div>
+								</div>
+							<?php }?>
 						</div>
 
 						<div class="col-lg-6 col-md-6 col-sm-12" style="display:flex; justify-content: flex-end;">
-							<div id="bilet-incele-btn" style="display: flex; flex-direction:row; justify-content:center;">
+							<div id="bilet-incele-btn"
+								 style="display: flex; flex-direction:row; justify-content:center;">
 								<p class="bileti-incele-p">Bileti İncele</p>
 								<i id="arrow-icon" class="fa-solid fa-circle-arrow-down"
-									style="color: #729289;	 font-size:20px; margin:4px;"></i>
+								   style="color: #729289;	 font-size:20px; margin:4px;"></i>
 							</div>
 						</div>
 					</div>
@@ -319,135 +333,23 @@
 				<?php
 			}
 			?>
-			<!-- <div class="row">
-				<div class="col-lg-6 col-md-12 col-sm-12">
-					<div class="card" style="border-radius: 20px;">
-						<div class="card-header"
-							 style="border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; height: 8%; background-color: black; display: flex; justify-content: space-between; align-items: center;">
-							<p style="color:white;">Logo</p>
-							<p style="color:white;">41 ZA 432</p>
-						</div>
-						<div class="yanyanadiv" style="display: flex; justify-content: space-between; margin:30px;">
-							<div>
-								<small>KALKIŞ</small> <br/>
-								<strong style="font-size:20px;">KOCAELİ</strong>
-							</div>
-							<i class="fa-solid fa-van-shuttle" style="color: #000000; font-size: 40px;"></i>
 
-							<div>
-								<small>VARIŞ</small><br/>
-								<strong style="font-size:20px;">HATAY</strong>
-							</div>
-						</div>
-						<hr>
-						<div style="display: flex;"> 
-							
-							<div style="flex: 1; padding: 15px; border-right: 1px solid #ccc;">
-								<small>KALKIŞ SAATİ</small>
-								<br/>
-								<strong style="font-size:20px;">11:45</strong>
-								<br/>
-								<small>VARIŞ SAATİ</small>
-								<br/>
-								<strong style="font-size:20px;">16:45</strong>
-								<br/>
-								<small>KOLTUK</small>
-								<br/>
-								<strong style="font-size:20px;">14A</strong>
-
-							</div>
-							
-							<div style="flex: 1; padding: 15px;">
-								<small>YOLCU ADI SOYADI</small>
-								<br/>
-								<strong style="font-size:15px;">MUHAMMET ÇAKIR</strong>
-								<br/>
-								<small>TC KİMLİK NO</small>
-								<br/>
-								<strong style="font-size:18px;">1111111111</strong>
-								<br/>
-								<small>TARİH</small>
-								<br/>
-								<strong style="font-size:18px;">28/10/2003</strong>
-							</div>
-						</div>
-						<hr>
-						<div style="display: flex; margin:5px;">
-							<div style="flex: 1;">
-								<i class="fa-solid fa-qrcode" style="font-size: 50px;"></i>
-							</div>
-							<div style="flex: 1;">
-								<p>Bu QR kod, biletinizin benzersiz kimliğini temsil eder. </p>
-							</div>
-						</div>
-						<div>
-
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-6 col-md-12 col-sm-12">
-					<div class="card" style="border-radius: 20px;">
-						<div class="card-header"
-							 style="border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; height: 8%; background-color: black; display: flex; justify-content: space-between; align-items: center;">
-							<p style="color:white;">Logo</p>
-							<p style="color:white;">41 ZA 432</p>
-						</div>
-						<div class="yanyanadiv" style="display: flex; justify-content: space-between; margin:30px;">
-							<div>
-								<small>KALKIŞ</small> <br/>
-								<strong style="font-size:20px;">KOCAELİ</strong>
-							</div>
-							<i class="fa-solid fa-van-shuttle" style="color: #000000; font-size: 40px;"></i>
-
-							<div>
-								<small>VARIŞ</small><br/>
-								<strong style="font-size:20px;">HATAY</strong>
-							</div>
-						</div>
-						<hr>
-						<div style="display: flex;"> 
-							
-							<div style="flex: 1; padding: 15px; border-right: 1px solid #ccc;">
-								<small>KALKIŞ SAATİ</small>
-								<br/>
-								<strong style="font-size:20px;">11:45</strong>
-								<br/>
-								<small>VARIŞ SAATİ</small>
-								<br/>
-								<strong style="font-size:20px;">16:45</strong>
-								<br/>
-								<small>KOLTUK</small>
-								<br/>
-								<strong style="font-size:20px;">14A</strong>
-
-							</div>
-							
-							<div style="flex: 1; padding: 15px;">
-								<small>YOLCU ADI SOYADI</small>
-								<br/>
-								<strong style="font-size:15px;">MUHAMMET ÇAKIR</strong>
-								<br/>
-								<small>TC KİMLİK NO</small>
-								<br/>
-								<strong style="font-size:18px;">1111111111</strong>
-								<br/>
-								<small>TARİH</small>
-								<br/>
-								<strong style="font-size:18px;">28/10/2003</strong>
-							</div>
-						</div>
-						<hr>
-						<div style="display: flex; margin:5px;">
-							<div style="flex: 1;">
-								<i class="fa-solid fa-qrcode" style="font-size: 50px;"></i>
-							</div>
-							<div style="flex: 1;">
-								<p>Bu QR kod, biletinizin benzersiz kimliğini temsil eder. </p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div> -->
 		</div>
 	</div>
 </div>
+<script>
+	function biletIslem(id,islem){
+		$.ajax({
+			url: 'SettingsController/biletIslem', // AJAX isteğinin gönderileceği URL
+			type: 'POST',
+			data: {id: id, islem: islem}, // POST verileri
+			success: function(response) {
+				window.location.href = 'biletlerim'; // Yeniden yönlendirilecek URL'yi ayarlayın
+			},
+			error: function(xhr, status, error) {
+				console.error(error);
+			}
+		});
+	}
+
+</script>

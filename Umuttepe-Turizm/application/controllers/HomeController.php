@@ -10,6 +10,7 @@ class HomeController extends CI_Controller
 		$this->load->model('DBConnectionModel');
 		$this->load->library('session');
 		$this->load->helper('url');
+		//$this->DBConnectionModel->cron();
 	}
 
 	public function index()
@@ -33,7 +34,6 @@ class HomeController extends CI_Controller
 
 	function generateLicensePlate()
 	{
-
 		$routes = $this->DBConnectionModel->getRoutes();
 
 		foreach ($routes as $route) {
