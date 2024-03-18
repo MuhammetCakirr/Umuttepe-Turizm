@@ -400,6 +400,19 @@ class DBConnectionModel
 		return false;
 	}
 
+	public function getMyCard($id){
+
+		$link_mysql = $this->mysqlConn();
+
+		$query = "SELECT * FROM my_card WHERE account_id = $id";
+
+		$result = mysqli_query($link_mysql, $query);
+
+		$data = mysqli_fetch_assoc($result);
+		mysqli_close($link_mysql);
+
+		return $data;
+	}
 
 	public function updateUserInfo($id, $fullName, $tcKimlikNo, $email, $tel, $gender, $birthDate)
 	{

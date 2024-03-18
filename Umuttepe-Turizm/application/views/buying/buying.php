@@ -710,13 +710,8 @@
 								<div id="cinsiyet">
 									<label for="f-option<?= $number ?>" class="l-radio">
 										<input type="radio" id="f-option<?= $number ?>"
-											   name="passengeSelector<?= $number ?>" value="0" tabindex="1" checked>
-										<span>Kadın</span>
-									</label>
-									<label for="s-option<?= $number ?>" class="l-radio">
-										<input type="radio" id="s-option<?= $number ?>"
-											   name="passengeSelector<?= $number ?>" value="1" tabindex="2">
-										<span>Erkek</span>
+											   name="passengeSelector<?= $number ?>"  tabindex="1" checked>
+										<span><?= strtoupper($parts[1]) ?></span>
 									</label>
 								</div>
 							</div>

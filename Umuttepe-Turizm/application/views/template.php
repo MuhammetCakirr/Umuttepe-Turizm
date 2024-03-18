@@ -36,7 +36,7 @@
 // Mevcut sayfanın URL'sini alın
 $current_url = $_SERVER['REQUEST_URI'];
 ?>
-<body>
+<body style="user-select: none;">
 <!--PreLoader-->
 <div class="loader">
 	<div class="loader-inner">
@@ -96,12 +96,8 @@ $current_url = $_SERVER['REQUEST_URI'];
 								<li>
 									<div class="header-icons">
 										<?php if ($this->session->userdata('name')): ?>
-											<a class="shopping-cart" href="cart"><i
-													class="fas fa-shopping-cart"></i></a>
-											<a href="settings"><?php echo $this->session->userdata('name'); ?></a>
+											<a href="settings"><i class="fa-solid fa-user"></i>  <?php echo $this->session->userdata('name'); ?></a>
 										<?php else: ?>
-											<a class="shopping-cart" href="cart"><i
-													class="fas fa-shopping-cart"></i></a>
 											<a href="login">Giriş Yap</a>
 										<?php endif; ?>
 									</div>

@@ -24,6 +24,7 @@ $route['rezervasyonlarim'] = 'SettingsController/index/rezervasyonlarim';
 $route['sifre_degistir'] = 'SettingsController/index/sifre_degistir';
 $route['cikis'] = 'SettingsController/index/cikis';
 $route['hesabimi_sil'] = 'SettingsController/index/hesabimi_sil';
+$route['kayitli_kartlarim'] = 'SettingsController/index/kayitli_kartlarim';
 
 $route['tickets'] = 'TicketController/index';
 $route['buying'] = 'BuyingController/index/buying';

@@ -39,6 +39,9 @@ class SettingsController extends CI_Controller
 					}
 				} else {
 					switch ($page) {
+						case 'kayitli_kartlarim':case 'settings':
+							$data['kart'] = $this->DBConnectionModel->getMyCard($id);
+							break;
 						case 'biletlerim':
 							$data['biletlerim'] = $this->biletlerim();
 							$data['tarife'] = $this->DBConnectionModel->getTarife();

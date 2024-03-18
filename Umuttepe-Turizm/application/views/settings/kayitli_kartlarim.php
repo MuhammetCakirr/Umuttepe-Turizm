@@ -355,6 +355,8 @@
     expirationdate.addEventListener('input', updateCard);
     securitycode.addEventListener('input', updateCard);
 
+	updateCard();
+
     function updateCard() {
       svgname.textContent = name.value || 'JOHN DOE';
       svgnumber.textContent = cardnumber.value || '0123 4567 8910 1112';
@@ -362,7 +364,7 @@
       svgsecurity.textContent = securitycode.value || '985';
 
       if (securitycode.value.length > 0) {
-        creditcard.classList.add('flipped');
+        //creditcard.classList.add('flipped');
       } else {
         creditcard.classList.remove('flipped');
       }
@@ -502,11 +504,11 @@
     <div class="form-container">
       <div class="field-container">
         <label for="name">Ad-Soyad</label>
-        <input id="name" maxlength="20" type="text">
+        <input id="name" maxlength="20" type="text" value="<?= isset($data['kart']) ? $data['kart']['fullName'] : ""?>">
       </div>
       <div class="field-container">
         <label for="cardnumber">Kart Numarası</label>
-        <input id="cardnumber" type="text" pattern="[0-9]*" inputmode="numeric">
+        <input id="cardnumber" type="text" pattern="[0-9]*" inputmode="numeric" value="<?= isset($data['kart']) ? $data['kart']['cartNo'] : ""?>">
         <svg id="ccicon" class="ccicon" width="750" height="471" viewBox="0 0 750 471" version="1.1"
           xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 
@@ -514,11 +516,11 @@
       </div>
       <div class="field-container">
         <label for="expirationdate">Tarih</label>
-        <input id="expirationdate" type="text" pattern="[0-9]*" inputmode="numeric">
+        <input id="expirationdate" type="text" pattern="[0-9]*" inputmode="numeric" value="<?= isset($data['kart']) ? $data['kart']['cardMonthYear'] : ""?>">
       </div>
       <div class="field-container">
-        <label for="securitycode">Cvv</label>
-        <input id="securitycode" type="text" pattern="[0-9]*" inputmode="numeric">
+        <label for="securitycode">CVC</label>
+        <input id="securitycode" type="text" pattern="[0-9]*" inputmode="numeric" value="<?= isset($data['kart']) ? $data['kart']['cartCvc'] : ""?>">
       </div>
     </div>
   </div>

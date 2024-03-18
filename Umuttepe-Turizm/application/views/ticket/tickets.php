@@ -323,8 +323,8 @@
 
 		.otobus {
 			border: 2px solid #3d4c66;
-			background-color: aliceblue;
-			border-radius: 10px;
+			background-color: #F3F7F8;
+			border-radius: 20px;
 		}
 
 		.sagkisim {
