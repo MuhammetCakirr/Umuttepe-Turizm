@@ -33,10 +33,10 @@ $route['barcodeIndex'] = 'BuyingController/index/index';
 $route['qr'] = 'Render/index';
 
 $route['admin'] = 'AdminController/index/index';
-$route['admin/sehirler'] = 'AdminController/index/sehirler';
-$route['admin/kullanicilar'] = 'AdminController/index/kullanicilar';
-$route['admin/rotalar'] = 'AdminController/index/rotalar';
-$route['admin/tarifeler'] = 'AdminController/index/tarifeler';
+$route['sehirler'] = 'AdminController/index/sehirler';
+$route['kullanicilar'] = 'AdminController/index/kullanicilar';
+$route['rotalar'] = 'AdminController/index/rotalar';
+$route['tarifeler'] = 'AdminController/index/tarifeler';
 
 $route['deneme'] = 'HomeController/changePage/deneme';
 

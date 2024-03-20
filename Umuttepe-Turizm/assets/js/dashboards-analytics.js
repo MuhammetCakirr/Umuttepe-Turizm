@@ -14,12 +14,24 @@
 
   // Total Revenue Report Chart - Bar Chart
   // --------------------------------------------------------------------
+
+	const haftalikAnalizInput = document.querySelector('input[name="haftalikAnaliz"]');
+	const haftalikAnalizData = JSON.parse(haftalikAnalizInput.value);
+
   const totalRevenueChartEl = document.querySelector('#totalRevenueChart'),
     totalRevenueChartOptions = {
       series: [
         {
           name: 'Satılan Bilet Sayısı',
-          data: [18, 7, 15, 29, 18, 12, 9]
+          data: [
+			  haftalikAnalizData[0]['Pazartesi'],
+			  haftalikAnalizData[0]['Salı'],
+			  haftalikAnalizData[0]['Çarşamba'],
+			  haftalikAnalizData[0]['Perşembe'],
+			  haftalikAnalizData[0]['Cuma'],
+			  haftalikAnalizData[0]['Cumartesi'],
+			  haftalikAnalizData[0]['Pazar']
+		  ]
         },
 
       ],
@@ -657,13 +669,19 @@
     weeklyExpenses.render();
   }
 
+	const topSeferlerInput = document.querySelector('input[name="topSeferler"]');
+	const topSeferlerData = JSON.parse(topSeferlerInput.value);
+
+	// Kategorileri ve veri dizilerini al
+	const categories = topSeferlerData.map(sefer => sefer.route);
+	const ticketCounts = topSeferlerData.map(sefer => sefer.ticket_count);
 
   const encoksatissefer = document.querySelector('#encoksatissefer'),
   totalRevenueChartOptionss = {
     series: [
       {
         name: 'Satılan Bilet Sayısı',
-        data: [18, 7, 15, 29, 18, 12, 9]
+        data: ticketCounts
       },
 
     ],
@@ -719,7 +737,7 @@
       }
     },
     xaxis: {
-      categories: ['İst. - Ank.', 'İst. - Kocaeli', 'Ank. - Balıkesir', 'İst. - Ank.', 'İst. - Ank.', 'İst. - Ank.', 'İst. - Ank.'],
+      categories: categories,
       labels: {
         style: {
           fontSize: '13px',
