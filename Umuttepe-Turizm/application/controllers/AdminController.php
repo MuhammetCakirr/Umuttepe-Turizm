@@ -12,10 +12,10 @@ class AdminController extends CI_Controller
 		$this->load->helper('url');
 	}
 
-	public function index()
+	public function index($page)
 	{
-		$data['content'] = "admin/index";
-		$this->load->view('template', array('data' => $data));
+		$data['content'] = "admin/$page";
+		$this->load->view($data['content'], array('data' => $data));
 	}
 
 }

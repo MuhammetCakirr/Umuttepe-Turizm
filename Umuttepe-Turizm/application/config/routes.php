@@ -24,7 +24,6 @@ $route['rezervasyonlarim'] = 'SettingsController/index/rezervasyonlarim';
 $route['sifre_degistir'] = 'SettingsController/index/sifre_degistir';
 $route['cikis'] = 'SettingsController/index/cikis';
 $route['hesabimi_sil'] = 'SettingsController/index/hesabimi_sil';
-$route['kayitli_kartlarim'] = 'SettingsController/index/kayitli_kartlarim';
 
 $route['tickets'] = 'TicketController/index';
 $route['buying'] = 'BuyingController/index/buying';
@@ -33,7 +32,13 @@ $route['barcodeIndex'] = 'BuyingController/index/index';
 
 $route['qr'] = 'Render/index';
 
-$route['admin'] = 'AdminController/index';
+$route['admin'] = 'AdminController/index/index';
+$route['admin/sehirler'] = 'AdminController/index/sehirler';
+$route['admin/kullanicilar'] = 'AdminController/index/kullanicilar';
+$route['admin/rotalar'] = 'AdminController/index/rotalar';
+$route['admin/tarifeler'] = 'AdminController/index/tarifeler';
+
+$route['deneme'] = 'HomeController/changePage/deneme';
 
 
 
