@@ -83,6 +83,7 @@ class BuyingController extends CI_Controller
 				$data['id'] = $id;
 				$data['seatNumbers'] = $seatNumbers;
 				$data['seat_numbers'] = $this->session->userdata('seat_numbers1');
+				$data['tarifeler'] =  $this->DBConnectionModel->getTarife();
 
 				if($this->session->userdata('seferTuru') == "2"){
 					$seatNumbers2 = explode(',', $this->session->userdata('seat_numbers2'));

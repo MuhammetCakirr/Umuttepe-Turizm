@@ -108,19 +108,6 @@
 
 
 <div class="card text-center">
-	<div class="card-header">
-		<ul class="nav nav-pills card-header-pills">
-			<li class="nav-item">
-				<a class="nav-link active" href="#">Aktif Biletlerim</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="#">Geçmiş Biletlerim</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link " href="#">Tüm Biletlerim</a>
-			</li>
-		</ul>
-	</div>
 	<div class="card-body">
 		<div class="card-deck">
 
@@ -336,6 +323,7 @@
 
 		</div>
 	</div>
+
 </div>
 <script>
 	function biletIslem(id,islem){

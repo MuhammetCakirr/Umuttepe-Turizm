@@ -26,7 +26,7 @@
 			box-shadow: 5px 7px #888888;
 			border: 2px solid teal;
 			border-radius: 10px;
-			padding: 10px;
+			padding: 16px;
 			margin-bottom: 15px;
 
 		}
@@ -328,9 +328,284 @@
 <body>
 <div class="container" style="margin-top: 130px;">
 	<div class="row">
+
+		<div class="col-lg-8">
+			<form method="post" action="buying">
+				<!-- İLETİŞİM BİLGİLERİ KUTUSU -->
+				<div class="kutular">
+					<div style="display:flex; flex-direction:row">
+						<i class="fa-solid fa-address-card"
+						   style="color: #071327; font-size: 15px; margin-top:5px; margin-right:5px;"></i>
+						<h6 style="margin-top:3px;">İletişim Bilgileri</h6>
+					</div>
+
+					<div class="row">
+						<div class="col-lg-6 col-sm-12 form-group">
+							<label for="account-fn">E-Posta Adresi</label>
+							<input class="form-control" type="text" id="account-fn" name="contactFullName" required>
+						</div>
+						<div class="col-lg-6 col-sm-12 form-group">
+							<label for="account-fn">Telefon Numaranız</label>
+							<input class="form-control" type="text" id="account-fn" name="contactTel"
+								   placeholder="(5xx) xxx xx xx " required>
+						</div>
+
+					</div>
+					<p>Online bilet bilgileriniz e-posta ve SMS yoluyla iletilecek.</p>
+					<hr>
+					<div style="display:flex; flex-direction:row">
+						<input type="checkbox" style="margin-right: 4px;">
+						<p>Seyahat bilgilendirmeleri, fırsat ve kampanyalardan <b>Rıza Metni</b> kapsamında haberdar
+							olmak istiyorum.</p>
+					</div>
+				</div>
+				<!-- İLETİŞİM BİLGİLERİ KUTUSU END -->
+
+				<!-- GİDİŞ YOLCU BİLGİLERİ KUTUSU -->
+				<div class="kutular">
+					<div style="display:flex; flex-direction:row">
+						<i class="fa-solid fa-user"
+						   style="color: #071327; font-size: 15px; margin-top:5px; margin-right:5px;"></i>
+						<h6 style="margin-top:3px;">Yolcu Bilgileri </h6>
+					</div>
+					<?php
+					for ($i = 0; $i < count($data['seatNumbers']); $i++) {
+						$number = $data['seatNumbers'][$i];
+						$number2 = isset($data['seatNumbers2']) ? $data['seatNumbers2'][$i] : "";
+						$parts = explode('-', $number);
+						$parts2 = explode('-', $number2);
+						?>
+						<div class="row">
+							<div class="col-lg-6 col-sm-12">
+								<h6>(Gidiş koltuk: <?php echo $parts[0]; ?> <?= $parts2[0] != "" ? "Dönüş koltuk: $parts2[0])" : ")" ?></h6>
+							</div>
+							<div class="col-lg-6 col-sm-12" style="text-align: right;">
+								<p id="kisifiyat<?= $number ?>" style="margin-top: 5px; color:grey; font-size:16px;">
+									<?php
+									$seatNumbers = $data['seat_numbers'];
+									$totalprice = $data['totalPrice1'];
+									$seatNumberArray = explode(',', $seatNumbers);
+									$numberOfSeats = count($seatNumberArray);
+									$personprice = ($totalprice / $numberOfSeats) * (isset($data['seatNumbers2']) ? 2 : 1);
+									?>
+									<?= $personprice ?> TL
+								</p>
+
+							</div>
+
+						</div>
+
+						<div class="row">
+							<input type="hidden" name="passengerName<?= $number ?>">
+							<div class="col-lg-6 col-sm-12 form-group">
+								<label for="account-fn">Ad</label>
+								<input class="form-control" type="text" id="account-fn"
+									   name="passengerName<?= $number ?>" required>
+							</div>
+							<div class="col-lg-6 col-sm-12 form-group">
+								<label for="account-fn">Soyad</label>
+								<input class="form-control" type="text" id="account-fn"
+									   name="passengerSurname<?= $number ?>" placeholder="" required>
+							</div>
+							<div class="col-lg-6 col-sm-12 form-group">
+								<label for="account-fn">T.C. Kimlik No</label>
+								<input class="form-control" type="text" id="account-fn" name="passengerTc<?= $number ?>"
+									   required>
+							</div>
+
+							<div class="col-lg-6 col-sm-12 form-group">
+								<label for="passengerBirthdayGidis<?= $number ?>"> Doğum Tarihi </label>
+								<input class="passengerBirthdayGidis form-control" type="date"
+									   id="passengerBirthdayGidis<?= $number ?>"
+									   name="passengerBirthdayGidis<?= $number ?>"
+									   value="">
+							</div>
+							<div class="col-lg-6 col-sm-12 form-group">
+								<label for="passengerTarife<?= $number ?>">Tarife</label>
+								<select id="passengerTarife<?= $number ?>" name="passengerTarife<?= $number ?>"
+										class="month form-control"
+										onchange="kontrolEt()">
+									<?php
+									foreach ($data['tarifeler'] as $tarife) {
+										?>
+										<option value="<?= $tarife['id'] ?>"><?= $tarife['name'] ?></option>
+										<?php
+									}
+									?>
+								</select>
+							</div>
+
+							<!--Error Dialog-->
+							<div id="myModal" class="modal col-lg-12 col-md-12 col-sm-12">
+								<div class="modal-dialog modal-confirm">
+									<div class="modal-content">
+										<div class="modal-header">
+											<div class="icon-box">
+												<i class="material-icons">&#xE5CD;</i>
+											</div>
+											<h4 class="modal-title">HATA!</h4>
+										</div>
+										<div class="modal-body">
+											<p style="font-size: 17px;" class="text-center">Seçtiğiniz tarife ile
+												yaşınız uyuşmuyor.</p>
+										</div>
+										<div class="modal-footer">
+											<button class="btn btn-danger btn-block" data-dismiss="modal">Kapat</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!--Error Dialog End-->
+
+							<div class="col-lg-6 col-sm-12 form-group">
+								<label for="cinsiyet">Cinsiyet</label>
+								<div id="cinsiyet">
+									<label for="f-option<?= $number ?>" class="l-radio">
+										<input type="radio" id="f-option<?= $number ?>"
+											   name="passengeSelector<?= $number ?>" tabindex="1" checked>
+										<span><?= strtoupper($parts[1]) ?></span>
+									</label>
+								</div>
+							</div>
+
+						</div>
+						<p>Servis rezervasyonu için biletinizi aldıktan sonra otobüs firması ile görüşebilirsiniz.</p>
+						<hr>
+
+					<?php } ?>
+				</div>
+				<!-- GİDİŞ YOLCU BİLGİLERİ KUTUSU END -->
+
+				<!-- ÖDEME BİLGİLERİ KUTUSU -->
+				<div class="kutular">
+					<div class="row">
+						<div class="col-lg-6 col-sm-12 ">
+							<div style="display:flex; flex-direction:row;">
+								<i class="fa-solid fa-credit-card"
+								   style="color: #071327; font-size: 15px; margin-top:5px; margin-right:5px;"></i>
+								<h6 style="margin-top:3px; margin-right: 10px;">Ödeme Bilgileri</h6>
+
+							</div>
+
+						</div>
+						<div class="col-lg-6 col-sm-12" style="justify-content: space-around;">
+							<img src="https://s3.eu-central-1.amazonaws.com/static.obilet.com/images/web/cards-782.png"
+								 alt="kartlar" style="width: 100%; height:100%;">
+						</div>
+					</div>
+
+
+					<p style="margin-top: 5px; color:black;">Lütfen Kart bilgilerinizi giriniz.</p>
+					<div class="row">
+						<div class="col-lg-6 col-sm-12 form-group">
+							<label for="account-fn">Kart Numarası</label>
+							<input class="form-control" type="text" id="account-fn" name="cartNo"
+								   placeholder="XXXX XXXX XXXX XXXX" required>
+						</div>
+						<div class="col-lg-6 col-sm-12 form-group">
+							<label for="account-fn">Ad - Soyad</label>
+							<input class="form-control" type="text" id="account-fn" name="cartFullName" required>
+						</div>
+						<div class="col-lg-6 col-sm-12 form-group">
+							<label for="aylar">Son Kullanma Tarihi</label>
+							<div style="display: flex; flex-direction:row">
+								<select id="aylar" name="aylar" class="month">
+									<option value="Ay Seçiniz" selected>Ay Seçiniz</option>
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="8">8</option>
+									<option value="9">9</option>
+									<option value="10">10</option>
+									<option value="11">11</option>
+									<option value="12">12</option>
+								</select>
+								<select id="yıllar" name="yıllar" class="month">
+									<option value="Yıl Seçiniz" selected>Yıl Seçiniz</option>
+									<option value="2024">2024</option>
+									<option value="2025">2025</option>
+									<option value="2026">2026</option>
+									<option value="2027">2027</option>
+									<option value="2028">2028</option>
+									<option value="2029">2029</option>
+									<option value="2030">2030</option>
+									<option value="2031">2031</option>
+									<option value="2032">2032</option>
+									<option value="2033">2033</option>
+									<option value="2034">2034</option>
+									<option value="2035">2035</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-6 col-sm-12 form-group">
+							<label for="account-fn">CVC</label>
+							<input class="form-control" type="text" id="account-fn" name="cartCvc" placeholder="XXX"
+								   required>
+						</div>
+					</div>
+					<hr>
+					<div style="display:flex; flex-direction:row">
+						<input type="checkbox" style="margin-right: 4px;">
+						<p>Kart Bilgilerimi Kaydet.</p>
+					</div>
+					<div style="display:flex; ">
+						<input type="checkbox" style="margin-right: 4px; ">
+						<p><b> Ön Bilgilendirme Formu'nu , Mesafeli Satış Sözleşmesi'ni </b> okudum ve onaylıyorum.
+							Kişisel verilerin işlenmesine ilişkin <b> Aydınlatma Metni’ni ve Çerez Politikası
+								Metni'ni
+							</b> okudum. <b> Kullanım Koşulları’nı </b> kabul ediyorum.</p>
+					</div>
+					<div style="display:flex; flex-direction:row">
+						<i class="fa-solid fa-shield-halved" style="color: darkgreen; font-size:25px; "></i>
+						<p style="font-size: 15px; color:grey; margin-left:5px;">Umuttepe Turizm üzerinden yapılan
+							işlemler güvenlik sertifikalarıyla korunmaktadır.</p>
+					</div>
+					<input type="hidden" name="id" value="<?= $data['id'] ?>">
+					<?php echo isset($data['id2']) ? "<input type='hidden' name='id2' value='" . $data['id2'] . "'>	" : ""; ?>
+					<input type="hidden" name="seatNumbers" value="<?= $data['seat_numbers'] ?>">
+					<?php echo isset($data['id2']) ? "<input type='hidden' name='seatNumbers2' value='" . $data['seat_numbers2'] . "'>" : ""; ?>
+					<input type="hidden" name="totalPrice" id="totalprice"
+						   value="<?= $data['totalPrice1'] ?>">
+					<?php echo isset($data['id2']) ? "<input type='hidden' name='totalPrice2' value='" . $data['totalPrice2'] . "'>" : ""; ?>
+					<input type="hidden" name="operation" value="paying">
+					<div class="row">
+						<div class="col-lg-6 col-sm-12">
+							<button class="custom-button" type="submit" name="buying" value="2">
+								<i class="fas fa-shield-alt"></i>
+								<div style="display: flex; flex-direction:column">
+										<span id="totalpricee"> <strong>
+										<?= $data['totalPrice1'] + (isset($data['id2']) ? $data['totalPrice2'] : 0) ?> TL </strong>
+											  </span>
+									<p style="color: white;">Güvenli ödeme yap </p>
+								</div>
+
+								<i class="fas fa-chevron-right right-arrow-icon"></i>
+							</button>
+						</div>
+						<div class="col-lg-6 col-sm-12">
+							<button class="custom-buttonrez" type="submit" name="buying" value="3">
+								<i style="visibility: hidden;" class="fas fa-shield-alt"></i>
+								<div style="display: flex; flex-direction:column">
+										<span> <strong id="totalpricerez">
+												<?= $data['totalPrice1'] + (isset($data['id2']) ? $data['totalPrice2'] : 0) ?> TL
+											</strong> </span>
+									<p>Rezervasyon Yap </p>
+								</div>
+								<i class="fas fa-chevron-right right-arrow-icon"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+				<!-- ÖDEME BİLGİLERİ KUTUSU END -->
+			</form>
+		</div>
 		<div class="col-lg-4">
 			<!-- SEFER BİLGİLERİ KUTUSU  -->
-			<div class="kutular" style="padding: 0px; !important">
+			<div class="kutular" style="padding: 6px; !important">
 				<div class="row" style="padding: 10px;">
 					<div class="col-lg-6 col-sm-12 ">
 						<div style="display:flex; flex-direction:row;">
@@ -434,9 +709,10 @@
 
 					</p>
 				</div>
-				<div style="display:flex; flex-direction:row;">
-					<i class="fa-regular fa-clock" style="color: #000000; font-size:20px; margin:7px;"></i>
-					<p><strong>Tahmini Sefer Süresi : </strong>
+				<div style="display: flex; flex-direction: row; justify-content: start; align-items: center;">
+
+				<i class="fa-regular fa-clock" style="color: #000000; font-size:20px; margin-left:7px;margin-right:7px;"></i>
+					<strong>Tahmini Sefer Süresi : </strong>
 					<p class="sefer-p" style="margin-left: 6px;">
 						<?php
 						$departure_time_str = $data['busRoute']['departure_date'] . ' ' . $data['busRoute']['departure_time'];
@@ -455,21 +731,21 @@
 						echo $sefer_suresi_saat . " saat ";
 						?>
 					</p>
-					</p>
 				</div>
-				<div style="display:flex; flex-direction:row; padding-left: 10px; padding-right: 10px;">
-					<label for="kalkis"><Strong>İptal Koşulları </Strong> </label>
+				<hr>
+				<div style="display: flex; flex-direction: row; justify-content: start; align-items: center; padding-left: 10px; padding-right: 10px;">
+					<strong style="font-size: medium">İptal Koşulları</strong>
 					<i class="fa-solid fa-circle-exclamation"
-					   style="color: #000000; font-size: 20px; margin:7px;"></i>
+					   style="color: #000000; font-size: 16px; margin-left:7px;"></i>
 				</div>
 				<div style="padding-left: 10px; padding-right: 10px;">
-					<p>Biletinizi yolculuğunuzdan 6 saat öncesine kadar ücretsiz iptal edebilirsiniz.</p>
+					<p style="font-size: small">Biletinizi yolculuğunuzdan 6 saat öncesine kadar ücretsiz iptal edebilirsiniz.</p>
 				</div>
 			</div>
 			<?php
 			if (isset($data['id2'])) {
 				?>
-				<div class="kutular" style="padding: 0px; !important">
+				<div class="kutular" style="padding: 6px; !important">
 					<div class="row" style="padding: 10px;">
 						<div class="col-lg-6 col-sm-12 ">
 							<div style="display:flex; flex-direction:row;">
@@ -540,9 +816,9 @@
 
 						</p>
 					</div>
-					<div style="display:flex; flex-direction:row;">
+					<div style="display: flex; flex-direction: row; justify-content: start; align-items: center;">
 						<i class="fa-regular fa-clock" style="color: #000000; font-size:20px; margin:7px;"></i>
-						<p><strong>Tahmini Sefer Süresi : </strong>
+						<strong>Tahmini Sefer Süresi : </strong>
 						<p class="sefer-p" style="margin-left: 6px;">
 							<?php
 							$departure_time_str = $data['busRoute']['departure_date'] . ' ' . $data['busRoute']['departure_time'];
@@ -561,15 +837,15 @@
 							echo $sefer_suresi_saat . " saat ";
 							?>
 						</p>
-						</p>
 					</div>
-					<div style="display:flex; flex-direction:row; padding-left: 10px; padding-right: 10px;">
-						<label for="kalkis"><Strong>İptal Koşulları </Strong> </label>
+					<hr>
+					<div style="display: flex; flex-direction: row; justify-content: start; align-items: center; padding-left: 10px; padding-right: 10px;">
+						<strong style="font-size: medium">İptal Koşulları</strong>
 						<i class="fa-solid fa-circle-exclamation"
-						   style="color: #000000; font-size: 20px; margin:7px;"></i>
+						   style="color: #000000; font-size: 16px; margin-left:7px;"></i>
 					</div>
 					<div style="padding-left: 10px; padding-right: 10px;">
-						<p>Biletinizi yolculuğunuzdan 6 saat öncesine kadar ücretsiz iptal edebilirsiniz.</p>
+						<p style="font-size: small">Biletinizi yolculuğunuzdan 6 saat öncesine kadar ücretsiz iptal edebilirsiniz.</p>
 					</div>
 				</div>
 				<?php
@@ -578,279 +854,7 @@
 			<!-- SEFER BİLGİLERİ KUTUSU END  -->
 		</div>
 
-		<div class="col-lg-8">
-			<form method="post" action="buying">
-				<!-- İLETİŞİM BİLGİLERİ KUTUSU -->
-				<div class="kutular">
-					<div style="display:flex; flex-direction:row">
-						<i class="fa-solid fa-address-card"
-						   style="color: #071327; font-size: 15px; margin-top:5px; margin-right:5px;"></i>
-						<h6 style="margin-top:3px;">İletişim Bilgileri</h6>
-					</div>
 
-					<div class="row">
-						<div class="col-lg-6 col-sm-12 form-group">
-							<label for="account-fn">E-Posta Adresi</label>
-							<input class="form-control" type="text" id="account-fn" name="contactFullName" required>
-						</div>
-						<div class="col-lg-6 col-sm-12 form-group">
-							<label for="account-fn">Telefon Numaranız</label>
-							<input class="form-control" type="text" id="account-fn" name="contactTel"
-								   placeholder="(5xx) xxx xx xx " required>
-						</div>
-
-					</div>
-					<p>Online bilet bilgileriniz e-posta ve SMS yoluyla iletilecek.</p>
-					<hr>
-					<div style="display:flex; flex-direction:row">
-						<input type="checkbox" style="margin-right: 4px;">
-						<p>Seyahat bilgilendirmeleri, fırsat ve kampanyalardan <b>Rıza Metni</b> kapsamında haberdar
-							olmak istiyorum.</p>
-					</div>
-				</div>
-				<!-- İLETİŞİM BİLGİLERİ KUTUSU END -->
-
-				<!-- GİDİŞ YOLCU BİLGİLERİ KUTUSU -->
-				<div class="kutular">
-					<div style="display:flex; flex-direction:row">
-						<i class="fa-solid fa-user"
-						   style="color: #071327; font-size: 15px; margin-top:5px; margin-right:5px;"></i>
-						<h6 style="margin-top:3px;">Yolcu Bilgileri</h6>
-					</div>
-					<?php
-					for ($i = 0; $i < count($data['seatNumbers']); $i++) {
-						$number = $data['seatNumbers'][$i];
-						$number2 = isset($data['seatNumbers2']) ? $data['seatNumbers2'][$i] : "";
-						$parts = explode('-', $number);
-						$parts2 = explode('-', $number2);
-						?>
-						<div class="row">
-							<div class="col-lg-6 col-sm-12">
-								<p style="margin-top: 5px; color:blue;">
-									<?= "Gidiş:".$parts[0] ." Dönüş:".$parts2[0] ?> Koltuk yolcu bilgisi
-								</p>
-							</div>
-							<div class="col-lg-6 col-sm-12" style="text-align: right;">
-								<p id="kisifiyat<?= $number ?>" style="margin-top: 5px; color:grey; font-size:16px;">
-									<?php
-									$seatNumbers = $data['seat_numbers'];
-									$totalprice = $data['totalPrice1'];
-									$seatNumberArray = explode(',', $seatNumbers);
-									$numberOfSeats = count($seatNumberArray);
-									$personprice = ($totalprice / $numberOfSeats) *(isset($data['seatNumbers2']) ? 2 : 1);
-									?>
-									<?= $personprice ?> TL
-								</p>
-
-							</div>
-
-						</div>
-
-						<div class="row">
-							<input type="hidden" name="passengerName<?= $number ?>">
-							<div class="col-lg-6 col-sm-12 form-group">
-								<label for="account-fn">Ad</label>
-								<input class="form-control" type="text" id="account-fn"
-									   name="passengerName<?= $number ?>" required>
-							</div>
-							<div class="col-lg-6 col-sm-12 form-group">
-								<label for="account-fn">Soyad</label>
-								<input class="form-control" type="text" id="account-fn"
-									   name="passengerSurname<?= $number ?>" placeholder="" required>
-							</div>
-							<div class="col-lg-6 col-sm-12 form-group">
-								<label for="account-fn">T.C. Kimlik No</label>
-								<input class="form-control" type="text" id="account-fn" name="passengerTc<?= $number ?>"
-									   required>
-							</div>
-
-							<div class="col-lg-6 col-sm-12 form-group">
-								<label for="passengerBirthdayGidis<?= $number ?>"> Doğum Tarihi </label>
-								<input class="passengerBirthdayGidis form-control" type="date" id="passengerBirthdayGidis<?= $number ?>"
-									   name="passengerBirthdayGidis<?= $number ?>"
-									   value="">
-							</div>
-							<div class="col-lg-6 col-sm-12 form-group">
-								<label for="passengerTarife<?= $number ?>">Tarife</label>
-								<select id="passengerTarife<?= $number ?>" name="passengerTarife<?= $number ?>" class="month form-control"
-										onchange="kontrolEt()">
-									<option value="1" selected>Genç (13-26)</option>
-									<option value="2">Çocuk (7-12)</option>
-									<option value="3">Yaşlı (65+)</option>
-									<option value="4">Öğretmen</option>
-									<option value="5">TSK Çalışan</option>
-									<option value="6">Basın (Press)</option>
-								</select>
-							</div>
-
-							<!--Error Dialog-->
-							<div id="myModal" class="modal col-lg-12 col-md-12 col-sm-12">
-								<div class="modal-dialog modal-confirm">
-									<div class="modal-content">
-										<div class="modal-header">
-											<div class="icon-box">
-												<i class="material-icons">&#xE5CD;</i>
-											</div>
-											<h4 class="modal-title">HATA!</h4>
-										</div>
-										<div class="modal-body">
-											<p style="font-size: 17px;" class="text-center">Seçtiğiniz tarife ile
-												yaşınız uyuşmuyor.</p>
-										</div>
-										<div class="modal-footer">
-											<button class="btn btn-danger btn-block" data-dismiss="modal">Kapat</button>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!--Error Dialog End-->
-
-							<div class="col-lg-6 col-sm-12 form-group">
-								<label for="cinsiyet">Cinsiyet</label>
-								<div id="cinsiyet">
-									<label for="f-option<?= $number ?>" class="l-radio">
-										<input type="radio" id="f-option<?= $number ?>"
-											   name="passengeSelector<?= $number ?>"  tabindex="1" checked>
-										<span><?= strtoupper($parts[1]) ?></span>
-									</label>
-								</div>
-							</div>
-
-						</div>
-						<p>Servis rezervasyonu için biletinizi aldıktan sonra otobüs firması ile görüşebilirsiniz.</p>
-						<hr>
-
-					<?php } ?>
-				</div>
-				<!-- GİDİŞ YOLCU BİLGİLERİ KUTUSU END -->
-
-				<!-- ÖDEME BİLGİLERİ KUTUSU -->
-				<div class="kutular">
-					<div class="row">
-						<div class="col-lg-6 col-sm-12 ">
-							<div style="display:flex; flex-direction:row;">
-								<i class="fa-solid fa-credit-card"
-								   style="color: #071327; font-size: 15px; margin-top:5px; margin-right:5px;"></i>
-								<h6 style="margin-top:3px; margin-right: 10px;">Ödeme Bilgileri</h6>
-
-							</div>
-
-						</div>
-						<div class="col-lg-6 col-sm-12" style="justify-content: space-around;">
-							<img src="https://s3.eu-central-1.amazonaws.com/static.obilet.com/images/web/cards-782.png"
-								 alt="kartlar" style="width: 100%; height:100%;">
-						</div>
-					</div>
-
-
-					<p style="margin-top: 5px; color:black;">Lütfen Kart bilgilerinizi giriniz.</p>
-					<div class="row">
-						<div class="col-lg-6 col-sm-12 form-group">
-							<label for="account-fn">Kart Numarası</label>
-							<input class="form-control" type="text" id="account-fn" name="cartNo"
-								   placeholder="XXXX XXXX XXXX XXXX" required>
-						</div>
-						<div class="col-lg-6 col-sm-12 form-group">
-							<label for="account-fn">Ad - Soyad</label>
-							<input class="form-control" type="text" id="account-fn" name="cartFullName" required>
-						</div>
-						<div class="col-lg-6 col-sm-12 form-group">
-							<label for="aylar">Son Kullanma Tarihi</label>
-							<div style="display: flex; flex-direction:row">
-								<select id="aylar" name="aylar" class="month">
-									<option value="Ay Seçiniz" selected>Ay Seçiniz</option>
-									<option value="1">1</option>
-									<option value="2">2</option>
-									<option value="3">3</option>
-									<option value="4">4</option>
-									<option value="5">5</option>
-									<option value="6">6</option>
-									<option value="7">7</option>
-									<option value="8">8</option>
-									<option value="9">9</option>
-									<option value="10">10</option>
-									<option value="11">11</option>
-									<option value="12">12</option>
-								</select>
-								<select id="yıllar" name="yıllar" class="month">
-									<option value="Yıl Seçiniz" selected>Yıl Seçiniz</option>
-									<option value="2024">2024</option>
-									<option value="2025">2025</option>
-									<option value="2026">2026</option>
-									<option value="2027">2027</option>
-									<option value="2028">2028</option>
-									<option value="2029">2029</option>
-									<option value="2030">2030</option>
-									<option value="2031">2031</option>
-									<option value="2032">2032</option>
-									<option value="2033">2033</option>
-									<option value="2034">2034</option>
-									<option value="2035">2035</option>
-								</select>
-							</div>
-						</div>
-						<div class="col-lg-6 col-sm-12 form-group">
-							<label for="account-fn">CVC</label>
-							<input class="form-control" type="text" id="account-fn" name="cartCvc" placeholder="XXX"
-								   required>
-						</div>
-					</div>
-					<hr>
-					<div style="display:flex; flex-direction:row">
-						<input type="checkbox" style="margin-right: 4px;">
-						<p>Kart Bilgilerimi Kaydet.</p>
-					</div>
-					<div style="display:flex; ">
-						<input type="checkbox" style="margin-right: 4px; ">
-						<p><b> Ön Bilgilendirme Formu'nu , Mesafeli Satış Sözleşmesi'ni </b> okudum ve onaylıyorum.
-							Kişisel verilerin işlenmesine ilişkin <b> Aydınlatma Metni’ni ve Çerez Politikası
-								Metni'ni
-							</b> okudum. <b> Kullanım Koşulları’nı </b> kabul ediyorum.</p>
-					</div>
-					<div style="display:flex; flex-direction:row">
-						<i class="fa-solid fa-shield-halved" style="color: darkgreen; font-size:25px; "></i>
-						<p style="font-size: 15px; color:grey; margin-left:5px;">Umuttepe Turizm üzerinden yapılan
-							işlemler güvenlik sertifikalarıyla korunmaktadır.</p>
-					</div>
-					<input type="hidden" name="id" value="<?= $data['id'] ?>">
-					<?php echo isset($data['id2']) ? "<input type='hidden' name='id2' value='".$data['id2']."'>	" : "";?>
-					<input type="hidden" name="seatNumbers" value="<?= $data['seat_numbers'] ?>">
-					<?php echo isset($data['id2']) ? "<input type='hidden' name='seatNumbers2' value='".$data['seat_numbers2']."'>" : "";?>
-					<input type="hidden" name="totalPrice" id="totalprice"
-						   value="<?= $data['totalPrice1'] ?>">
-					<?php echo isset($data['id2']) ? "<input type='hidden' name='totalPrice2' value='".$data['totalPrice2']."'>" : "";?>
-					<input type="hidden" name="operation" value="paying">
-					<div class="row">
-						<div class="col-lg-6 col-sm-12">
-							<button class="custom-button" type="submit" name="buying" value="2">
-								<i class="fas fa-shield-alt"></i>
-								<div style="display: flex; flex-direction:column">
-										<span id="totalpricee"> <strong>
-										<?= $data['totalPrice1'] + (isset($data['id2']) ? $data['totalPrice2'] : 0) ?> TL </strong>
-											  </span>
-									<p style="color: white;">Güvenli ödeme yap </p>
-								</div>
-
-								<i class="fas fa-chevron-right right-arrow-icon"></i>
-							</button>
-						</div>
-						<div class="col-lg-6 col-sm-12">
-							<button class="custom-buttonrez" type="submit" name="buying" value="3">
-								<i style="visibility: hidden;" class="fas fa-shield-alt"></i>
-								<div style="display: flex; flex-direction:column">
-										<span> <strong id="totalpricerez">
-												<?= $data['totalPrice1'] + (isset($data['id2']) ? $data['totalPrice2'] : 0) ?> TL
-											</strong> </span>
-									<p>Rezervasyon Yap </p>
-								</div>
-								<i class="fas fa-chevron-right right-arrow-icon"></i>
-							</button>
-						</div>
-					</div>
-				</div>
-				<!-- ÖDEME BİLGİLERİ KUTUSU END -->
-			</form>
-		</div>
 	</div>
 </div>
 <script src="assets/js/buying.js"></script>
