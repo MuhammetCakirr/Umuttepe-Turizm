@@ -55,7 +55,7 @@ $current_url = $_SERVER['REQUEST_URI'];
 						<!-- logo -->
 						<div class="site-logo">
 							<a href="index">
-								<img src="assets/img/logo.png" alt="">
+								<img src="assets/img/umuttepelogo6yeni2.png" alt="">
 							</a>
 						</div>
 						<!-- logo -->

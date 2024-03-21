@@ -16,6 +16,9 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css" />
+<link rel="stylesheet" href="../assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+<link rel="stylesheet" href="../assets/css/demo.css" />
 
 	<!-- bootstrap -->
 	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
@@ -609,8 +612,8 @@
 								</strong>
 							</div>
 							<div>
-								<i class="fa-solid fa-van-shuttle"
-									style="color: #000714; font-size: 15px; margin-left: 10px; margin-right:10px"></i>
+							<i class="fa-solid fa-map-location-dot" style="color: #000714; font-size: 15px; margin: 7px;"></i>
+
 							</div>
 							<div>
 								<strong>
