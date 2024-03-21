@@ -99,19 +99,25 @@
 						<div class="col-lg-6 col-sm-12">
 							<label for="exampleFormControlSelect1" class="form-label">Kalkış Yeri</label>
 							<select class="form-select" id="kalkisyeriduzenle" aria-label="Default select example">
-
-								<option value="1">İstanbul</option>
-								<option value="2">Ankara</option>
-								<option value="3">Kocaeli</option>
+								<?php
+									foreach ($data['cities'] as $city){
+										?>
+										<option value="<?= $city['id']?>"><?= $city['name']?></option>
+										<?php
+									}
+								?>
 							</select>
 						</div>
 						<div class="col-lg-6 col-sm-12">
 							<label for="exampleFormControlSelect1" class="form-label">Varış Yeri</label>
 							<select class="form-select" id="varisyeriduzenle" aria-label="Default select example">
-
-								<option value="1">İstanbul</option>
-								<option value="2">Ankara</option>
-								<option value="3">Kocaeli</option>
+								<?php
+								foreach ($data['cities'] as $city){
+									?>
+									<option value="<?= $city['id']?>"><?= $city['name']?></option>
+									<?php
+								}
+								?>
 							</select>
 						</div>
 					</div>
@@ -147,6 +153,7 @@
 						</div>
 					</div>
 
+					<input type="hidden" value="" name="id" id="rotaduzenleid">
 					<input type="button" value="Rotayı Güncelle" class="rotaduzenlebtn">
 					<input type="button" value="İptal" class="rotaduzenleiptalbtn">
 				</form>
@@ -164,19 +171,25 @@
 						<div class="col-lg-6 col-sm-12">
 							<label for="exampleFormControlSelect1" class="form-label">Kalkış Yeri</label>
 							<select class="form-select" id="kalkisyeriekle" aria-label="Default select example">
-								<option value="0" selected>Seçiniz*</option>
-								<option value="1">İstanbul</option>
-								<option value="2">Ankara</option>
-								<option value="3">Kocaeli</option>
+								<?php
+								foreach ($data['cities'] as $city){
+									?>
+									<option value="<?= $city['id']?>"><?= $city['name']?></option>
+									<?php
+								}
+								?>
 							</select>
 						</div>
 						<div class="col-lg-6 col-sm-12">
 							<label for="exampleFormControlSelect1" class="form-label">Varış Yeri</label>
 							<select class="form-select" id="varisyeriekle" aria-label="Default select example">
-								<option value="0" selected>Seçiniz*</option>
-								<option value="1">İstanbul</option>
-								<option value="2">Ankara</option>
-								<option value="3">Kocaeli</option>
+								<?php
+								foreach ($data['cities'] as $city){
+									?>
+									<option value="<?= $city['id']?>"><?= $city['name']?></option>
+									<?php
+								}
+								?>
 							</select>
 						</div>
 					</div>
@@ -235,49 +248,38 @@
 				</tr>
 				</thead>
 				<tbody class="table-border-bottom-0">
-				<tr>
-					<td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong
-							id="kalkisyeritablo">İstanbul</strong></td>
-					<td id="varisyeritablo">Kocaeli</td>
-					<td id="kalkissaatitablo">07:00:00</td>
-					<td id="varisaatitablo">12:00:00</td>
-					<td id="biletucretitablo">650 TL</td>
-					<td id="plakatablo">06NZR294</td>
-					<td>
-						<div class="dropdown">
-							<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-								<i class="bx bx-dots-vertical-rounded"></i>
-							</button>
-							<div class="dropdown-menu">
-								<a id="duzenlebtn" class="dropdown-item" href="javascript:void(0);"><i
-										class="bx bx-edit-alt me-1"></i> Düzenle</a>
-								<a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Sil</a>
-							</div>
-						</div>
-					</td>
-				</tr>
 
-				<tr>
-					<td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong
-							id="kalkisyeritablo">İstanbul</strong></td>
-					<td id="varisyeritablo">Ankara</td>
-					<td id="kalkissaatitablo">07:00:00</td>
-					<td id="varissaatitablo">12:00:00</td>
-					<td id="biletucretitablo">650 TL</td>
-					<td id="plakatablo">06NZR294</td>
-					<td>
-						<div class="dropdown">
-							<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-								<i class="bx bx-dots-vertical-rounded"></i>
-							</button>
-							<div class="dropdown-menu">
-								<a id="duzenlebtn" class="dropdown-item" href="javascript:void(0);"><i
-										class="bx bx-edit-alt me-1"></i> Düzenle</a>
-								<a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Sil</a>
+				<?php
+				foreach ($data['routes'] as $route) {
+					?>
+					<tr>
+						<td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong
+								id="kalkisyeritablo"><?= $route['from_city_name'] ?></strong></td>
+						<td id="varisyeritablo"><?= $route['to_city_name'] ?></td>
+						<td id="kalkissaatitablo"><?= $route['departure_time'] ?></td>
+						<td id="varisaatitablo"><?= $route['arrival_time'] ?></td>
+						<td id="biletucretitablo"><?= $route['price'] ?> TL</td>
+						<td id="plakatablo"><?= $route['bus_plate_code'] ?></td>
+						<td>
+							<div class="dropdown">
+								<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+									<i class="bx bx-dots-vertical-rounded"></i>
+								</button>
+								<input type="hidden" name="rota" id="<?= $route['id'] ?>" value="<?= htmlspecialchars(json_encode($route)) ?>">
+								<div class="dropdown-menu">
+									<a id="duzenlebtn" data-route-id ="<?= $route['id']?>"  class="dropdown-item" href="javascript:void(0);"><i
+											class="bx bx-edit-alt me-1"></i> Düzenle</a>
+									<a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Sil</a>
+								</div>
 							</div>
-						</div>
-					</td>
-				</tr>
+						</td>
+					</tr>
+
+					<?php
+				}
+				?>
+
+
 
 				</tbody>
 			</table>

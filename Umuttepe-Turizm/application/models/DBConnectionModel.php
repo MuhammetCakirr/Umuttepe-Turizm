@@ -52,7 +52,12 @@ class DBConnectionModel
 		}
 	}
 
+	public function addContact($name,$email,$tel,$subject,$content){
+		$link_mysql = $this->mysqlConn();
+		$count_query = "INSERT INTO contact (name,email,tel,subject,content) VALUES ('$name','$email','$tel','$subject','$content')";
 
+		return mysqli_query($link_mysql, $count_query);
+	}
 	public function getBakiye($id)
 	{
 		$link_mysql = $this->mysqlConn();

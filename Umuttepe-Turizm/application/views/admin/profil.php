@@ -3,26 +3,25 @@
 
 	<div class="row">
 		<div class="col-md-12">
-
 			<div class="card mb-4">
 				<h5 class="card-header">Hesap Bilgileri</h5>
 
 				<hr class="my-0" />
 				<div class="card-body">
-					<form id="formAccountSettings" method="POST" onsubmit="return false">
+					<form id="formAccountSettings" method="POST" action="adminLogin">
 						<div class="row">
 							<div class="mb-3 col-md-6">
 								<label for="firstName" class="form-label">Ad</label>
-								<input class="form-control" type="text" id="firstName" name="firstName" value="John"
+								<input class="form-control" type="text" id="firstName" name="firstName" value="<?= $data['profil']['name']?>"
 									   autofocus />
 							</div>
 							<div class="mb-3 col-md-6">
 								<label for="lastName" class="form-label">Soyad</label>
-								<input class="form-control" type="text" name="lastName" id="lastName" value="Doe" />
+								<input class="form-control" type="text" name="lastName" id="lastName" value="<?= $data['profil']['surname']?>" />
 							</div>
 							<div class="mb-3 col-md-6">
 								<label for="email" class="form-label">E-Posta</label>
-								<input class="form-control" type="text" id="email" name="email" value="john.doe@example.com"
+								<input class="form-control" type="text" id="email" name="email" value="<?= $data['profil']['email']?>"
 									   placeholder="john.doe@example.com" />
 							</div>
 
@@ -31,14 +30,14 @@
 								<div class="input-group input-group-merge">
 									<span class="input-group-text">TR (+90)</span>
 									<input type="text" id="phoneNumber" name="phoneNumber" class="form-control"
-										   placeholder="545 446 29 69 " />
+										   placeholder="5331327841" value="<?= $data['profil']['tel']?>"/>
 								</div>
 							</div>
 
 						</div>
 						<div class="mt-2">
+							<input type="hidden" name="operation" value="hesapBilgileriGuncelle">
 							<button type="submit" class="btn btn-primary me-2">Kaydet</button>
-							<button type="reset" class="btn btn-outline-secondary">İptal</button>
 						</div>
 					</form>
 				</div>
@@ -80,13 +79,13 @@
 
 				<hr class="my-0" />
 				<div class="card-body">
-					<form id="formAccountSettings" method="POST" onsubmit="return false">
+					<form id="formAccountSettings" method="POST" action="adminLogin">
 						<div class="row">
 							<div class="col-lg-6 col-sm-12">
 								<div class="form-password-toggle">
 									<label class="form-label" for="basic-default-password12"> Mevcut Şifre</label>
 									<div class="input-group">
-										<input type="password" class="form-control" id="basic-default-password12"
+										<input type="password" class="form-control" id="basic-default-password12" name="oldPass"
 											   placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
 											   aria-describedby="basic-default-password2" />
 										<span id="basic-default-password2" class="input-group-text cursor-pointer"><i
@@ -98,7 +97,7 @@
 								<div class="form-password-toggle">
 									<label class="form-label" for="basic-default-password12"> Yeni Şifre</label>
 									<div class="input-group">
-										<input type="password" class="form-control" id="basic-default-password12"
+										<input type="password" class="form-control" id="basic-default-password12" name="newPass"
 											   placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
 											   aria-describedby="basic-default-password2" />
 										<span id="basic-default-password2" class="input-group-text cursor-pointer"><i
@@ -110,7 +109,7 @@
 								<div class="form-password-toggle">
 									<label class="form-label" for="basic-default-password12"> Yeni Şifre Tekrar</label>
 									<div class="input-group">
-										<input type="password" class="form-control" id="basic-default-password12"
+										<input type="password" class="form-control" id="basic-default-password12" name="newAgainPass"
 											   placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
 											   aria-describedby="basic-default-password2" />
 										<span id="basic-default-password2" class="input-group-text cursor-pointer"><i
@@ -120,8 +119,8 @@
 							</div>
 						</div>
 						<div class="mt-2">
+							<input type="hidden" name="operation" value="sifreGuncelle">
 							<button type="submit" class="btn btn-primary me-2">Güncelle</button>
-							<button type="reset" class="btn btn-outline-secondary">İptal</button>
 						</div>
 					</form>
 				</div>

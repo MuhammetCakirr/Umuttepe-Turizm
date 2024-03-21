@@ -236,7 +236,7 @@
     <div class="col-right">
       <div class="login-form">
         <h2>Admin Girişi</h2>
-        <form action="index.html">
+        <form method="post" action="adminLogin">
           <p>
             <label>E-Posta Adresi<span>*</span></label>
             <input type="text" id="admineposta" name="admineposta" placeholder="E-Posta giriniz" required>
@@ -249,6 +249,13 @@
             <input type="submit" value="Giriş Yap"  />
           </p>
         </form>
+		  <div>
+			  <?php
+			  if (isset($data['error'])) {
+				  echo $data['error'];
+			  }
+			  ?>
+		  </div>
       </div>
     </div>
   </div>

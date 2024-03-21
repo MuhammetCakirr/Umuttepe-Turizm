@@ -77,19 +77,25 @@
 						<h2>Aklınıza takılan bir soru mu var ?</h2>
 						<p> Aklınıza takılan her soruyu, öneriyi veya geri bildirimi bize iletmek için aşağıdaki iletişim formunu doldurun. Profesyonel ekibimiz size en kısa sürede geri dönüş yapacak ve sorularınızı yanıtlayacaktır.</p>
 					</div>
+					<div>
+						<?php
+						if (isset($data['result'])) {
+							echo $data['result'];
+						}
+						?>
+					</div>
 				 	<div id="form_status"></div>
 					<div class="contact-form">
-						<form type="POST" id="fruitkha-contact" onSubmit="return valid_datas( this );">
+						<form method="post" id="fruitkha-contact" action="" onSubmit="return valid_datas( this );">
 							<p>
-								<input type="text" placeholder="Ad" name="Ad" id="Ad">
+								<input type="text" placeholder="Ad" name="name" id="Ad">
 								<input type="email" placeholder="Email" name="email" id="email">
 							</p>
 							<p>
-								<input type="tel" placeholder="Tel-No" name="phone" id="phone">
+								<input type="tel" placeholder="Tel-No" name="tel" id="phone">
 								<input type="text" placeholder="Konu" name="subject" id="subject">
 							</p>
-							<p><textarea name="message" id="message" cols="30" rows="10" placeholder="Mesajınız"></textarea></p>
-							<input type="hidden" name="token" value="FsWga4&@f6aw" />
+							<p><textarea name="content" id="message" cols="30" rows="10" placeholder="Mesajınız"></textarea></p>
 							<p><input type="submit" value="Gönder"></p>
 						</form>
 					</div>

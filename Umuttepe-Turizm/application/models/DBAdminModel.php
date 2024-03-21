@@ -19,7 +19,66 @@ class DBAdminModel
 		return $link_mysql;
 	}
 
-	public function getCities(){
+	public function changePass($id,$oldPass,$newPass){
+		$link_mysql = $this->mysqlConn();
+		$count_query = "SELECT * FROM admin WHERE id = $id";
+		$count_result = mysqli_query($link_mysql, $count_query);
+		$result = mysqli_fetch_assoc($count_result);
+		if ($result['password'] == $oldPass){
+			$link_mysql = $this->mysqlConn();
+			$count_query = "UPDATE admin SET password = '$newPass' WHERE id = $id";
+			if (mysqli_query($link_mysql, $count_query)){
+				$count_query = "SELECT * FROM admin WHERE id = $id";
+				$count_result = mysqli_query($link_mysql, $count_query);
+				$result = mysqli_fetch_assoc($count_result);
+				return $result;
+			}
+		}
+		return false;
+	}
+	public function updateProfil($id,$name,$surname,$email,$tel){
+		$link_mysql = $this->mysqlConn();
+		$count_query = "UPDATE admin SET name = '$name',surname = '$surname',email = '$email',tel = '$tel' WHERE id = $id";
+
+		return mysqli_query($link_mysql, $count_query);
+	}
+	public function getProfil($email,$pass){
+		$link_mysql = $this->mysqlConn();
+		$count_query = "SELECT * FROM admin WHERE email = '$email' AND password = '$pass'";
+		$count_result = mysqli_query($link_mysql, $count_query);
+		return mysqli_fetch_assoc($count_result);
+	}
+	public function addRoute($fromCityId,$toCityId,$departureTime,$arrivalTime,$price,$busPlateCode){
+		$link_mysql = $this->mysqlConn();
+		$count_query = "INSERT INTO routes (from_city_id,to_city_id,departure_time,arrival_time,price,bus_plate_code) VALUES ($fromCityId,$toCityId,'$departureTime','$arrivalTime',$price,'$busPlateCode')";
+
+		return mysqli_query($link_mysql, $count_query);
+	}
+
+	public function updateRoute($id, $fromCityId, $toCityId, $departureTime, $arrivalTime, $price, $busPlateCode)
+	{
+		$link_mysql = $this->mysqlConn();
+		$count_query = "UPDATE routes SET from_city_id = $fromCityId,to_city_id = $toCityId,departure_time = '$departureTime',arrival_time = '$arrivalTime', price= $price,bus_plate_code = '$busPlateCode' WHERE id = $id";
+
+		return mysqli_query($link_mysql, $count_query);
+	}
+
+
+	public function getRoutes()
+	{
+		$link_mysql = $this->mysqlConn();
+
+		$count_query = "SELECT r.*,fromCity.name as from_city_name,toCity.name as to_city_name FROM routes as r INNER JOIN cities as fromCity on fromCity.id = r.from_city_id INNER JOIN cities as toCity on toCity.id = r.to_city_id";
+		$count_result = mysqli_query($link_mysql, $count_query);
+		$routes = array();
+		while ($row = mysqli_fetch_assoc($count_result)) {
+			$routes[] = $row;
+		}
+		return $routes;
+	}
+
+	public function getCities()
+	{
 		$link_mysql = $this->mysqlConn();
 
 		$count_query = "SELECT * FROM cities";
@@ -31,39 +90,48 @@ class DBAdminModel
 		return $cities;
 	}
 
-	public function addTarife($name,$sale){
+	public function addTarife($name, $sale)
+	{
 		$link_mysql = $this->mysqlConn();
 		$count_query = "INSERT INTO tarife (name,sale) VALUES ('$name',$sale)";
 
 		return mysqli_query($link_mysql, $count_query);
 	}
-	public function addCity($name,$plate_code){
+
+	public function addCity($name, $plate_code)
+	{
 		$link_mysql = $this->mysqlConn();
 		$count_query = "INSERT INTO cities (name,plate_code) VALUES ('$name',$plate_code)";
 
 		return mysqli_query($link_mysql, $count_query);
 	}
 
-	public function deleteTarife($id){
+	public function deleteTarife($id)
+	{
 		$link_mysql = $this->mysqlConn();
 		$count_query = "DELETE FROM tarife WHERE id = $id";
 
 		return mysqli_query($link_mysql, $count_query);
 	}
-	public function deleteCity($id){
+
+	public function deleteCity($id)
+	{
 		$link_mysql = $this->mysqlConn();
 		$count_query = "DELETE FROM cities WHERE id = $id";
 
 		return mysqli_query($link_mysql, $count_query);
 	}
 
-	public function updateTarife($id,$name,$sale){
+	public function updateTarife($id, $name, $sale)
+	{
 		$link_mysql = $this->mysqlConn();
 		$count_query = "UPDATE tarife SET name = '$name', sale= $sale WHERE id = $id";
 
 		return mysqli_query($link_mysql, $count_query);
 	}
-	public function getTarifeler(){
+
+	public function getTarifeler()
+	{
 		$link_mysql = $this->mysqlConn();
 
 		$count_query = "SELECT * FROM tarife";
@@ -75,7 +143,8 @@ class DBAdminModel
 		return $tarifeler;
 	}
 
-	public function getAccounts(){
+	public function getAccounts()
+	{
 		$link_mysql = $this->mysqlConn();
 
 		$count_query = "SELECT * FROM account";
@@ -87,7 +156,8 @@ class DBAdminModel
 		return $accounts;
 	}
 
-	public function getMainData(){
+	public function getMainData()
+	{
 		$link_mysql = $this->mysqlConn();
 		$data = array();
 
