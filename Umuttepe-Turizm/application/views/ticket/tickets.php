@@ -643,52 +643,85 @@
 			<div class="card-body" id="cardBody">
 				<div class="card-deck">
 					<form class="row" method="post" style="width: 100%;">
-						<div class="col-lg-3 col-md-6 col-sm-12">
-							<div class="form-group">
-								<label for="fromCityId"> <strong>Nereden</strong> </label>
-								<select class="fromCityId" id="fromCityId" name="fromCityId" required>
-									<?php if (isset ($data['cities'])) {
-										foreach ($data['cities'] as $city): ?>
-											<option value="<?php echo $city['id']; ?>" style="text-color:black;" <?php echo isset ($data['fromCityId']) && $data['fromCityId'] == $city['id'] ? 'selected' : ''; ?>>
-												<?php echo $city['name']; ?>
-											</option>
-										<?php endforeach;
-									} ?>
-								</select>
+						<div class="bg-white p-3 rounded anasayfa-form">
+							<div class="row w-100" style="margin-bottom: 25px!important;">
+								<div class="col-12">
+									<div class="form-check">
+										<label for="flexRadioDefault1" class="l-radio">
+											<input type="radio" id="flexRadioDefault1" name="seferTuru"
+												   tabindex="1" value="1">
+											<span>Tek Yön</span>
+										</label>
+										<label for="flexRadio2" class="l-radio">
+											<input type="radio" id="flexRadio2" name="seferTuru"
+												   tabindex="2" value="2" checked>
+											<span>Gidiş Dönüş</span>
+										</label>
+									</div>
+								</div>
 							</div>
-						</div>
+							<div class="row">
+								<div class="col-md-3 col-sm-12">
+									<div class="form-group">
+										<h6 for="from" style="font-size: 15px!important">Kalkış:</h6>
+										<select class="fromCityId form-select anasayfa-input"
+												id="fromCityId" name="fromCityId" required>
+											<?php if (isset ($data['cities'])) {
+												foreach ($data['cities'] as $city): ?>
+													<option value="<?php echo $city['id']; ?>" style="text-color:black;" <?php echo isset ($data['fromCityId']) && $data['fromCityId'] == $city['id'] ? 'selected' : ''; ?>>
+														<?php echo $city['name']; ?>
+													</option>
+												<?php endforeach;
+											} ?>
+										</select>
+									</div>
+								</div>
+								<div class="col-md-3 col-sm-12">
+									<div class="form-group">
+										<h6 for="from" style="font-size: 15px!important">Varış:</h6>
+										<select class="toCityId form-select  anasayfa-input" id="toCityId"
+												name="toCityId" required>
+											<?php foreach ($data['cities'] as $city): ?>
+												<option value="<?php echo $city['id']; ?>" <?php echo isset ($data['toCityId']) && $data['toCityId'] == $city['id'] ? 'selected' : ''; ?>>
+													<?php echo $city['name']; ?>
+												</option>
+											<?php endforeach; ?>
+										</select>
+									</div>
+								</div>
+								<div class="col-md-3 col-sm-12">
+									<div class="form-group">
+										<h6 for="from" style="font-size: 15px!important">Gidiş Tarihi:</h6>
 
-						<div class="col-lg-3 col-md-6 col-sm-12">
-							<div class="form-group">
-								<label for="toCityId"> <strong>Nereye</strong> </label>
-								<select class="toCityId" id="toCityId" name="toCityId" required>
-									<?php foreach ($data['cities'] as $city): ?>
-										<option value="<?php echo $city['id']; ?>" <?php echo isset ($data['toCityId']) && $data['toCityId'] == $city['id'] ? 'selected' : ''; ?>>
-											<?php echo $city['name']; ?>
-										</option>
-									<?php endforeach; ?>
-								</select>
+										<input class="form-control" type="date"
+											   value="<?php echo isset ($data['gTarih']) ? $data['gTarih'] : date('Y-m-d'); ?>"
+											   id="gTarih" name="gTarih"
+											   min="<?php echo date('Y-m-d'); ?>" />
+
+									</div>
+
+								</div>
+								<div class="col-md-3 col-sm-12">
+
+									<div class="form-group">
+										<h6 for="from" style="font-size: 15px!important">Dönüş Tarihi:</h6>
+										<input class="form-control" type="date"
+											   value="<?php echo isset ($data['dTarih']) ? $data['dTarih'] : date('Y-m-d'); ?>"
+											   id="dTarih" name="dTarih"
+											   min="<?php echo isset ($data['gTarih']) ? $data['gTarih'] : date('Y-m-d'); ?>" />
+
+									</div>
+								</div>
+
 							</div>
-						</div>
-						<div class="col-lg-3 col-md-6 col-sm-12">
-							<div class="form-group">
-								<label for="gTarih"> <strong>Gidiş Tarihi</strong> </label>
-								<input class="gTarih" type="date" id="gTarih" name="gTarih"
-									value="<?php echo isset ($data['gTarih']) ? $data['gTarih'] : date('Y-m-d'); ?>">
-							</div>
-						</div>
-						<div class="col-lg-3 col-md-6 col-sm-12">
-							<div class="form-group">
-								<label for="searchbtn" style="visibility: hidden;"> Button </label>
+							<div class="row p-2">
 								<input type="hidden" name="operation" value="searchTicket">
-								<button class="search-button" type="submit" style="width:100%;" id="searchbtn">
-									<i class="fas fa-search"></i>
-									Otobüs Bileti Ara
+								<button type="submit" class="btn btn-dark p-2 mx-auto btn-sefer-ara"
+										style="width: 25%!important;">Sefer Ara
 								</button>
 							</div>
 						</div>
 					</form>
-
 				</div>
 			</div>
 		</div>

@@ -328,7 +328,256 @@
 <body>
 <div class="container" style="margin-top: 130px;">
 	<div class="row">
+		<div class="col-lg-4">
+			<!-- SEFER BİLGİLERİ KUTUSU  -->
+			<div class="kutular" style="padding: 6px; !important">
+				<div class="row" style="padding: 10px;">
+					<div class="col-lg-6 col-sm-12 ">
+						<div style="display:flex; flex-direction:row;">
+							<i class="fa-solid fa-bus"
+							   style="color: #071327; font-size: 20px; margin-top:5px; margin-right:5px;"></i>
+							<h4 style="margin-top:3px;">Gidiş-Sefer Bilgileri</h4>
 
+						</div>
+
+					</div>
+					<div class="col-lg-6 col-sm-12">
+						<img src="assets/img/umuttepelogo6.png" alt="kartlar" style="width: 100%; height:100%;">
+					</div>
+				</div>
+				<div style="display:flex; flex-direction:row; padding-left: 10px; padding-right: 10px;">
+					<label for="kalkis"><Strong>Kalkış : </Strong> </label>
+					<p id="kalkis" class="sefer-p" style="margin-left: 6px;">
+						<?= $data['busRoute']['from_city_name'] ?>
+					</p>
+				</div>
+				<div style="display:flex; flex-direction:row; padding-left: 10px; padding-right: 10px;">
+					<label for="kalkis"><Strong>Varış : </Strong> </label>
+					<p id="kalkis" class="sefer-p" style="margin-left: 6px;">
+						<?= $data['busRoute']['to_city_name'] ?>
+					</p>
+				</div>
+				<div style="display:flex; flex-direction:row; padding-left: 10px; padding-right: 10px;">
+					<label for="kalkis"><Strong>Firma : </Strong> </label>
+					<p id="kalkis" class="sefer-p" style="margin-left: 6px;">Umuttepe Turizm</p>
+				</div>
+				<div style="display:flex; flex-direction:row; padding-left: 10px; padding-right: 10px;">
+					<label for="kalkis"><Strong>Tarih : </Strong> </label>
+					<p id="kalkis" class="sefer-p" style="margin-left: 6px;">
+						<?php
+						function tarihFormat($gTarih)
+						{
+							$datetime = new DateTime($gTarih);
+							$aylar = array(
+								'01' => 'Ocak',
+								'02' => 'Şubat',
+								'03' => 'Mart',
+								'04' => 'Nisan',
+								'05' => 'Mayıs',
+								'06' => 'Haziran',
+								'07' => 'Temmuz',
+								'08' => 'Ağustos',
+								'09' => 'Eylül',
+								'10' => 'Ekim',
+								'11' => 'Kasım',
+								'12' => 'Aralık'
+							);
+							$gunler = array(
+								'Pazartesi',
+								'Salı',
+								'Çarşamba',
+								'Perşembe',
+								'Cuma',
+								'Cumartesi',
+								'Pazar'
+							);
+
+							$tarih = $datetime->format('d') . ' ' . $aylar[$datetime->format('m')] . ' ' . $datetime->format('Y');
+							$gun = $gunler[date('N', strtotime($gTarih)) - 1];
+
+							return $tarih . ', ' . $gun;
+						}
+
+						echo tarihFormat($data['busRoute']['departure_date']);
+						?>
+					</p>
+				</div>
+				<div style="display:flex; flex-direction:row; padding-left: 10px; padding-right: 10px;">
+					<label for="kalkis"><Strong>Saat : </Strong> </label>
+					<p id="kalkis" class="sefer-p" style="margin-left: 6px;">
+						<?php
+						$departure_time = strtotime($data['busRoute']['departure_time']);
+						$formatted_time = date('H:i', $departure_time); // Saat ve dakika formatını alır
+						echo $formatted_time; // Biçimlendirilmiş saat bilgisini yazdırır
+						?>
+					</p>
+				</div>
+
+				<div style="display:flex; flex-direction:row; padding-left: 10px; padding-right: 10px;">
+					<label for="kalkis"><Strong>Koltuk : </Strong> </label>
+					<p id="kalkis" class="sefer-p" style="margin-left: 6px;">
+						<?php
+						foreach ($data['seatNumbers'] as $number) {
+						$parts = explode('-', $number);
+						?>
+					<div class="aisle">
+						<div class="bus-row">
+							<div class="bus-seat active">
+										<span>
+											<?php echo $parts[0]; ?>
+										</span>
+							</div>
+						</div>
+					</div>
+
+					<?php } ?>
+
+					</p>
+				</div>
+				<div style="display: flex; flex-direction: row; justify-content: start; align-items: center;">
+
+					<i class="fa-regular fa-clock" style="color: #000000; font-size:20px; margin-left:7px;margin-right:7px;"></i>
+					<strong>Tahmini Sefer Süresi : </strong>
+					<p class="sefer-p" style="margin-left: 6px;">
+						<?php
+						$departure_time_str = $data['busRoute']['departure_date'] . ' ' . $data['busRoute']['departure_time'];
+						$arrival_time_str = $data['busRoute']['departure_date'] . ' ' . $data['busRoute']['arrival_time'];
+
+						$departure_timestamp = strtotime($departure_time_str);
+						$arrival_timestamp = strtotime($arrival_time_str);
+
+						if ($arrival_timestamp < $departure_timestamp) {
+							$arrival_timestamp = strtotime('+1 day', $arrival_timestamp);
+						}
+
+						$sefer_suresi_saniye = $arrival_timestamp - $departure_timestamp;
+
+						$sefer_suresi_saat = $sefer_suresi_saniye / 3600;
+						echo $sefer_suresi_saat . " saat ";
+						?>
+					</p>
+				</div>
+				<hr>
+				<div style="display: flex; flex-direction: row; justify-content: start; align-items: center; padding-left: 10px; padding-right: 10px;">
+					<strong style="font-size: medium">İptal Koşulları</strong>
+					<i class="fa-solid fa-circle-exclamation"
+					   style="color: #000000; font-size: 16px; margin-left:7px;"></i>
+				</div>
+				<div style="padding-left: 10px; padding-right: 10px;">
+					<p style="font-size: small">Biletinizi yolculuğunuzdan 6 saat öncesine kadar ücretsiz iptal edebilirsiniz.</p>
+				</div>
+			</div>
+			<?php
+			if (isset($data['id2'])) {
+				?>
+				<div class="kutular" style="padding: 6px; !important">
+					<div class="row" style="padding: 10px;">
+						<div class="col-lg-6 col-sm-12 ">
+							<div style="display:flex; flex-direction:row;">
+								<i class="fa-solid fa-bus"
+								   style="color: #071327; font-size: 20px; margin-top:5px; margin-right:5px;"></i>
+								<h4 style="margin-top:3px;">Dönüş-Sefer Bilgileri</h4>
+
+							</div>
+
+						</div>
+						<div class="col-lg-6 col-sm-12">
+							<img src="assets/img/umuttepelogo6.png" alt="kartlar" style="width: 100%; height:100%;">
+						</div>
+					</div>
+					<div style="display:flex; flex-direction:row; padding-left: 10px; padding-right: 10px;">
+						<label for="kalkis"><Strong>Kalkış : </Strong> </label>
+						<p id="kalkis" class="sefer-p" style="margin-left: 6px;">
+							<?= $data['busRoute2']['from_city_name'] ?>
+						</p>
+					</div>
+					<div style="display:flex; flex-direction:row; padding-left: 10px; padding-right: 10px;">
+						<label for="kalkis"><Strong>Varış : </Strong> </label>
+						<p id="kalkis" class="sefer-p" style="margin-left: 6px;">
+							<?= $data['busRoute2']['to_city_name'] ?>
+						</p>
+					</div>
+					<div style="display:flex; flex-direction:row; padding-left: 10px; padding-right: 10px;">
+						<label for="kalkis"><Strong>Firma : </Strong> </label>
+						<p id="kalkis" class="sefer-p" style="margin-left: 6px;">Umuttepe Turizm</p>
+					</div>
+					<div style="display:flex; flex-direction:row; padding-left: 10px; padding-right: 10px;">
+						<label for="kalkis"><Strong>Tarih : </Strong> </label>
+						<p id="kalkis" class="sefer-p" style="margin-left: 6px;">
+							<?php
+							echo tarihFormat($data['busRoute2']['departure_date']);
+							?>
+						</p>
+					</div>
+					<div style="display:flex; flex-direction:row; padding-left: 10px; padding-right: 10px;">
+						<label for="kalkis"><Strong>Saat : </Strong> </label>
+						<p id="kalkis" class="sefer-p" style="margin-left: 6px;">
+							<?php
+							$departure_time = strtotime($data['busRoute2']['departure_time']);
+							$formatted_time = date('H:i', $departure_time); // Saat ve dakika formatını alır
+							echo $formatted_time; // Biçimlendirilmiş saat bilgisini yazdırır
+							?>
+						</p>
+					</div>
+
+					<div style="display:flex; flex-direction:row; padding-left: 10px; padding-right: 10px;">
+						<label for="kalkis"><Strong>Koltuk : </Strong> </label>
+						<p id="kalkis" class="sefer-p" style="margin-left: 6px;">
+							<?php
+							foreach ($data['seatNumbers2'] as $number) {
+							$parts = explode('-', $number);
+							?>
+						<div class="aisle">
+							<div class="bus-row">
+								<div class="bus-seat active">
+										<span>
+											<?php echo $parts[0]; ?>
+										</span>
+								</div>
+							</div>
+						</div>
+
+						<?php } ?>
+
+						</p>
+					</div>
+					<div style="display: flex; flex-direction: row; justify-content: start; align-items: center;">
+						<i class="fa-regular fa-clock" style="color: #000000; font-size:20px; margin:7px;"></i>
+						<strong>Tahmini Sefer Süresi : </strong>
+						<p class="sefer-p" style="margin-left: 6px;">
+							<?php
+							$departure_time_str = $data['busRoute']['departure_date'] . ' ' . $data['busRoute']['departure_time'];
+							$arrival_time_str = $data['busRoute']['departure_date'] . ' ' . $data['busRoute']['arrival_time'];
+
+							$departure_timestamp = strtotime($departure_time_str);
+							$arrival_timestamp = strtotime($arrival_time_str);
+
+							if ($arrival_timestamp < $departure_timestamp) {
+								$arrival_timestamp = strtotime('+1 day', $arrival_timestamp);
+							}
+
+							$sefer_suresi_saniye = $arrival_timestamp - $departure_timestamp;
+
+							$sefer_suresi_saat = $sefer_suresi_saniye / 3600;
+							echo $sefer_suresi_saat . " saat ";
+							?>
+						</p>
+					</div>
+					<hr>
+					<div style="display: flex; flex-direction: row; justify-content: start; align-items: center; padding-left: 10px; padding-right: 10px;">
+						<strong style="font-size: medium">İptal Koşulları</strong>
+						<i class="fa-solid fa-circle-exclamation"
+						   style="color: #000000; font-size: 16px; margin-left:7px;"></i>
+					</div>
+					<div style="padding-left: 10px; padding-right: 10px;">
+						<p style="font-size: small">Biletinizi yolculuğunuzdan 6 saat öncesine kadar ücretsiz iptal edebilirsiniz.</p>
+					</div>
+				</div>
+				<?php
+			}
+			?>
+			<!-- SEFER BİLGİLERİ KUTUSU END  -->
+		</div>
 		<div class="col-lg-8">
 			<form method="post" action="buying">
 				<!-- İLETİŞİM BİLGİLERİ KUTUSU -->
@@ -422,6 +671,7 @@
 							</div>
 							<div class="col-lg-6 col-sm-12 form-group">
 								<label for="passengerTarife<?= $number ?>">Tarife</label>
+								<input type="hidden" name="tarifeler" value="<?= htmlspecialchars(json_encode($data['tarifeler'])) ?>">
 								<select id="passengerTarife<?= $number ?>" name="passengerTarife<?= $number ?>"
 										class="month form-control"
 										onchange="kontrolEt()">
@@ -603,258 +853,6 @@
 				<!-- ÖDEME BİLGİLERİ KUTUSU END -->
 			</form>
 		</div>
-		<div class="col-lg-4">
-			<!-- SEFER BİLGİLERİ KUTUSU  -->
-			<div class="kutular" style="padding: 6px; !important">
-				<div class="row" style="padding: 10px;">
-					<div class="col-lg-6 col-sm-12 ">
-						<div style="display:flex; flex-direction:row;">
-							<i class="fa-solid fa-bus"
-							   style="color: #071327; font-size: 20px; margin-top:5px; margin-right:5px;"></i>
-							<h4 style="margin-top:3px;">Gidiş-Sefer Bilgileri</h4>
-
-						</div>
-
-					</div>
-					<div class="col-lg-6 col-sm-12">
-						<img src="assets/img/umuttepelogo6.png" alt="kartlar" style="width: 100%; height:100%;">
-					</div>
-				</div>
-				<div style="display:flex; flex-direction:row; padding-left: 10px; padding-right: 10px;">
-					<label for="kalkis"><Strong>Kalkış : </Strong> </label>
-					<p id="kalkis" class="sefer-p" style="margin-left: 6px;">
-						<?= $data['busRoute']['from_city_name'] ?>
-					</p>
-				</div>
-				<div style="display:flex; flex-direction:row; padding-left: 10px; padding-right: 10px;">
-					<label for="kalkis"><Strong>Varış : </Strong> </label>
-					<p id="kalkis" class="sefer-p" style="margin-left: 6px;">
-						<?= $data['busRoute']['to_city_name'] ?>
-					</p>
-				</div>
-				<div style="display:flex; flex-direction:row; padding-left: 10px; padding-right: 10px;">
-					<label for="kalkis"><Strong>Firma : </Strong> </label>
-					<p id="kalkis" class="sefer-p" style="margin-left: 6px;">Umuttepe Turizm</p>
-				</div>
-				<div style="display:flex; flex-direction:row; padding-left: 10px; padding-right: 10px;">
-					<label for="kalkis"><Strong>Tarih : </Strong> </label>
-					<p id="kalkis" class="sefer-p" style="margin-left: 6px;">
-						<?php
-						function tarihFormat($gTarih)
-						{
-							$datetime = new DateTime($gTarih);
-							$aylar = array(
-								'01' => 'Ocak',
-								'02' => 'Şubat',
-								'03' => 'Mart',
-								'04' => 'Nisan',
-								'05' => 'Mayıs',
-								'06' => 'Haziran',
-								'07' => 'Temmuz',
-								'08' => 'Ağustos',
-								'09' => 'Eylül',
-								'10' => 'Ekim',
-								'11' => 'Kasım',
-								'12' => 'Aralık'
-							);
-							$gunler = array(
-								'Pazartesi',
-								'Salı',
-								'Çarşamba',
-								'Perşembe',
-								'Cuma',
-								'Cumartesi',
-								'Pazar'
-							);
-
-							$tarih = $datetime->format('d') . ' ' . $aylar[$datetime->format('m')] . ' ' . $datetime->format('Y');
-							$gun = $gunler[date('N', strtotime($gTarih)) - 1];
-
-							return $tarih . ', ' . $gun;
-						}
-
-						echo tarihFormat($data['busRoute']['departure_date']);
-						?>
-					</p>
-				</div>
-				<div style="display:flex; flex-direction:row; padding-left: 10px; padding-right: 10px;">
-					<label for="kalkis"><Strong>Saat : </Strong> </label>
-					<p id="kalkis" class="sefer-p" style="margin-left: 6px;">
-						<?php
-						$departure_time = strtotime($data['busRoute']['departure_time']);
-						$formatted_time = date('H:i', $departure_time); // Saat ve dakika formatını alır
-						echo $formatted_time; // Biçimlendirilmiş saat bilgisini yazdırır
-						?>
-					</p>
-				</div>
-
-				<div style="display:flex; flex-direction:row; padding-left: 10px; padding-right: 10px;">
-					<label for="kalkis"><Strong>Koltuk : </Strong> </label>
-					<p id="kalkis" class="sefer-p" style="margin-left: 6px;">
-						<?php
-						foreach ($data['seatNumbers'] as $number) {
-						$parts = explode('-', $number);
-						?>
-					<div class="aisle">
-						<div class="bus-row">
-							<div class="bus-seat active">
-										<span>
-											<?php echo $parts[0]; ?>
-										</span>
-							</div>
-						</div>
-					</div>
-
-					<?php } ?>
-
-					</p>
-				</div>
-				<div style="display: flex; flex-direction: row; justify-content: start; align-items: center;">
-
-				<i class="fa-regular fa-clock" style="color: #000000; font-size:20px; margin-left:7px;margin-right:7px;"></i>
-					<strong>Tahmini Sefer Süresi : </strong>
-					<p class="sefer-p" style="margin-left: 6px;">
-						<?php
-						$departure_time_str = $data['busRoute']['departure_date'] . ' ' . $data['busRoute']['departure_time'];
-						$arrival_time_str = $data['busRoute']['departure_date'] . ' ' . $data['busRoute']['arrival_time'];
-
-						$departure_timestamp = strtotime($departure_time_str);
-						$arrival_timestamp = strtotime($arrival_time_str);
-
-						if ($arrival_timestamp < $departure_timestamp) {
-							$arrival_timestamp = strtotime('+1 day', $arrival_timestamp);
-						}
-
-						$sefer_suresi_saniye = $arrival_timestamp - $departure_timestamp;
-
-						$sefer_suresi_saat = $sefer_suresi_saniye / 3600;
-						echo $sefer_suresi_saat . " saat ";
-						?>
-					</p>
-				</div>
-				<hr>
-				<div style="display: flex; flex-direction: row; justify-content: start; align-items: center; padding-left: 10px; padding-right: 10px;">
-					<strong style="font-size: medium">İptal Koşulları</strong>
-					<i class="fa-solid fa-circle-exclamation"
-					   style="color: #000000; font-size: 16px; margin-left:7px;"></i>
-				</div>
-				<div style="padding-left: 10px; padding-right: 10px;">
-					<p style="font-size: small">Biletinizi yolculuğunuzdan 6 saat öncesine kadar ücretsiz iptal edebilirsiniz.</p>
-				</div>
-			</div>
-			<?php
-			if (isset($data['id2'])) {
-				?>
-				<div class="kutular" style="padding: 6px; !important">
-					<div class="row" style="padding: 10px;">
-						<div class="col-lg-6 col-sm-12 ">
-							<div style="display:flex; flex-direction:row;">
-								<i class="fa-solid fa-bus"
-								   style="color: #071327; font-size: 20px; margin-top:5px; margin-right:5px;"></i>
-								<h4 style="margin-top:3px;">Dönüş-Sefer Bilgileri</h4>
-
-							</div>
-
-						</div>
-						<div class="col-lg-6 col-sm-12">
-							<img src="assets/img/umuttepelogo6.png" alt="kartlar" style="width: 100%; height:100%;">
-						</div>
-					</div>
-					<div style="display:flex; flex-direction:row; padding-left: 10px; padding-right: 10px;">
-						<label for="kalkis"><Strong>Kalkış : </Strong> </label>
-						<p id="kalkis" class="sefer-p" style="margin-left: 6px;">
-							<?= $data['busRoute2']['from_city_name'] ?>
-						</p>
-					</div>
-					<div style="display:flex; flex-direction:row; padding-left: 10px; padding-right: 10px;">
-						<label for="kalkis"><Strong>Varış : </Strong> </label>
-						<p id="kalkis" class="sefer-p" style="margin-left: 6px;">
-							<?= $data['busRoute2']['to_city_name'] ?>
-						</p>
-					</div>
-					<div style="display:flex; flex-direction:row; padding-left: 10px; padding-right: 10px;">
-						<label for="kalkis"><Strong>Firma : </Strong> </label>
-						<p id="kalkis" class="sefer-p" style="margin-left: 6px;">Umuttepe Turizm</p>
-					</div>
-					<div style="display:flex; flex-direction:row; padding-left: 10px; padding-right: 10px;">
-						<label for="kalkis"><Strong>Tarih : </Strong> </label>
-						<p id="kalkis" class="sefer-p" style="margin-left: 6px;">
-							<?php
-							echo tarihFormat($data['busRoute2']['departure_date']);
-							?>
-						</p>
-					</div>
-					<div style="display:flex; flex-direction:row; padding-left: 10px; padding-right: 10px;">
-						<label for="kalkis"><Strong>Saat : </Strong> </label>
-						<p id="kalkis" class="sefer-p" style="margin-left: 6px;">
-							<?php
-							$departure_time = strtotime($data['busRoute2']['departure_time']);
-							$formatted_time = date('H:i', $departure_time); // Saat ve dakika formatını alır
-							echo $formatted_time; // Biçimlendirilmiş saat bilgisini yazdırır
-							?>
-						</p>
-					</div>
-
-					<div style="display:flex; flex-direction:row; padding-left: 10px; padding-right: 10px;">
-						<label for="kalkis"><Strong>Koltuk : </Strong> </label>
-						<p id="kalkis" class="sefer-p" style="margin-left: 6px;">
-							<?php
-							foreach ($data['seatNumbers2'] as $number) {
-							$parts = explode('-', $number);
-							?>
-						<div class="aisle">
-							<div class="bus-row">
-								<div class="bus-seat active">
-										<span>
-											<?php echo $parts[0]; ?>
-										</span>
-								</div>
-							</div>
-						</div>
-
-						<?php } ?>
-
-						</p>
-					</div>
-					<div style="display: flex; flex-direction: row; justify-content: start; align-items: center;">
-						<i class="fa-regular fa-clock" style="color: #000000; font-size:20px; margin:7px;"></i>
-						<strong>Tahmini Sefer Süresi : </strong>
-						<p class="sefer-p" style="margin-left: 6px;">
-							<?php
-							$departure_time_str = $data['busRoute']['departure_date'] . ' ' . $data['busRoute']['departure_time'];
-							$arrival_time_str = $data['busRoute']['departure_date'] . ' ' . $data['busRoute']['arrival_time'];
-
-							$departure_timestamp = strtotime($departure_time_str);
-							$arrival_timestamp = strtotime($arrival_time_str);
-
-							if ($arrival_timestamp < $departure_timestamp) {
-								$arrival_timestamp = strtotime('+1 day', $arrival_timestamp);
-							}
-
-							$sefer_suresi_saniye = $arrival_timestamp - $departure_timestamp;
-
-							$sefer_suresi_saat = $sefer_suresi_saniye / 3600;
-							echo $sefer_suresi_saat . " saat ";
-							?>
-						</p>
-					</div>
-					<hr>
-					<div style="display: flex; flex-direction: row; justify-content: start; align-items: center; padding-left: 10px; padding-right: 10px;">
-						<strong style="font-size: medium">İptal Koşulları</strong>
-						<i class="fa-solid fa-circle-exclamation"
-						   style="color: #000000; font-size: 16px; margin-left:7px;"></i>
-					</div>
-					<div style="padding-left: 10px; padding-right: 10px;">
-						<p style="font-size: small">Biletinizi yolculuğunuzdan 6 saat öncesine kadar ücretsiz iptal edebilirsiniz.</p>
-					</div>
-				</div>
-				<?php
-			}
-			?>
-			<!-- SEFER BİLGİLERİ KUTUSU END  -->
-		</div>
-
-
 	</div>
 </div>
 <script src="assets/js/buying.js"></script>

@@ -41,6 +41,11 @@ class AdminController extends CI_Controller
 		$this->load->view($data['content'], array('data' => $data));
 	}
 
+	public function login(){
+		$data['content'] = "admin/login";
+		$this->load->view($data['content'], array('data' => $data));
+	}
+
 	public function tarifeGuncelle(){
 		$id = $_POST['id'];
 		$name = $_POST['name'];

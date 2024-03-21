@@ -6,14 +6,21 @@ document.addEventListener("DOMContentLoaded", function () {
     var indirimlifiyat = 0;
     var indirimsizfiyat = document.getElementById('totalprice').value;
 
-    
+	const tarifelerInput = document.querySelector('input[name="tarifeler"]');
+	const tarifelerData = JSON.parse(tarifelerInput.value);
+
+	const tarifeAdi = tarifelerData.map(sefer => sefer.name);
+	const tarifeYuzde = tarifelerData.map(sefer => sefer.sale);
+
+	console.log(tarifeAdi);
+	console.log(tarifeYuzde);
 
     // Her bir tarife elemanı için onchange olayını dinle
     tarifeler.forEach(function (tarifeElement) {
         tarifeElement.addEventListener('change', function () {
             // Numarayı almak için
             var number = tarifeElement.id.replace('tarife', '');
-            
+
             // Diğer alanlara erişim sağla
             var dogumTarih = document.getElementById('dogumTarih' + number).value;
             var personPriceElement = document.getElementById('kisifiyat' + number);

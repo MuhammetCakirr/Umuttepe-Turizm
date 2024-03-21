@@ -37,6 +37,8 @@ $route['sehirler'] = 'AdminController/index/sehirler';
 $route['kullanicilar'] = 'AdminController/index/kullanicilar';
 $route['rotalar'] = 'AdminController/index/rotalar';
 $route['tarifeler'] = 'AdminController/index/tarifeler';
+$route['profil'] = 'AdminController/index/profil';
+$route['adminLogin'] = 'AdminController/login';
 
 $route['deneme'] = 'HomeController/changePage/deneme';
 

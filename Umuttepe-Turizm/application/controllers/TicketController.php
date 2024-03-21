@@ -17,7 +17,7 @@ class TicketController extends CI_Controller
 		$data['isSingle'] = true;
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			switch ($_POST['operation']) {
-				case 'homeSearch':
+				case 'homeSearch': case 'searchTicket':
 					$this->session->set_userdata('seat_numbers1', null);
 					$data['fromCityId'] = isset($_POST['fromCityId']) ? $_POST['fromCityId'] : 1;
 					$data['toCityId'] = isset($_POST['toCityId']) ? $_POST['toCityId'] : 2;
@@ -30,14 +30,6 @@ class TicketController extends CI_Controller
 					$this->session->set_userdata('dTarih', $data['dTarih']);
 					$this->session->set_userdata('seferTuru', $data['seferTuru']);
 					$this->session->set_userdata('isFirstTicket', !($data['seferTuru'] == 1));
-					break;
-				case 'searchTicket':
-					$this->session->set_userdata('seat_numbers1', null);
-					$data['fromCityId'] = isset($_POST['fromCityId']) ? $_POST['fromCityId'] : 1;
-					$data['toCityId'] = isset($_POST['toCityId']) ? $_POST['toCityId'] : 2;
-					$data['gTarih'] = isset($_POST['gTarih']) ? $_POST['gTarih'] : date('Y-m-d');
-					$data['seferTuru'] = 1;
-					$this->session->set_userdata('seferTuru', $data['seferTuru']);
 					break;
 				case 'buying':
 					$data['id'] = $_POST['id'];

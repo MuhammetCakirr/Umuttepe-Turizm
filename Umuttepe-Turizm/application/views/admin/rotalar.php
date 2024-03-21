@@ -1,5 +1,5 @@
 <style>
-	.tarifeduzenlebtn {
+	.rotaduzenlebtn {
 		width: 25%;
 		border: 1px solid steelblue;
 		border-radius: 10px;
@@ -9,7 +9,7 @@
 		color: aliceblue;
 	}
 
-	.tarifeekleolusturbtn {
+	.rotaeklebtn {
 		width: 25%;
 		border: 1px solid steelblue;
 		border-radius: 10px;
@@ -19,7 +19,18 @@
 		color: aliceblue;
 	}
 
-	.tarifeekleiptalbtn {
+	.rotaolusturbtn {
+		width: 25%;
+		border: 1px solid steelblue;
+		border-radius: 10px;
+		background-color: steelblue;
+		padding: 10px;
+		margin-top: 10px;
+		color: aliceblue;
+	}
+
+
+	.rotaduzenleiptalbtn {
 		width: 25%;
 		border: 1px solid steelblue;
 		border-radius: 10px;
@@ -29,7 +40,7 @@
 		color: aliceblue;
 	}
 
-	.tarifeduzenleiptalbtn {
+	.rotaekleiptalbtn {
 		width: 25%;
 		border: 1px solid steelblue;
 		border-radius: 10px;
@@ -39,26 +50,17 @@
 		color: aliceblue;
 	}
 
-	.tarifeeklebtn {
-		width: 25%;
-		border: 1px solid steelblue;
-		border-radius: 10px;
-		background-color: steelblue;
-		padding: 10px;
-		margin-top: 10px;
-		color: aliceblue;
-	}
 
-	#tarifeeklediv {
+	#rotaeklediv {
 		display: none;
 		background-color: #ffffff;
 		padding: 20px;
 		border-radius: 10px;
 		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-
 	}
 
-	#tarifeduzenlediv {
+
+	#rotaduzenlediv {
 		display: none;
 		background-color: #ffffff;
 		padding: 20px;
@@ -84,128 +86,194 @@
 	}
 </style>
 
+<script src="../assets/js/rotalar.js"></script>
+
 <div class="container-xxl flex-grow-1 container-p-y">
-	<div id="tarifeeklediv">
+
+	<div id="rotaduzenlediv">
 		<div class="card mb-4">
-			<h5 class="card-header">Tarife Ekle</h5>
+			<h5 class="card-header">Rota Düzenle</h5>
 			<div class="card-body">
-				<div class="row">
-					<div class="col-lg-6 col-sm-12">
-						<label for="defaultFormControlInput" class="form-label">Tarife Adı</label>
-						<input type="text" class="form-control" id="tarifeadiekle"
-							   placeholder="Yaşlı" aria-describedby="defaultFormControlHelp"/>
+				<form>
+					<div class="row">
+						<div class="col-lg-6 col-sm-12">
+							<label for="exampleFormControlSelect1" class="form-label">Kalkış Yeri</label>
+							<select class="form-select" id="kalkisyeriduzenle" aria-label="Default select example">
+
+								<option value="1">İstanbul</option>
+								<option value="2">Ankara</option>
+								<option value="3">Kocaeli</option>
+							</select>
+						</div>
+						<div class="col-lg-6 col-sm-12">
+							<label for="exampleFormControlSelect1" class="form-label">Varış Yeri</label>
+							<select class="form-select" id="varisyeriduzenle" aria-label="Default select example">
+
+								<option value="1">İstanbul</option>
+								<option value="2">Ankara</option>
+								<option value="3">Kocaeli</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-lg-6 col-sm-12">
+							<label for="html5-time-input" class="col-form-label">Kalkış Saati</label>
+
+							<input class="form-control" type="time" value="12:30:00" id="kalkissaatiduzenle"/>
+
+						</div>
+
+						<div class="col-lg-6 col-sm-12">
+							<label for="html5-time-input" class="col-form-label">Varış Saati</label>
+
+							<input class="form-control" type="time" value="12:30:00" id="varissaatiduzenle"/>
+
+						</div>
 
 					</div>
-					<div class="col-lg-6 col-sm-12">
-						<label for="defaultFormControlInput" class="form-label">İndirim Yüzdesi</label>
-						<input type="text" class="form-control" id="tarifeyuzdesiekle"
-							   placeholder="25" aria-describedby="defaultFormControlHelp"/>
 
+					<div class="row mt-1">
+						<div class="col-lg-6 col-sm-12">
+							<label for="defaultFormControlInput" class=" form-label">Bilet Ücreti</label>
+							<input type="text" class="form-control" id="biletucretiduzenle" placeholder="765 TL"
+								   aria-describedby="defaultFormControlHelp"/>
+
+						</div>
+						<div class="col-lg-6 col-sm-12">
+							<label for="defaultFormControlInput" class=" form-label">Otobüs Plakası</label>
+							<input type="text" class="form-control" id="otobusplakasiduzenle" placeholder="06NZR294"
+								   aria-describedby="defaultFormControlHelp"/>
+						</div>
 					</div>
-				</div>
-				<input type="button" value="Tarife Ekle" class="tarifeekleolusturbtn">
-				<input type="button" value="İptal" class="tarifeekleiptalbtn">
+
+					<input type="button" value="Rotayı Güncelle" class="rotaduzenlebtn">
+					<input type="button" value="İptal" class="rotaduzenleiptalbtn">
+				</form>
 			</div>
 		</div>
 	</div>
-	<div id="tarifeduzenlediv">
+
+	<div id="rotaeklediv">
 		<div class="card mb-4">
-			<h5 class="card-header">Tarife Düzenle</h5>
+			<h5 class="card-header">Sefer Ekle</h5>
 			<div class="card-body">
-				<div class="row">
-					<div class="col-lg-6 col-sm-12">
-						<label for="defaultFormControlInput" class="form-label">Tarife Adı</label>
-						<input type="text" class="form-control" id="tarifeadiduzenle"
-							   placeholder="Yaşlı" aria-describedby="defaultFormControlHelp"/>
+
+				<form>
+					<div class="row">
+						<div class="col-lg-6 col-sm-12">
+							<label for="exampleFormControlSelect1" class="form-label">Kalkış Yeri</label>
+							<select class="form-select" id="kalkisyeriekle" aria-label="Default select example">
+								<option value="0" selected>Seçiniz*</option>
+								<option value="1">İstanbul</option>
+								<option value="2">Ankara</option>
+								<option value="3">Kocaeli</option>
+							</select>
+						</div>
+						<div class="col-lg-6 col-sm-12">
+							<label for="exampleFormControlSelect1" class="form-label">Varış Yeri</label>
+							<select class="form-select" id="varisyeriekle" aria-label="Default select example">
+								<option value="0" selected>Seçiniz*</option>
+								<option value="1">İstanbul</option>
+								<option value="2">Ankara</option>
+								<option value="3">Kocaeli</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-lg-6 col-sm-12">
+							<label for="html5-time-input" class="col-form-label">Kalkış Saati</label>
+
+							<input class="form-control" type="time" value="00:00:00" id="kalkissaatiekle"/>
+
+						</div>
+
+						<div class="col-lg-6 col-sm-12">
+							<label for="html5-time-input" class="col-form-label">Varış Saati</label>
+
+							<input class="form-control" type="time" value="00:00:00" id="varissaatiekle"/>
+
+						</div>
 
 					</div>
-					<div class="col-lg-6 col-sm-12">
-						<label for="defaultFormControlInput" class="form-label">İndirim Yüzdesi</label>
-						<input type="text" class="form-control" id="tarifeyuzdesiduzenle"
-							   placeholder="25" aria-describedby="defaultFormControlHelp"/>
 
+					<div class="row mt-1">
+						<div class="col-lg-6 col-sm-12">
+							<label for="defaultFormControlInput" class=" form-label">Bilet Ücreti</label>
+							<input type="text" class="form-control" id="biletucretiekle" placeholder="765 TL"
+								   aria-describedby="defaultFormControlHelp"/>
+
+						</div>
+						<div class="col-lg-6 col-sm-12">
+							<label for="defaultFormControlInput" class=" form-label">Otobüs Plakası</label>
+							<input type="text" class="form-control" id="otobusplakasiekle" placeholder="06NZR294"
+								   aria-describedby="defaultFormControlHelp"/>
+						</div>
 					</div>
-				</div>
-				<input type="button" value="Tarifeyi Güncelle" class="tarifeduzenlebtn">
-				<input type="button" value="İptal" class="tarifeduzenleiptalbtn">
+					<input type="button" value="Seferi Oluştur" class="rotaolusturbtn">
+					<input type="button" value="İptal" class="rotaekleiptalbtn">
+				</form>
+
 			</div>
 		</div>
 	</div>
 
-	<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span>Yolcu Tarifeleri</h4>
+	<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span>Rotalar</h4>
 	<div class="card">
-		<h5 class="card-header">Yolcu Tarifeleri Tablosu</h5>
+		<h5 class="card-header">Rota Tablosu</h5>
 		<div class="table-responsive text-nowrap">
 			<table class="table table-hover">
 				<thead>
 				<tr>
-					<th>Tarife Adı</th>
-					<th>İndirim Oranı</th>
-					<th>İşlem</th>
+					<th>Kalkış Yeri</th>
+					<th>Varış Yeri</th>
+					<th>Kalkış Saati</th>
+					<th>Varış Saati</th>
+					<th>Bilet Ücreti</th>
+					<th>Otobüs Plakası</th>
 				</tr>
 				</thead>
 				<tbody class="table-border-bottom-0">
 				<tr>
-					<td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong id="indirimadi">Genç
-							(13-26)</strong></td>
-					<td id="indirimyuzdesi">%25</td>
+					<td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong
+							id="kalkisyeritablo">İstanbul</strong></td>
+					<td id="varisyeritablo">Kocaeli</td>
+					<td id="kalkissaatitablo">07:00:00</td>
+					<td id="varisaatitablo">12:00:00</td>
+					<td id="biletucretitablo">650 TL</td>
+					<td id="plakatablo">06NZR294</td>
 					<td>
 						<div class="dropdown">
-							<button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-									data-bs-toggle="dropdown">
+							<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
 								<i class="bx bx-dots-vertical-rounded"></i>
 							</button>
 							<div class="dropdown-menu">
-								<a id="duzenlebtn" class="dropdown-item" href="javascript:void(0);"
-								><i class="bx bx-edit-alt me-1"></i> Düzenle</a
-								>
-								<a class="dropdown-item" href="javascript:void(0);"
-								><i class="bx bx-trash me-1"></i> Sil</a
-								>
+								<a id="duzenlebtn" class="dropdown-item" href="javascript:void(0);"><i
+										class="bx bx-edit-alt me-1"></i> Düzenle</a>
+								<a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Sil</a>
 							</div>
 						</div>
 					</td>
 				</tr>
 
 				<tr>
-					<td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong id="indirimadi">Genç
-							(13-26)</strong></td>
-					<td id="indirimyuzdesi">%25</td>
+					<td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong
+							id="kalkisyeritablo">İstanbul</strong></td>
+					<td id="varisyeritablo">Ankara</td>
+					<td id="kalkissaatitablo">07:00:00</td>
+					<td id="varissaatitablo">12:00:00</td>
+					<td id="biletucretitablo">650 TL</td>
+					<td id="plakatablo">06NZR294</td>
 					<td>
 						<div class="dropdown">
-							<button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-									data-bs-toggle="dropdown">
+							<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
 								<i class="bx bx-dots-vertical-rounded"></i>
 							</button>
 							<div class="dropdown-menu">
-								<a id="duzenlebtn" class="dropdown-item" href="javascript:void(0);"
-								><i class="bx bx-edit-alt me-1"></i> Düzenle</a
-								>
-								<a class="dropdown-item" href="javascript:void(0);"
-								><i class="bx bx-trash me-1"></i> Sil</a
-								>
-							</div>
-						</div>
-					</td>
-				</tr>
-
-				<tr>
-					<td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong id="indirimadi">Öğrenci
-							(13-26)</strong></td>
-					<td id="indirimyuzdesi">%50</td>
-					<td>
-						<div class="dropdown">
-							<button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-									data-bs-toggle="dropdown">
-								<i class="bx bx-dots-vertical-rounded"></i>
-							</button>
-							<div class="dropdown-menu">
-								<a id="duzenlebtn" class="dropdown-item" href="javascript:void(0);"
-								><i class="bx bx-edit-alt me-1"></i> Düzenle</a
-								>
-								<a class="dropdown-item" href="javascript:void(0);"
-								><i class="bx bx-trash me-1"></i> Sil</a
-								>
+								<a id="duzenlebtn" class="dropdown-item" href="javascript:void(0);"><i
+										class="bx bx-edit-alt me-1"></i> Düzenle</a>
+								<a class="dropdown-item" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Sil</a>
 							</div>
 						</div>
 					</td>
@@ -215,10 +283,7 @@
 			</table>
 		</div>
 	</div>
-	<input type="button" value="Tarife Ekle" class="tarifeeklebtn">
+	<input type="button" value="Sefer Ekle" class="rotaeklebtn">
 </div>
-
-<script src="../assets/js/tarifeler.js"></script>
-
 
 
