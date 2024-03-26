@@ -26,17 +26,18 @@ class HomeController extends CI_Controller
 		$this->load->view('template', array('data' => $data));
 	}
 
-	public function contact(){
+	public function contact()
+	{
 		$name = $_POST['name'];
 		$email = $_POST['email'];
 		$tel = $_POST['tel'];
 		$subject = $_POST['subject'];
 		$content = $_POST['content'];
 
-		$result = $this->DBConnectionModel->addContact($name,$email,$tel,$subject,$content);
-		if ($result){
-			return "<div class='alert alert-success' role='alert'>Talebiniz başarıyla iletilmiştir lütfen epostanızı kontrol ediniz.</div>";
-		}else{
+		$result = $this->DBConnectionModel->addContact($name, $email, $tel, $subject, $content);
+		if ($result) {
+			return "<div class='alert alert-success' role='alert'>Talebiniz başarıyla iletilmiştir.</div>";
+		} else {
 			return "<div class='alert alert-danger' role='alert'>Bir hata oluştu lütfen tekrar deneyin.</div>";
 		}
 	}
