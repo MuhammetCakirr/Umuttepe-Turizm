@@ -107,6 +107,12 @@ $current_url = $_SERVER['REQUEST_URI'];
 						<div data-i18n="Analytics">Tarifeler</div>
 					</a>
 				</li>
+				<li class="menu-item <?= $current_url == "/bildirimler" ? "active" : "" ?>">
+					<a href="tarifeler" class="menu-link">
+						<i class="menu-icon tf-icons bx bx-home-circle"></i>
+						<div data-i18n="Analytics">Bildirimler</div>
+					</a>
+				</li>
 			</ul>
 		</aside>
 		<!-- / Menu -->
@@ -176,6 +182,21 @@ $current_url = $_SERVER['REQUEST_URI'];
 									<a class="dropdown-item" href="profil">
 										<i class="bx bx-user me-2"></i>
 										<span class="align-middle">Profilim</span>
+									</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="#">
+										<i class="bx bx-cog me-2"></i>
+										<span class="align-middle">Ayarlar</span>
+									</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="#">
+                        <span class="d-flex align-items-center align-middle">
+                          <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
+                          <span class="flex-grow-1 align-middle">Bakiye</span>
+                          <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
+                        </span>
 									</a>
 								</li>
 								<li>

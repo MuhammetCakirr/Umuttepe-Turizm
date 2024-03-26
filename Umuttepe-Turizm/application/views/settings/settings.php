@@ -34,9 +34,13 @@
 
 		.widget-author {
 			margin-bottom: 2px;
+			
 		}
-
 		.author-card {
+			border: 2px solid darkgreen;
+			border-bottom: none;
+			border-top-left-radius: 10px;
+			border-top-right-radius: 10px;
 			position: relative;
 			background-color: #fff;
 			box-shadow: 0 12px 20px 1px rgba(64, 64, 64, .09);
@@ -238,18 +242,34 @@
 			font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 			font-size: 16px;
 		}
+		#contentPlaceholder{
+			width: 100%;
+			background-color: #e7e7e7;
+			border: 1px solid darkgreen;
+			border-radius: 10px;
+			box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+		}
+		#sagkisimmenu{
+			
+		}	
+		.wizard{
+			border: 2px solid darkgreen;
+			border-bottom-left-radius: 10px;
+			border-bottom-right-radius: 10px;
+		}
+
 	</style>
 </head>
 
 <body>
 
 	<div class="container" style="margin-top: 130px;">
-		<div class="row">
-			<div id="contentPlaceholder" class="col-lg-8" style="background-color:whitesmoke">
+		<div class="row" style="margin-bottom: 10px;">
+			<div id="contentPlaceholder" class="col-lg-8" >
 				<?php $this->load->view($data['contentPlaceholder'], $data); ?>
 			</div>
 
-			<div class="col-lg-4 pb-5">
+			<div class="col-lg-4 " id="sagkisimmenu">
 				<div class="author-card pt-3">
 					<div class="author-card-profile">
 						<div class="author-card-avatar">
@@ -286,7 +306,7 @@
 						</a>
 
 
-						<a class="list-group-item" href="hesap_bilgilerim">
+						<a class="list-group-item" href="rezervasyonlarim">
 							Rezervasyonlarım
 						</a>
 						<a class="list-group-item" href="kayitli_kartlarim">

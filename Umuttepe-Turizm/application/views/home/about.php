@@ -229,8 +229,8 @@
 	</div>
 	<!-- end breadcrumb section -->
 	<section class="wow fadeIn animated" style="visibility: visible; animation-name: fadeIn;">
-            <div class="container" style="margin-top:40px;" > 
-                <div class="row">
+          
+                <div class="row" style="margin-top:40px;" >
                     <!-- counter -->
                     <div class="col-md-3 col-sm-12 mb-3 bottom-margin text-center counter-section wow fadeInUp sm-margin-bottom-ten animated " data-wow-duration="300ms" style="visibility: visible; animation-duration: 300ms; animation-name: fadeInUp;">
 					<i class="fa-solid fa-city medium-icon" style="color: #01060e;"></i>
@@ -261,12 +261,10 @@
                     </div>
                     <!-- end counter -->
                 </div>
-            </div>
-	</section>
-
-	<div class="blog-card" style="width:100% !important;">
+            
+                <div class="blog-card" >
 		<div class="meta">
-			<div class="photo" style="background-image: url(https://img.freepik.com/free-photo/traffic-vehicle-urban-reflections-city_1112-973.jpg?t=st=1709123901~exp=1709127501~hmac=52a5e79006c34f6d957394cdcb8db08249e8aca41693d80ae1e8c9bc5a74bd46&w=1060)"></div>
+			<div class="photo" style="background-image: url(../assets/img/bus1.jpg)"></div>
 		</div>	
 		<div class="description">
 			<h1>Şirket Hikayemiz</h1>
@@ -279,7 +277,7 @@
   	</div>
   <div class="blog-card alt">
     <div class="meta">
-      <div class="photo" style="background-image: url(https://storage.googleapis.com/onlinebilet/icerik/foto-5d5f8d4ae9f14.png)"></div>
+      <div class="photo" style="background-image: url(../assets/img/sliderdeneme7.png)"></div>
 
     </div>
     <div class="description">
@@ -291,6 +289,9 @@
 
     </div>
   </div>
+	</section>
+
+
 
 
 	<!-- logo carousel -->

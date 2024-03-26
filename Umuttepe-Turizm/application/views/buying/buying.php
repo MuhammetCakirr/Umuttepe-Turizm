@@ -672,7 +672,7 @@
 							<div class="col-lg-6 col-sm-12 form-group">
 								<label for="passengerTarife<?= $number ?>">Tarife</label>
 								<input type="hidden" name="tarifeler" value="<?= htmlspecialchars(json_encode($data['tarifeler'])) ?>">
-								<select id="passengerTarife<?= $number ?>" name="passengerTarife<?= $number ?>"
+								<select data-content="passengerTarife<?= $number ?>" id="passengerTarife" name="<?= $number ?>"
 										class="month form-control"
 										onchange="kontrolEt()">
 									<?php
@@ -698,6 +698,27 @@
 										<div class="modal-body">
 											<p style="font-size: 17px;" class="text-center">Seçtiğiniz tarife ile
 												yaşınız uyuşmuyor.</p>
+										</div>
+										<div class="modal-footer">
+											<button class="btn btn-danger btn-block" data-dismiss="modal">Kapat</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!--Error Dialog End-->
+
+														<!--Error Dialog-->
+														<div id="myModaldtarihi" class="modal col-lg-12 col-md-12 col-sm-12">
+								<div class="modal-dialog modal-confirm">
+									<div class="modal-content">
+										<div class="modal-header">
+											<div class="icon-box">
+												<i class="material-icons">&#xE5CD;</i>
+											</div>
+											<h4 class="modal-title">HATA!</h4>
+										</div>
+										<div class="modal-body">
+											<p style="font-size: 17px;" class="text-center">Lütfen Doğum Tarihinizi Seçiniz.</p>
 										</div>
 										<div class="modal-footer">
 											<button class="btn btn-danger btn-block" data-dismiss="modal">Kapat</button>

@@ -9,16 +9,10 @@
         /* İstediğiniz büyüklükteki font size */
     }
 
-    .btn {
-        background-color: grey;
-        color: white;
-    }
 </style>
 
-<div class="biletlerim-content">
+<div class="biletlerim-content" style="margin-top: 10px;">
     <i class="fa-solid fa-bus-simple large-icon" style="color: #010005;"></i>
-    <h4 class="text-center mt-2" style="color: grey;"> Henüz hiç bilet satın almadınız.</h4>
-    <h6>İşlem yaptıkça, satın aldığınız biletlere buradan ulaşabileceksiniz.<h6>
-
-    <button class="btn">Otobüs Bileti Ara</button>
+    <h4 class="text-center mt-2" style="color: grey;"> Henüz hiç rezervasyon yapmadınız.</h4>
+    <h6>İşlem yaptıkça, rezervasyon yaptığınız biletlere buradan ulaşabileceksiniz.<h6>
 </div>
