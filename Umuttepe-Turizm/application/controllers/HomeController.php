@@ -10,7 +10,7 @@ class HomeController extends CI_Controller
 		$this->load->model('DBConnectionModel');
 		$this->load->library('session');
 		$this->load->helper('url');
-		//$this->DBConnectionModel->cron();
+		$this->DBConnectionModel->cron();
 	}
 
 	public function index()

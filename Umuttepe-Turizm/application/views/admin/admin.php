@@ -108,7 +108,7 @@ $current_url = $_SERVER['REQUEST_URI'];
 					</a>
 				</li>
 				<li class="menu-item <?= $current_url == "/bildirimler" ? "active" : "" ?>">
-					<a href="tarifeler" class="menu-link">
+					<a href="bildirimler" class="menu-link">
 						<i class="menu-icon tf-icons bx bx-home-circle"></i>
 						<div data-i18n="Analytics">Bildirimler</div>
 					</a>

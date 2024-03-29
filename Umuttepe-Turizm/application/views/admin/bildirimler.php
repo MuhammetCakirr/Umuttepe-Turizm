@@ -14,15 +14,22 @@
 				</tr>
 				</thead>
 				<tbody class="table-border-bottom-0">
-                    <tr>
-                        <td>Muhammet</td>
-                        <td>mamicakir30@gmail.com</td>
-                        <td>5454462969</td>
-                        <td>Açlık Hakkında</td>
-                        <td>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odit, blanditiis mollitia! Aperiam nesciunt accusantium velit at quia similique tempore numquam, placeat totam obcaecati iure unde? Cumque repellat totam molestias minus. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Amet, nulla aliquid culpa voluptatem inventore iusto laudantium vitae debitis accusamus esse a nemo cumque dolores perspiciatis nobis itaque minima quo fugiat?</td>
-                    </tr>
+                    <?php
+					foreach ($data['bildirimler'] as $bildirim){
 
+						?>
 
+						<tr>
+							<td><?= $bildirim['name']?></td>
+							<td><?= $bildirim['email']?></td>
+							<td><?= $bildirim['tel']?></td>
+							<td><?= $bildirim['subject']?></td>
+							<td><?= $bildirim['content']?></td>
+						</tr>
+
+						<?php
+					}
+					?>
 				</tbody>
 			</table>
 		</div>

@@ -222,11 +222,7 @@
 	}
 	
 	
-?> 
-<input type="text" style="display: hidden;" id="secililist" value="<?=$data['biletlerim']?>">
-<input type="text" style="display: hidden;" id="rezlist" value="<?=var_dump($rezlist)?>">
-<input type="text" style="display: hidden;" id="aktiflist" value="<?=var_dump($aktiflist)?>">
-<input type="text" style="display: hidden;" id="iptallist" value="<?=var_dump($iptallist)?>">
+?>
 	<div>
 		<?php
 		if (count($data['biletlerim']) == 0) { ?>

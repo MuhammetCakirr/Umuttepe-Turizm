@@ -2,6 +2,7 @@
 
 class DBAdminModel
 {
+
 	public function mysqlConn()
 	{
 		$db = 'umuttepe_turizm';
@@ -18,6 +19,7 @@ class DBAdminModel
 		mysqli_query($link_mysql, "COLLATE 'utf8_turkish_ci'");
 		return $link_mysql;
 	}
+
 
 	public function changePass($id,$oldPass,$newPass){
 		$link_mysql = $this->mysqlConn();
@@ -48,6 +50,18 @@ class DBAdminModel
 		$count_result = mysqli_query($link_mysql, $count_query);
 		return mysqli_fetch_assoc($count_result);
 	}
+
+	public function getBildirim(){
+		$link_mysql = $this->mysqlConn();
+		$count_query = "SELECT * FROM contact ";
+		$count_result = mysqli_query($link_mysql, $count_query);
+		$contacts = array();
+		while ($row = mysqli_fetch_assoc($count_result)) {
+			$contacts[] = $row;
+		}
+		return $contacts;
+	}
+
 	public function addRoute($fromCityId,$toCityId,$departureTime,$arrivalTime,$price,$busPlateCode){
 		$link_mysql = $this->mysqlConn();
 		$count_query = "INSERT INTO routes (from_city_id,to_city_id,departure_time,arrival_time,price,bus_plate_code) VALUES ($fromCityId,$toCityId,'$departureTime','$arrivalTime',$price,'$busPlateCode')";

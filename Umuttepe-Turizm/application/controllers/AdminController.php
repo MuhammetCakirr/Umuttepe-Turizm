@@ -39,6 +39,9 @@ class AdminController extends CI_Controller
 				case 'profil':
 					$data['profil'] = $this->DBAdminModel->getProfil($email,$pass);
 					break;
+				case 'bildirimler':
+					$data['bildirimler'] = $this->DBAdminModel->getBildirim();
+					break;
 				default:
 					$data['mainData'] = $this->DBAdminModel->getMainData();
 					break;
@@ -54,7 +57,7 @@ class AdminController extends CI_Controller
 	public function login()
 	{
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
-			if ($_POST['operation'] == "hesapBilgileriGuncelle"){
+			if (isset( $_POST['operation']) && $_POST['operation'] == "hesapBilgileriGuncelle"){
 				$id = $this->session->userdata('adminId');
 				$name = $_POST['firstName'];
 				$surname = $_POST['lastName'];
@@ -63,7 +66,7 @@ class AdminController extends CI_Controller
 
 				$this->DBAdminModel->updateProfil($id,$name,$surname,$email,$tel);
 				redirect("../profil");
-			}elseif ($_POST['operation'] == "sifreGuncelle"){
+			}elseif (isset( $_POST['operation']) &&  $_POST['operation'] == "sifreGuncelle"){
 				$id = $this->session->userdata('adminId');
 				$oldPass = $_POST['oldPass'];
 				$newPass = $_POST['newPass'];

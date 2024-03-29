@@ -8,17 +8,17 @@
 	<link rel="stylesheet" href="assets/css/all.min.css">
 	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-		integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-		crossorigin="anonymous" referrerpolicy="no-referrer" />
+		  integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+		  crossorigin="anonymous" referrerpolicy="no-referrer"/>
 	<link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css" />
-<link rel="stylesheet" href="../assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-<link rel="stylesheet" href="../assets/css/demo.css" />
+	<link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css"/>
+	<link rel="stylesheet" href="../assets/vendor/css/theme-default.css" class="template-customizer-theme-css"/>
+	<link rel="stylesheet" href="../assets/css/demo.css"/>
 
 	<!-- bootstrap -->
 	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
@@ -505,22 +505,21 @@
 			left: -9999px;
 		}
 
-		input[type=radio]+label>img {
+		input[type=radio] + label > img {
 			width: 100px;
 			height: 100px;
 			transition: 500ms all;
 			border-radius: 100px;
 		}
 
-		input[type=radio]:checked+label>img {
+		input[type=radio]:checked + label > img {
 			border: 1px solid #fff;
 			box-shadow: 0 0 3px 3px #090;
 		}
 
-		input[type=radio]:checked+label>img {
-			transform:
-				< !-- rotateZ(-10deg) rotateX(10deg);
-			-->
+		input[type=radio]:checked + label > img {
+			transform: < ! -- rotateZ(-10deg) rotateX(10deg);
+		-->
 		}
 
 		#select-gender {
@@ -535,413 +534,442 @@
 <body>
 
 
-	<!--Error Dialog-->
-	<div id="myModal" class="modal col-lg-12 col-md-12 col-sm-12">
-		<div class="modal-dialog modal-confirm">
-			<div class="modal-content">
-				<div class="modal-header">
-					<div class="icon-box">
-						<i class="material-icons">&#xE5CD;</i>
-					</div>
-					<h4 class="modal-title">HATA!</h4>
+<!--Error Dialog-->
+<div id="myModal" class="modal col-lg-12 col-md-12 col-sm-12">
+	<div class="modal-dialog modal-confirm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="icon-box">
+					<i class="material-icons">&#xE5CD;</i>
 				</div>
-				<div class="modal-body">
-					<p class="text-center">Tek seferde en fazla 4 koltuk seçebilirsiniz.</p>
-				</div>
-				<div class="modal-footer">
-					<button class="btn btn-danger btn-block" data-dismiss="modal">Kapat</button>
-				</div>
+				<h4 class="modal-title">HATA!</h4>
+			</div>
+			<div class="modal-body">
+				<p class="text-center">Gidiş yolcu sayısı dönüş yolcu sayısına eşit olmalı.</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-danger btn-block" data-dismiss="modal">Kapat</button>
 			</div>
 		</div>
 	</div>
-	<!--Error Dialog End-->
+</div>
+<!--Error Dialog End-->
 
-	<!--Warning Dialog-->
-	<div id="myModalrez" class="modal col-lg-12 col-md-12 col-sm-12">
-		<div class="modal-dialog modal-confirm">
-			<div class="modal-content">
-				<div class="modal-header">
-					<div class="icon-box">
-						<i class="material-icons">&#xE5CD;</i>
-					</div>
+<!--Error Dialog-->
+<div id="myModal" class="modal col-lg-12 col-md-12 col-sm-12">
+	<div class="modal-dialog modal-confirm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="icon-box">
+					<i class="material-icons">&#xE5CD;</i>
 				</div>
-				<div class="modal-body">
-					<p class="text-center">Bu koltuk başka bir kişi tarafından rezerve edilmiştir.Lütfen boş (beyaz
-						renkli) koltuklardan birini seçin.</p>
-				</div>
-				<div class="modal-footer">
-					<button class="btn btn-warning btn-block" data-dismiss="modal">Kapat</button>
-				</div>
+				<h4 class="modal-title">HATA!</h4>
+			</div>
+			<div class="modal-body">
+				<p class="text-center">Tek seferde en fazla 4 koltuk seçebilirsiniz.</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-danger btn-block" data-dismiss="modal">Kapat</button>
 			</div>
 		</div>
 	</div>
-	<!--Error Dialog End-->
+</div>
+<!--Error Dialog End-->
 
-	<!--Warning Dialog-->
-	<div id="myModaldolu" class="modal col-lg-12 col-md-12 col-sm-12">
-		<div class="modal-dialog modal-confirm">
-			<div class="modal-content">
-				<div class="modal-header">
-					<div class="icon-box">
-						<i class="material-icons">&#xE5CD;</i>
-					</div>
+<!--Warning Dialog-->
+<div id="myModalrez" class="modal col-lg-12 col-md-12 col-sm-12">
+	<div class="modal-dialog modal-confirm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="icon-box">
+					<i class="material-icons">&#xE5CD;</i>
 				</div>
-				<div class="modal-body">
-					<p class="text-center">Seçtiğiniz koltuk zaten alınmış, lütfen boş (beyaz renkli) koltuklardan
-						birini seçin.</p>
-				</div>
-				<div class="modal-footer">
-					<button class="btn btn-danger btn-block" data-dismiss="modal">Kapat</button>
-				</div>
+			</div>
+			<div class="modal-body">
+				<p class="text-center">Bu koltuk başka bir kişi tarafından rezerve edilmiştir.Lütfen boş (beyaz
+					renkli) koltuklardan birini seçin.</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-warning btn-block" data-dismiss="modal">Kapat</button>
 			</div>
 		</div>
 	</div>
-	<!--Error Dialog End-->
+</div>
+<!--Error Dialog End-->
+
+<!--Warning Dialog-->
+<div id="myModaldolu" class="modal col-lg-12 col-md-12 col-sm-12">
+	<div class="modal-dialog modal-confirm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="icon-box">
+					<i class="material-icons">&#xE5CD;</i>
+				</div>
+			</div>
+			<div class="modal-body">
+				<p class="text-center">Seçtiğiniz koltuk zaten alınmış, lütfen boş (beyaz renkli) koltuklardan
+					birini seçin.</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-danger btn-block" data-dismiss="modal">Kapat</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!--Error Dialog End-->
 
 
-
-	<div class="container" style="margin-top: 130px;">
-		<div class="card text-center">
-			<div class="card-header" id="toggleButton">
-				<ul class="nav nav-pills card-header-pills">
-					<li class="nav-item">
-						<div class="flex-container">
-							<div>
-								<strong>
-									<?php echo isset ($data) ? $data['fromCity'] : ""; ?>
-								</strong>
-							</div>
-							<div>
-							<i class="fa-solid fa-map-location-dot" style="color: #000714; font-size: 15px; margin: 7px;"></i>
-
-							</div>
-							<div>
-								<strong>
-									<?php echo $data['toCity']; ?>
-								</strong>
-							</div>
-							<div>
-								<i class="fa-solid fa-minus"
-									style="color: #000714; font-size: 15px; margin-left: 10px; margin-right:10px"></i>
-							</div>
-							<div>
-								<strong>
-									<?php echo $data['gTarihFormat']; ?>
-								</strong>
-							</div>
-						</div>
-					</li>
-					<li class="nav-item">
+<div class="container" style="margin-top: 130px;">
+	<div class="card text-center">
+		<div class="card-header" id="toggleButton">
+			<ul class="nav nav-pills card-header-pills">
+				<li class="nav-item">
+					<div class="flex-container">
 						<div>
-							<i class="fas fa-caret-down"
-								style="color: #000714; font-size: 15px; margin-left: 10px;"></i>
+							<strong>
+								<?php echo isset ($data) ? $data['fromCity'] : ""; ?>
+							</strong>
 						</div>
-					</li>
-				</ul>
-			</div>
+						<div>
+							<i class="fa-solid fa-map-location-dot"
+							   style="color: #000714; font-size: 15px; margin: 7px;"></i>
 
-			<div class="card-body" id="cardBody">
-				<div class="card-deck">
-					<form class="row" method="post" style="width: 100%;">
-						<div class="bg-white p-3 rounded anasayfa-form">
-							<div class="row w-100" style="margin-bottom: 25px!important;">
-								<div class="col-12">
-									<div class="form-check">
-										<label for="flexRadioDefault1" class="l-radio">
-											<input type="radio" id="flexRadioDefault1" name="seferTuru"
-												   tabindex="1" value="1">
-											<span>Tek Yön</span>
-										</label>
-										<label for="flexRadio2" class="l-radio">
-											<input type="radio" id="flexRadio2" name="seferTuru"
-												   tabindex="2" value="2" checked>
-											<span>Gidiş Dönüş</span>
-										</label>
-									</div>
+						</div>
+						<div>
+							<strong>
+								<?php echo $data['toCity']; ?>
+							</strong>
+						</div>
+						<div>
+							<i class="fa-solid fa-minus"
+							   style="color: #000714; font-size: 15px; margin-left: 10px; margin-right:10px"></i>
+						</div>
+						<div>
+							<strong>
+								<?php echo $data['gTarihFormat']; ?>
+							</strong>
+						</div>
+					</div>
+				</li>
+				<li class="nav-item">
+					<div>
+						<i class="fas fa-caret-down"
+						   style="color: #000714; font-size: 15px; margin-left: 10px;"></i>
+					</div>
+				</li>
+			</ul>
+		</div>
+
+		<div class="card-body" id="cardBody">
+			<div class="card-deck">
+				<form class="row" method="post" style="width: 100%;">
+					<div class="bg-white p-3 rounded anasayfa-form">
+						<div class="row w-100" style="margin-bottom: 25px!important;">
+							<div class="col-12">
+								<div class="form-check">
+									<label for="flexRadioDefault1" class="l-radio">
+										<input type="radio" id="flexRadioDefault1" name="seferTuru"
+											   tabindex="1" value="1">
+										<span>Tek Yön</span>
+									</label>
+									<label for="flexRadio2" class="l-radio">
+										<input type="radio" id="flexRadio2" name="seferTuru"
+											   tabindex="2" value="2" checked>
+										<span>Gidiş Dönüş</span>
+									</label>
 								</div>
 							</div>
-							<div class="row">
-								<div class="col-md-3 col-sm-12">
-									<div class="form-group">
-										<h6 for="from" style="font-size: 15px!important">Kalkış:</h6>
-										<select class="fromCityId form-select anasayfa-input"
-												id="fromCityId" name="fromCityId" required>
-											<?php if (isset ($data['cities'])) {
-												foreach ($data['cities'] as $city): ?>
-													<option value="<?php echo $city['id']; ?>" style="text-color:black;" <?php echo isset ($data['fromCityId']) && $data['fromCityId'] == $city['id'] ? 'selected' : ''; ?>>
-														<?php echo $city['name']; ?>
-													</option>
-												<?php endforeach;
-											} ?>
-										</select>
-									</div>
-								</div>
-								<div class="col-md-3 col-sm-12">
-									<div class="form-group">
-										<h6 for="from" style="font-size: 15px!important">Varış:</h6>
-										<select class="toCityId form-select  anasayfa-input" id="toCityId"
-												name="toCityId" required>
-											<?php foreach ($data['cities'] as $city): ?>
-												<option value="<?php echo $city['id']; ?>" <?php echo isset ($data['toCityId']) && $data['toCityId'] == $city['id'] ? 'selected' : ''; ?>>
+						</div>
+						<div class="row">
+							<div class="col-md-3 col-sm-12">
+								<div class="form-group">
+									<h6 for="from" style="font-size: 15px!important">Kalkış:</h6>
+									<select class="fromCityId form-select anasayfa-input"
+											id="fromCityId" name="fromCityId" required>
+										<?php if (isset ($data['cities'])) {
+											foreach ($data['cities'] as $city): ?>
+												<option value="<?php echo $city['id']; ?>"
+														style="text-color:black;" <?php echo isset ($data['fromCityId']) && $data['fromCityId'] == $city['id'] ? 'selected' : ''; ?>>
 													<?php echo $city['name']; ?>
 												</option>
-											<?php endforeach; ?>
-										</select>
-									</div>
+											<?php endforeach;
+										} ?>
+									</select>
 								</div>
-								<div class="col-md-3 col-sm-12">
-									<div class="form-group">
-										<h6 for="from" style="font-size: 15px!important">Gidiş Tarihi:</h6>
-
-										<input class="form-control" type="date"
-											   value="<?php echo isset ($data['gTarih']) ? $data['gTarih'] : date('Y-m-d'); ?>"
-											   id="gTarih" name="gTarih"
-											   min="<?php echo date('Y-m-d'); ?>" />
-
-									</div>
-
+							</div>
+							<div class="col-md-3 col-sm-12">
+								<div class="form-group">
+									<h6 for="from" style="font-size: 15px!important">Varış:</h6>
+									<select class="toCityId form-select  anasayfa-input" id="toCityId"
+											name="toCityId" required>
+										<?php foreach ($data['cities'] as $city): ?>
+											<option
+												value="<?php echo $city['id']; ?>" <?php echo isset ($data['toCityId']) && $data['toCityId'] == $city['id'] ? 'selected' : ''; ?>>
+												<?php echo $city['name']; ?>
+											</option>
+										<?php endforeach; ?>
+									</select>
 								</div>
-								<div class="col-md-3 col-sm-12">
+							</div>
+							<div class="col-md-3 col-sm-12">
+								<div class="form-group">
+									<h6 for="from" style="font-size: 15px!important">Gidiş Tarihi:</h6>
 
-									<div class="form-group">
-										<h6 for="from" style="font-size: 15px!important">Dönüş Tarihi:</h6>
-										<input class="form-control" type="date"
-											   value="<?php echo isset ($data['dTarih']) ? $data['dTarih'] : date('Y-m-d'); ?>"
-											   id="dTarih" name="dTarih"
-											   min="<?php echo isset ($data['gTarih']) ? $data['gTarih'] : date('Y-m-d'); ?>" />
+									<input class="form-control" type="date"
+										   value="<?php echo isset ($data['gTarih']) ? $data['gTarih'] : date('Y-m-d'); ?>"
+										   id="gTarih" name="gTarih"
+										   min="<?php echo date('Y-m-d'); ?>"/>
 
-									</div>
 								</div>
 
 							</div>
-							<div class="row p-2">
-								<input type="hidden" name="operation" value="searchTicket">
-								<button type="submit" class="btn btn-dark p-2 mx-auto btn-sefer-ara"
-										style="width: 25%!important;">Sefer Ara
-								</button>
+							<div class="col-md-3 col-sm-12">
+
+								<div class="form-group">
+									<h6 for="from" style="font-size: 15px!important">Dönüş Tarihi:</h6>
+									<input class="form-control" type="date"
+										   value="<?php echo isset ($data['dTarih']) ? $data['dTarih'] : date('Y-m-d'); ?>"
+										   id="dTarih" name="dTarih"
+										   min="<?php echo isset ($data['gTarih']) ? $data['gTarih'] : date('Y-m-d'); ?>"/>
+
+								</div>
 							</div>
+
 						</div>
-					</form>
-				</div>
+						<div class="row p-2">
+							<input type="hidden" name="operation" value="searchTicket">
+							<button type="submit" class="btn btn-dark p-2 mx-auto btn-sefer-ara"
+									style="width: 25%!important;">Sefer Ara
+							</button>
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
-
-		<?php foreach ($data['busRoutes'] as $busRoute) {
-			$busRouteBus = $busRoute['bus'];
-			$busRouteSeat = $busRoute['seats'];
-			$departure_datetime = date('Y-m-d H:i', strtotime($busRouteBus['departure_date'] . ' ' . $busRouteBus['departure_time']));
-			$arrival_datetime = date('Y-m-d H:i', strtotime($busRouteBus['departure_date'] . ' ' . $busRouteBus['arrival_time']));
-			$departure_time = date('H:i', strtotime($busRouteBus['departure_time']));
-			$arrival_time = date('H:i', strtotime($busRouteBus['arrival_time']));
-			$duration = gmdate('H:i', strtotime($arrival_datetime) - strtotime($departure_datetime));
-			$price = isset ($busRouteBus['price']) ? $busRouteBus['price'] . " TL" : 'Belirtilmemiş';
-			$id = $busRouteBus['bus_routes_id'];
-			$j = 0;
-			?>
-			<?php
-			for ($j = 1; $j < 28; $j++) {
-				?>
-				<div id="myModalcinsiyet" data-content="<?= $busRouteSeat[$j - 1]['seat_number'] ?><?php echo $id; ?>"
-					class="modal col-lg-12 col-md-12 col-sm-12">
-					<div class="modal-dialog modal-confirm">
-						<div class="modal-content">
-							<div class="modal-header">
-								<p class="text-center" id="cinsiyettext"
-									data-content="<?= $busRouteSeat[$j - 1]['seat_number'] ?><?php echo $id; ?>"></p>
-							</div>
-							<div class="modal-body">
-								<div id="select-gender">
-									<input type="radio" name="emotion" id="sad<?= $busRouteSeat[$j - 1]['seat_number'] ?><?php echo $id; ?>" class="input-hidden" />
-									<label for="sad<?= $busRouteSeat[$j - 1]['seat_number'] ?><?php echo $id; ?>">
-										<img
-											src="https://cdn3.iconfinder.com/data/icons/business-avatar-1/512/8_avatar-512.png" />
-									</label>
-
-									<input type="radio" name="emotion" id="happy<?= $busRouteSeat[$j - 1]['seat_number'] ?><?php echo $id; ?>" class="input-hidden"  />
-									<label for="happy<?= $busRouteSeat[$j - 1]['seat_number'] ?><?php echo $id; ?>">
-										<img
-											src="https://cdn3.iconfinder.com/data/icons/business-avatar-1/512/11_avatar-512.png" />
-									</label>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<?php
-			} ?>
-
-			<form action="tickets" method="post">
-				<div class="container" style="margin-top: 30px; margin-bottom: 30px">
-					<div>
-						<div class="bilet-container text-center" style="padding: 20px;">
-							<div class="row">
-								<div class="col-lg-2 col-sm-12">
-									<img src="assets/img/umuttepelogo3.png" alt="logo" style="margin-left: 5px;">
-								</div>
-								<div class="col-lg-3 col-sm-12">
-									<div
-										style="display: flex; flex-direction: row; align-items: center; justify-content: center; margin-top:3px">
-										<i class="fa-regular fa-clock"
-											style="color: #000000; font-size:20px; margin-right:5px"></i>
-										<p class="kalkiscity">
-											<?php echo $busRouteBus['from_city_name'] . " - " . $departure_time; ?>
-										</p>
-									</div>
-									<p class="kalkiscity">
-										<?php echo $busRouteBus['to_city_name'] . " - " . $arrival_time; ?>
-									</p>
-								</div>
-								<div class="col-lg-3 col-sm-12">
-									<div style="display: flex; flex-direction: column; align-items: center;">
-										<div style="display: flex; flex-direction: column; align-items: center;">
-											<img src="assets/img/seat.png" style="height: 10%; width:10%;" alt="">
-											<p style="font-size: 16px; margin-left:5px;">2+1</p>
-										</div>
-										<div style="display: flex; flex-direction: row; margin-top: 12px;">
-											<p class="fromcityp"><strong>
-													<?php echo $busRouteBus['from_city_name']; ?>
-												</strong></p>
-											<i class="fa-solid fa-route"
-												style="color: #3d4c66; font-size: 28px; margin-left: 7px; margin-right: 7px;"></i>
-											<p class="fromcityp"><strong>
-													<?php echo $busRouteBus['to_city_name']; ?>
-												</strong></p>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-2 col-sm-6">
-									<strong style="font-size: 25px;">
-										<?php echo $price; ?>
-									</strong>
-								</div>
-								<div class="col-lg-2 col-sm-6">
-									<input type="button" id="koltuksecbtn" value="Koltuk Seç"
-										data-content="<?php echo $id; ?>">
-								</div>
-							</div>
-							<div id="koltuk-sec-div<?php echo $id; ?>" style="display:none">
-								<div class="row">
-									<div class="col-lg-8  col-sm-12">
-
-										<div ng-app="app" ng-controller="main" class="otobus">
-											<div style="display: flex; flex-direction: row;">
-												<img src="assets/img/direksiyon.png" alt=""
-													style="width:30px; height:30px; margin:7px; visibility: hidden;">
-												<div class="aisle">
-													<div class="bus-row">
-														<?php
-														for ($j = 1; $j < 10; $j++) {
-															?>
-
-															<div
-																class="bus-seat <?php echo $busRouteSeat[$j - 1]['seat_status'] == 1 ? "" : ($busRouteSeat[$j - 1]['seat_status'] == 2 ? "sold" : "reserved"); ?>">
-																<span style="color: #000;"
-																	data-content="<?= $busRouteSeat[$j - 1]['seat_number'] ?><?php echo $id; ?>">
-																	<?= $busRouteSeat[$j - 1]['seat_number'] ?>
-																</span>
-															</div>
-															<input type="text"
-																id="<?= $busRouteSeat[$j - 1]['seat_number'] ?><?php echo $id; ?>"
-																style="display: none;">
-															<?php
-														} ?>
-													</div>
-													<div class="bus-row">
-														<?php
-														for ($j = 10; $j < 19; $j++) {
-															?>
-
-															<div ng-click="selectSeat(seat)"
-																class="bus-seat <?php echo $busRouteSeat[$j - 1]['seat_status'] == 1 ? "" : ($busRouteSeat[$j - 1]['seat_status'] == 2 ? "sold" : "reserved"); ?>"
-																ng-repeat="seat in row2">
-																<span style="color: #000;"
-																	data-content="<?= $busRouteSeat[$j - 1]['seat_number'] ?><?php echo $id; ?>">
-																	<?= $busRouteSeat[$j - 1]['seat_number'] ?>
-																</span>
-															</div>
-														<?php } ?>
-													</div>
-												</div>
-											</div>
-
-
-											<!-- End of flex row -->
-											<div style="display: flex; flex-direction: row; margin-top:10px;">
-												<img src="assets/img/direksiyon.png" alt=""
-													style="width: 30px; height: 30px; margin: 7px; transform: rotate(-90deg);">
-												<div class="aisle">
-													<div class="bus-row">
-														<?php
-														for ($j = 19; $j < 28; $j++) {
-															?>
-
-															<div ng-click="selectSeat(seat)"
-																class="bus-seat <?php echo $busRouteSeat[$j - 1]['seat_status'] == 1 ? "" : ($busRouteSeat[$j - 1]['seat_status'] == 2 ? "sold" : "reserved"); ?>"
-																ng-repeat="seat in row1"
-																ng-class="{sold: seat.status === 'Sold', reserved: seat.status === 'Reserved', active: seat.number == selectedSeat.number}">
-																<span style="color: #000;"
-																	data-content="<?= $busRouteSeat[$j - 1]['seat_number'] ?><?php echo $id; ?>">
-																	<?= $busRouteSeat[$j - 1]['seat_number'] ?>
-																</span>
-															</div>
-														<?php }
-														?>
-													</div>
-												</div>
-											</div>
-										</div>
-										<div style="display: flex; flex-direction:row; margin-top:5px;">
-											<i class="fa-solid fa-rectangle-xmark"
-												style="color: #e21212; font-size:22px; margin-right:3px;"></i>
-											<p class="bilet-iptal-p">Biletinizi son 2 saate kadar online iptal
-												edebilirsiniz.</p>
-										</div>
-
-
-										<div class="legend">
-											<div class="bus-seat activee"></div>
-											<span>Seçili</span>
-											<div class="bus-seat"></div>
-											<span>Müsait</span>
-											<div class="bus-seat reservedd"></div>
-											<span>Rezerve</span>
-											<div class="bus-seat soldd"></div>
-											<span>Dolu</span>
-										</div>
-									</div>
-									<div class="col-lg-4 col-md-12 col-sm-12 sagkisim">
-										<p id="koltuk-seciniz-p" class="koltuk-seciniz-p">Lütfen Sol kısımdan koltuk
-											seçiniz.</p>
-										<div>
-											<h4 id="secilen-koltuklar">Seçtiğiniz Koltuklar:</h4>
-											<div style="display: flex; flex-direction:row"
-												id="secilikoltuklar<?php echo $id; ?>">
-											</div>
-
-										</div>
-
-										<input id="onaylabtn" type="submit" value="Onayla" data-content="<?php echo $id ?>">
-
-										<input type="hidden" value="<?php echo $this->session->userdata('isFirstTicket') ?>"
-											name="isFirstTicket">
-										<input type="hidden" value="<?php echo $id ?>" name="id">
-										<input type="hidden" value="" name="seat_numbers">
-										<input type="hidden" value="buying" name="operation">
-										<input type="hidden" value="<?php echo isset($data['selectedGenders']) ? $data['selectedGenders'] : ""; ?>" name="selected_seat_numbers">
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</form>
-
-		<?php } ?>
-
 	</div>
 
+	<?php foreach ($data['busRoutes'] as $busRoute) {
+		$busRouteBus = $busRoute['bus'];
+		$busRouteSeat = $busRoute['seats'];
+		$departure_datetime = date('Y-m-d H:i', strtotime($busRouteBus['departure_date'] . ' ' . $busRouteBus['departure_time']));
+		$arrival_datetime = date('Y-m-d H:i', strtotime($busRouteBus['departure_date'] . ' ' . $busRouteBus['arrival_time']));
+		$departure_time = date('H:i', strtotime($busRouteBus['departure_time']));
+		$arrival_time = date('H:i', strtotime($busRouteBus['arrival_time']));
+		$duration = gmdate('H:i', strtotime($arrival_datetime) - strtotime($departure_datetime));
+		$price = isset ($busRouteBus['price']) ? $busRouteBus['price'] . " TL" : 'Belirtilmemiş';
+		$id = $busRouteBus['bus_routes_id'];
+		$j = 0;
+		?>
+		<?php
+		for ($j = 1; $j < 28; $j++) {
+			?>
+			<div id="myModalcinsiyet" data-content="<?= $busRouteSeat[$j - 1]['seat_number'] ?><?php echo $id; ?>"
+				 class="modal col-lg-12 col-md-12 col-sm-12">
+				<div class="modal-dialog modal-confirm">
+					<div class="modal-content">
+						<div class="modal-header">
+							<p class="text-center" id="cinsiyettext"
+							   data-content="<?= $busRouteSeat[$j - 1]['seat_number'] ?><?php echo $id; ?>"></p>
+						</div>
+						<div class="modal-body">
+							<div id="select-gender">
+								<input type="radio" name="emotion"
+									   id="sad<?= $busRouteSeat[$j - 1]['seat_number'] ?><?php echo $id; ?>"
+									   class="input-hidden"/>
+								<label for="sad<?= $busRouteSeat[$j - 1]['seat_number'] ?><?php echo $id; ?>">
+									<img
+										src="https://cdn3.iconfinder.com/data/icons/business-avatar-1/512/8_avatar-512.png"/>
+								</label>
 
-	<script src="assets/js/tickets.js"></script>
+								<input type="radio" name="emotion"
+									   id="happy<?= $busRouteSeat[$j - 1]['seat_number'] ?><?php echo $id; ?>"
+									   class="input-hidden"/>
+								<label for="happy<?= $busRouteSeat[$j - 1]['seat_number'] ?><?php echo $id; ?>">
+									<img
+										src="https://cdn3.iconfinder.com/data/icons/business-avatar-1/512/11_avatar-512.png"/>
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<?php
+		} ?>
+
+		<form action="tickets" method="post">
+			<div class="container" style="margin-top: 30px; margin-bottom: 30px">
+				<div>
+					<div class="bilet-container text-center" style="padding: 20px;">
+						<div class="row">
+							<div class="col-lg-2 col-sm-12">
+								<img src="assets/img/umuttepelogo3.png" alt="logo" style="margin-left: 5px;">
+							</div>
+							<div class="col-lg-3 col-sm-12">
+								<div
+									style="display: flex; flex-direction: row; align-items: center; justify-content: center; margin-top:3px">
+									<i class="fa-regular fa-clock"
+									   style="color: #000000; font-size:20px; margin-right:5px"></i>
+									<p class="kalkiscity">
+										<?php echo $busRouteBus['from_city_name'] . " - " . $departure_time; ?>
+									</p>
+								</div>
+								<p class="kalkiscity">
+									<?php echo $busRouteBus['to_city_name'] . " - " . $arrival_time; ?>
+								</p>
+							</div>
+							<div class="col-lg-3 col-sm-12">
+								<div style="display: flex; flex-direction: column; align-items: center;">
+									<div style="display: flex; flex-direction: column; align-items: center;">
+										<img src="assets/img/seat.png" style="height: 10%; width:10%;" alt="">
+										<p style="font-size: 16px; margin-left:5px;">2+1</p>
+									</div>
+									<div style="display: flex; flex-direction: row; margin-top: 12px;">
+										<p class="fromcityp"><strong>
+												<?php echo $busRouteBus['from_city_name']; ?>
+											</strong></p>
+										<i class="fa-solid fa-route"
+										   style="color: #3d4c66; font-size: 28px; margin-left: 7px; margin-right: 7px;"></i>
+										<p class="fromcityp"><strong>
+												<?php echo $busRouteBus['to_city_name']; ?>
+											</strong></p>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-2 col-sm-6">
+								<strong style="font-size: 25px;">
+									<?php echo $price; ?>
+								</strong>
+							</div>
+							<div class="col-lg-2 col-sm-6">
+								<input type="button" id="koltuksecbtn" value="Koltuk Seç"
+									   data-content="<?php echo $id; ?>">
+							</div>
+						</div>
+						<div id="koltuk-sec-div<?php echo $id; ?>" style="display:none">
+							<div class="row">
+								<div class="col-lg-8  col-sm-12">
+
+									<div ng-app="app" ng-controller="main" class="otobus">
+										<div style="display: flex; flex-direction: row;">
+											<img src="assets/img/direksiyon.png" alt=""
+												 style="width:30px; height:30px; margin:7px; visibility: hidden;">
+											<div class="aisle">
+												<div class="bus-row">
+													<?php
+													for ($j = 1; $j < 10; $j++) {
+														?>
+
+														<div
+															class="bus-seat <?php echo $busRouteSeat[$j - 1]['seat_status'] == 1 ? "" : ($busRouteSeat[$j - 1]['seat_status'] == 2 ? "sold" : "reserved"); ?>">
+																<span style="color: #000;"
+																	  data-content="<?= $busRouteSeat[$j - 1]['seat_number'] ?><?php echo $id; ?>">
+																	<?= $busRouteSeat[$j - 1]['seat_number'] ?>
+																</span>
+														</div>
+														<input type="text"
+															   id="<?= $busRouteSeat[$j - 1]['seat_number'] ?><?php echo $id; ?>"
+															   style="display: none;">
+														<?php
+													} ?>
+												</div>
+												<div class="bus-row">
+													<?php
+													for ($j = 10; $j < 19; $j++) {
+														?>
+
+														<div ng-click="selectSeat(seat)"
+															 class="bus-seat <?php echo $busRouteSeat[$j - 1]['seat_status'] == 1 ? "" : ($busRouteSeat[$j - 1]['seat_status'] == 2 ? "sold" : "reserved"); ?>"
+															 ng-repeat="seat in row2">
+																<span style="color: #000;"
+																	  data-content="<?= $busRouteSeat[$j - 1]['seat_number'] ?><?php echo $id; ?>">
+																	<?= $busRouteSeat[$j - 1]['seat_number'] ?>
+																</span>
+														</div>
+													<?php } ?>
+												</div>
+											</div>
+										</div>
+
+
+										<!-- End of flex row -->
+										<div style="display: flex; flex-direction: row; margin-top:10px;">
+											<img src="assets/img/direksiyon.png" alt=""
+												 style="width: 30px; height: 30px; margin: 7px; transform: rotate(-90deg);">
+											<div class="aisle">
+												<div class="bus-row">
+													<?php
+													for ($j = 19; $j < 28; $j++) {
+														?>
+
+														<div ng-click="selectSeat(seat)"
+															 class="bus-seat <?php echo $busRouteSeat[$j - 1]['seat_status'] == 1 ? "" : ($busRouteSeat[$j - 1]['seat_status'] == 2 ? "sold" : "reserved"); ?>"
+															 ng-repeat="seat in row1"
+															 ng-class="{sold: seat.status === 'Sold', reserved: seat.status === 'Reserved', active: seat.number == selectedSeat.number}">
+																<span style="color: #000;"
+																	  data-content="<?= $busRouteSeat[$j - 1]['seat_number'] ?><?php echo $id; ?>">
+																	<?= $busRouteSeat[$j - 1]['seat_number'] ?>
+																</span>
+														</div>
+													<?php }
+													?>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div style="display: flex; flex-direction:row; margin-top:5px;">
+										<i class="fa-solid fa-rectangle-xmark"
+										   style="color: #e21212; font-size:22px; margin-right:3px;"></i>
+										<p class="bilet-iptal-p">Biletinizi son 2 saate kadar online iptal
+											edebilirsiniz.</p>
+									</div>
+
+
+									<div class="legend">
+										<div class="bus-seat activee"></div>
+										<span>Seçili</span>
+										<div class="bus-seat"></div>
+										<span>Müsait</span>
+										<div class="bus-seat reservedd"></div>
+										<span>Rezerve</span>
+										<div class="bus-seat soldd"></div>
+										<span>Dolu</span>
+									</div>
+								</div>
+								<div class="col-lg-4 col-md-12 col-sm-12 sagkisim">
+									<p id="koltuk-seciniz-p" class="koltuk-seciniz-p">Lütfen Sol kısımdan koltuk
+										seçiniz.</p>
+									<div>
+										<h4 id="secilen-koltuklar">Seçtiğiniz Koltuklar:</h4>
+										<div style="display: flex; flex-direction:row"
+											 id="secilikoltuklar<?php echo $id; ?>">
+										</div>
+
+									</div>
+
+									<input id="onaylabtn" type="submit" value="Onayla" data-content="<?php echo $id ?>">
+
+									<input type="hidden" value="<?php echo $this->session->userdata('isFirstTicket') ?>"
+										   name="isFirstTicket">
+									<input type="hidden" value="<?php echo $id ?>" name="id">
+									<input type="hidden" value="" name="seat_numbers">
+									<input type="hidden" value="buying" name="operation">
+									<input type="hidden"
+										   value="<?php echo isset($data['selectedGenders']) ? $data['selectedGenders'] : ""; ?>"
+										   name="selected_seat_numbers">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+
+	<?php } ?>
+
+</div>
+
+
+<script src="assets/js/tickets.js"></script>
 </body>
 
 </html>
