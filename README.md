@@ -21,7 +21,7 @@ Bu proje, Umuttepe Turizm adlı otobüs firması için geliştirilen web tabanl�
 4. Tarayıcıda `http://localhost:3030` adresine gidin.
 
 ## Görseller
-<img src="![Ekran görüntüsü 2024-03-29 140452](https://github.com/musttoprak/Umuttepe-Turizm/assets/100375168/3e429069-14a4-4c30-ac13-3d8f93d98835)" width="100" height="100">
+<img src="https://github.com/musttoprak/Umuttepe-Turizm/assets/100375168/3e429069-14a4-4c30-ac13-3d8f93d98835" width="100" height="100">
 ## Kullanıcı
 ![Ekran görüntüsü 2024-03-29 140452](https://github.com/musttoprak/Umuttepe-Turizm/assets/100375168/3e429069-14a4-4c30-ac13-3d8f93d98835)  
 ![Ekran görüntüsü 2024-03-29 140516](https://github.com/musttoprak/Umuttepe-Turizm/assets/100375168/8b930ac1-6022-493a-a59a-4efe2ae7e17a)
