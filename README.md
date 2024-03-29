@@ -23,18 +23,18 @@ Bu proje, Umuttepe Turizm adlı otobüs firması için geliştirilen web tabanl�
 ## Görseller
 
 ## Kullanıcı
-![Ekran görüntüsü 2024-03-29 140452](https://github.com/musttoprak/Umuttepe-Turizm/assets/100375168/3e429069-14a4-4c30-ac13-3d8f93d98835)
+![Ekran görüntüsü 2024-03-29 140452](https://github.com/musttoprak/Umuttepe-Turizm/assets/100375168/3e429069-14a4-4c30-ac13-3d8f93d98835)  ![Ekran görüntüsü 2024-03-29 140516](https://github.com/musttoprak/Umuttepe-Turizm/assets/100375168/8b930ac1-6022-493a-a59a-4efe2ae7e17a)
 
-![Ekran görüntüsü 2024-03-29 140516](https://github.com/musttoprak/Umuttepe-Turizm/assets/100375168/8b930ac1-6022-493a-a59a-4efe2ae7e17a)
 
-![Ekran görüntüsü 2024-03-29 140615](https://github.com/musttoprak/Umuttepe-Turizm/assets/100375168/4220fd68-a2ea-4dfb-83ea-45c8d6741c4e)
 
-![Ekran görüntüsü 2024-03-29 140652](https://github.com/musttoprak/Umuttepe-Turizm/assets/100375168/a29164f8-9032-4835-8ee0-ac7ed8c96ce1)
+![Ekran görüntüsü 2024-03-29 140615](https://github.com/musttoprak/Umuttepe-Turizm/assets/100375168/4220fd68-a2ea-4dfb-83ea-45c8d6741c4e)  ![Ekran görüntüsü 2024-03-29 140652](https://github.com/musttoprak/Umuttepe-Turizm/assets/100375168/a29164f8-9032-4835-8ee0-ac7ed8c96ce1)
+
+
 
 ## Admin
-![Ekran görüntüsü 2024-03-29 160722](https://github.com/musttoprak/Umuttepe-Turizm/assets/100375168/6e76097a-0178-431e-b983-488bea9ddd00)
+![Ekran görüntüsü 2024-03-29 160722](https://github.com/musttoprak/Umuttepe-Turizm/assets/100375168/6e76097a-0178-431e-b983-488bea9ddd00)  ![image](https://github.com/musttoprak/Umuttepe-Turizm/assets/100375168/d741176e-a250-4736-8214-300c3e29eba1)
 
-![image](https://github.com/musttoprak/Umuttepe-Turizm/assets/100375168/d741176e-a250-4736-8214-300c3e29eba1)
+
 
 
  
