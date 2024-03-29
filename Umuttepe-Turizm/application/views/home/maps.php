@@ -148,6 +148,6 @@
 			}
 	})
 </script>
-<script src="http://maps.google.com/maps/api/js?key=AIzaSyCBWnZj5N6sGEpN-HzAPO5MZdSHspnDmZc&libraries=geometry"></script>
+<script src="http://maps.google.com/maps/api/js?key=###&libraries=geometry"></script>
 </body>
 </html>
