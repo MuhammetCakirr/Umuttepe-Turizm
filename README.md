@@ -31,9 +31,6 @@ Bu proje, Umuttepe Turizm adlı otobüs firması için geliştirilen web tabanl�
 
 ## Admin
 <img src="https://github.com/musttoprak/Umuttepe-Turizm/assets/100375168/6e76097a-0178-431e-b983-488bea9ddd00" width="400" >
-<img src="https://github.com/musttoprak/Umuttepe-Turizm/assets/100375168/d741176e-a250-4736-8214-400c3e29eba1" width="400" >
-
-
-
+<img src="https://github.com/musttoprak/Umuttepe-Turizm/assets/100375168/923bc002-802a-487d-be50-13c1bb194292" width="400" >
 
  
